@@ -28,7 +28,8 @@ nine = Parsec.string "nine"
 numericWord = zero <|> oneString <|> two <|> three <|> four <|> five <|> six <|> seven <|> eight <|> nine
 
 --
-number = Parsec.many1 (Parsec.try (Parsec.many1 Parsec.digit) <|> Parsec.try (numericWord))
+number = 
+  Parsec.many1 (Parsec.try (Parsec.many1 Parsec.digit) <|> numericWord)
 
 -- number = Parsec.many Parsec.digit -- (Parsec.try (Padigit)) <|> (Parsec.try numericWord)
 

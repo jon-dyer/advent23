@@ -64,5 +64,9 @@ unitTests =
           testCase "can sum all" $
             sumCalibrations testData @?= 142,
           testCase "can parse all the numbers in a string" $
-            parseNumber "two1two" @?= Right ["two", "1", "two"]
+            parseNumber "two1two" @?= Right ["two", "1", "two"],
+          testCase "can parse all the numbers in a string, ignoring junk" $
+            parseNumber "ontwoblue1two" @?= Right ["two", "1", "two"]
+          -- ignoreCase "can parse all the numbers in a string, edge cases like twone" $
+            -- parseNumber "ontwoblue1two" @?= Right ["two", "1", "two"]
         ]
