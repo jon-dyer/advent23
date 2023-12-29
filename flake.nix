@@ -60,7 +60,7 @@
           programs.hlint.enable = true;
 
           # We use fourmolu
-          programs.ormolu.package = pkgs.haskellPackages.fourmolu;
+          # programs.ormolu.package = pkgs.haskellPackages.fourmolu;
           settings.formatter.ormolu = {
             options = [ "--ghc-opt" "-XImportQualifiedPost" ];
           };
