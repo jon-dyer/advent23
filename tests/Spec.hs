@@ -2,7 +2,9 @@ import Data.Char
 import Data.Char qualified as Char
 import Data.Text qualified as Text
 import Data.Text.Read
+import Data.Text.Read qualified as Read
 import Data.Text.Read qualified as Text
+import GHC.Real qualified as Text
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -48,14 +50,17 @@ qcProps =
     ]
     -}
 
-readCalibration :: Text -> Int
+readCalibration :: Text -> Either String Int
 readCalibration t =
-  let firstDigit = Char.digitToInt . Text.head . Text.dropWhile (not . isDigit)
-   in (10 * firstDigit t) + firstDigit (Text.reverse t)
+  let findDigit = Text.take 1 . Text.dropWhile (not . isDigit)
+      toInt = fmap fst . Text.decimal
+      firstDigit = findDigit t
+      lastDigit = findDigit (Text.reverse t)
+   in toInt (firstDigit <> lastDigit)
 
 readCalibrations :: Text -> [Int]
 readCalibrations t =
-  map readCalibration (lines t)
+  rights (map readCalibration (lines t))
 
 sumCalibrations :: Text -> Int
 sumCalibrations = sum . readCalibrations
@@ -74,7 +79,7 @@ unitTests =
    in testGroup
         "day 1"
         [ testCase "can do a thing" $
-            readCalibration "pqr3stu8vwx" @?= 38,
+            readCalibration "pqr3stu8vwx" @?= Right 38,
           testCase "can do all lines" $
             readCalibrations testData @?= [12, 38, 15, 77],
           testCase "can sum all" $
