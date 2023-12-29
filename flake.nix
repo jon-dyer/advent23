@@ -59,13 +59,10 @@
           projectRootFile = "flake.nix";
 
           programs.ormolu.enable = true;
-          # programs.nixpkgs-fmt.enable = false;
           programs.nixfmt.enable = true;
           programs.cabal-fmt.enable = true;
           programs.hlint.enable = true;
 
-          # We use fourmolu
-          # programs.ormolu.package = pkgs.haskellPackages.fourmolu;
           settings.formatter.ormolu = {
             options = [ "--ghc-opt" "-XImportQualifiedPost" ];
           };
