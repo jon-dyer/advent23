@@ -1,5 +1,5 @@
 {
-  description = "srid/haskell-template: Nix template for Haskell projects";
+  description = "Advent of code 2023";
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
@@ -12,10 +12,8 @@
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-      imports = [
-        inputs.haskell-flake.flakeModule
-        inputs.treefmt-nix.flakeModule
-      ];
+      imports =
+        [ inputs.haskell-flake.flakeModule inputs.treefmt-nix.flakeModule ];
       perSystem = { self', system, lib, config, pkgs, ... }: {
         # Our only Haskell project. You can have multiple projects, but this template
         # has only one.
@@ -28,28 +26,24 @@
           packages = {
             # Add source or Hackage overrides here
             # (Local packages are added automatically)
-            /*
-            aeson.source = "1.5.0.0" # Hackage version
-            shower.source = inputs.shower; # Flake input
+            /* aeson.source = "1.5.0.0" # Hackage version
+               shower.source = inputs.shower; # Flake input
             */
           };
 
           # Add your package overrides here
           settings = {
-            /*
-            haskell-template = {
-              haddock = false;
-            };
-            aeson = {
-              check = false;
-            };
+            /* haskell-template = {
+                 haddock = false;
+               };
+               aeson = {
+                 check = false;
+               };
             */
           };
 
           # Development shell configuration
-          devShell = {
-            hlsCheck.enable = false;
-          };
+          devShell = { hlsCheck.enable = false; };
 
           # What should haskell-flake add to flake outputs?
           autoWire = [ "packages" "apps" "checks" ]; # Wire all but the devShell
@@ -68,29 +62,24 @@
           # We use fourmolu
           programs.ormolu.package = pkgs.haskellPackages.fourmolu;
           settings.formatter.ormolu = {
-            options = [
-              "--ghc-opt"
-              "-XImportQualifiedPost"
-            ];
+            options = [ "--ghc-opt" "-XImportQualifiedPost" ];
           };
         };
 
         # Default package & app.
-        packages.default = self'.packages.haskell-template;
-        apps.default = self'.apps.haskell-template;
+        packages.default = self'.packages.advent23;
+        apps.default = self'.apps.advent23;
 
         # Default shell.
         devShells.default = pkgs.mkShell {
-          name = "haskell-template";
+          name = "advent23";
           meta.description = "Haskell development environment";
           # See https://zero-to-flakes.com/haskell-flake/devshell#composing-devshells
           inputsFrom = [
             config.haskellProjects.default.outputs.devShell
             config.treefmt.build.devShell
           ];
-          nativeBuildInputs = with pkgs; [
-            just
-          ];
+          nativeBuildInputs = with pkgs; [ just ];
         };
       };
     };
