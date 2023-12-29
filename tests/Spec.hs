@@ -1,4 +1,4 @@
-import DayOne (readCalibration, readCalibrations, sumCalibrations)
+import DayOne (readCalibration, readCalibrations, sumCalibrations, parseNumber)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -62,5 +62,7 @@ unitTests =
           testCase "can do all lines" $
             readCalibrations testData @?= [12, 38, 15, 77],
           testCase "can sum all" $
-            sumCalibrations testData @?= 142
+            sumCalibrations testData @?= 142,
+          testCase "get parser workin" $
+            parseNumber "two1two" @?= Right "1"
         ]

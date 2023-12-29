@@ -18,9 +18,7 @@ synopsis:           Advent of code 2023
 -- A URL where users can report bugs.
 -- bug-reports:
 
-extra-source-files:
-  LICENSE
-  README.md
+extra-source-files: README.md
 
 common shared
   ghc-options:
@@ -106,6 +104,7 @@ library dayone-lib
   import:          shared
   hs-source-dirs:  dayone
   exposed-modules: DayOne
+  build-depends:   parsec
 
 test-suite tests
   import:         shared
