@@ -11,6 +11,7 @@ import Test.Tasty.QuickCheck as QC
 import Test.Tasty.SmallCheck as SC
 -}
 
+main :: IO ()
 main = defaultMain tests
 
 tests :: TestTree
@@ -49,8 +50,8 @@ qcProps =
 
 readCalibration :: Text -> Int
 readCalibration t =
-  let firstPicker x = Char.digitToInt (Text.head (Text.dropWhile (not . isDigit) x))
-   in (10 * firstPicker t) + firstPicker (Text.reverse t)
+  let firstDigit = Char.digitToInt . Text.head . Text.dropWhile (not . isDigit)
+   in (10 * firstDigit t) + firstDigit (Text.reverse t)
 
 readCalibrations :: Text -> [Int]
 readCalibrations t =
