@@ -89,12 +89,23 @@ common shared
     , time
     , with-utf8
 
-  hs-source-dirs:     src
+  -- hs-source-dirs:     src
   default-language:   Haskell2010
 
 executable advent23
-  import:  shared
-  main-is: Main.hs
+  import:         shared
+  main-is:        Main.hs
+  hs-source-dirs: src
+
+executable dayone
+  import:         shared
+  main-is:        Main.hs
+  hs-source-dirs: dayone
+
+library dayone-lib
+  import:          shared
+  hs-source-dirs:  dayone
+  exposed-modules: DayOne
 
 test-suite tests
   import:         shared
@@ -103,6 +114,7 @@ test-suite tests
   -- type:             detailed-0.9
   -- test-module:      Spec
   build-depends:
+    , dayone-lib
     , either
     , hedgehog
     , tasty

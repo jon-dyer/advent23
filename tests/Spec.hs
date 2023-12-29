@@ -1,10 +1,4 @@
-import Data.Char
-import Data.Char qualified as Char
-import Data.Text qualified as Text
-import Data.Text.Read
-import Data.Text.Read qualified as Read
-import Data.Text.Read qualified as Text
-import GHC.Real qualified as Text
+import DayOne (readCalibration, readCalibrations, sumCalibrations)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -49,21 +43,6 @@ qcProps =
           (n :: Integer) >= 3 QC.==> x ^ n + y ^ n /= (z ^ n :: Integer)
     ]
     -}
-
-readCalibration :: Text -> Either String Int
-readCalibration t =
-  let findDigit = Text.take 1 . Text.dropWhile (not . isDigit)
-      toInt = fmap fst . Text.decimal
-      firstDigit = findDigit t
-      lastDigit = findDigit (Text.reverse t)
-   in toInt (firstDigit <> lastDigit)
-
-readCalibrations :: Text -> [Int]
-readCalibrations t =
-  rights (map readCalibration (lines t))
-
-sumCalibrations :: Text -> Int
-sumCalibrations = sum . readCalibrations
 
 unitTests :: TestTree
 unitTests =
