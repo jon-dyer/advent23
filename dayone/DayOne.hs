@@ -29,7 +29,12 @@ numericWord = zero <|> oneString <|> two <|> three <|> four <|> five <|> six <|>
 
 --
 number = 
-  Parsec.many1 (Parsec.try (Parsec.many1 Parsec.digit) <|> numericWord)
+  many loop
+    where
+      loop = Parsec.try (Parsec.many1 Parsec.digit) <|> Parsec.try numericWord <|> (Parsec.anyChar >> loop)
+
+-- numbers =
+  -- Parsec.skipMany (Parsec.n number) >> number 
 
 -- number = Parsec.many Parsec.digit -- (Parsec.try (Padigit)) <|> (Parsec.try numericWord)
 
