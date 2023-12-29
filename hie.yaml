@@ -1,2 +1,7 @@
 cradle:
   cabal:
+    - path: "./Main.hs"
+      component: "advent23:exe:advent23"
+
+    - path: "test"
+      component: "advent23:test:tests"

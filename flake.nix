@@ -7,13 +7,17 @@
     haskell-flake.url = "github:srid/haskell-flake";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
+    mission-control.url = "github:Platonic-Systems/mission-control";
   };
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-      imports =
-        [ inputs.haskell-flake.flakeModule inputs.treefmt-nix.flakeModule ];
+      imports = [
+        inputs.haskell-flake.flakeModule
+        inputs.treefmt-nix.flakeModule
+        inputs.mission-control.flakeModule
+      ];
       perSystem = { self', system, lib, config, pkgs, ... }: {
         # Our only Haskell project. You can have multiple projects, but this template
         # has only one.
@@ -55,7 +59,8 @@
           projectRootFile = "flake.nix";
 
           programs.ormolu.enable = true;
-          programs.nixpkgs-fmt.enable = true;
+          # programs.nixpkgs-fmt.enable = false;
+          programs.nixfmt.enable = true;
           programs.cabal-fmt.enable = true;
           programs.hlint.enable = true;
 
@@ -63,6 +68,15 @@
           # programs.ormolu.package = pkgs.haskellPackages.fourmolu;
           settings.formatter.ormolu = {
             options = [ "--ghc-opt" "-XImportQualifiedPost" ];
+          };
+        };
+
+        mission-control.scripts = {
+          test = {
+            description = "Run all tests";
+            exec = ''
+              ghcid -c "cabal repl test:tests" -T :main
+            '';
           };
         };
 
