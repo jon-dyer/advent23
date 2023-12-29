@@ -17,3 +17,6 @@ fmt:
 # Run ghcid -- auto-recompile and run `main` function
 run:
     ghcid -c "cabal repl exe:advent23" --warnings -T :main
+
+test:
+    cabal test test:tests --test-show-details=streaming

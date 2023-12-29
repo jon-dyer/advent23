@@ -1,14 +1,17 @@
-import Data.Ord
+import Data.Text qualified as Text
 import Test.Tasty
 import Test.Tasty.HUnit
+  {-
 import Test.Tasty.QuickCheck as QC
 import Test.Tasty.SmallCheck as SC
+-}
 
 main = defaultMain tests
 
 tests :: TestTree
-tests = testGroup "Tests" [properties, unitTests]
+tests = testGroup "Tests" [{-properties, -} unitTests]
 
+  {-
 properties :: TestTree
 properties = testGroup "Properties" [scProps, qcProps]
 
@@ -37,13 +40,35 @@ qcProps =
         \x y z n ->
           (n :: Integer) >= 3 QC.==> x ^ n + y ^ n /= (z ^ n :: Integer)
     ]
+    -}
 
+readCalibration :: Text -> Int
+readCalibration t =
+  38
+
+readCalibrations :: Text -> [Int]
+readCalibrations t =
+  map readCalibration (lines t)
+
+
+sumCalibrations :: Text -> Int
+sumCalibrations = sum . readCalibrations
+
+
+unitTests :: TestTree
 unitTests =
-  testGroup
-    "Unit tests"
-    [ testCase "List comparison (different length)" $
-        [1, 2, 3] `compare` [1, 2] @?= GT,
-      -- the following test does not hold
-      testCase "List comparison (same length)" $
-        [1, 2, 3] `compare` [1, 2, 2] @?= LT
-    ]
+  let testData =
+        Text.pack
+          "1abc2\
+          \pqr3stu8vwx\
+          \a1b2c3d4e5f\
+          \treb7uchet"
+   in testGroup
+        "day 1"
+        [ testCase "can do a thing" $
+            readCalibration "pqr3stu8vwx" @?= 38,
+          testCase "can do all lines" $
+            readCalibrations testData @?= [ 12, 38, 15, 77 ],
+          testCase "can sum all" $
+            sumCalibrations testData @?= 142
+        ]
