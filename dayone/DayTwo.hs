@@ -96,5 +96,9 @@ data Possible
   deriving (Eq, Show)
 
 possible :: Bag -> Pull -> Possible
-possible b p =
-  Impossible
+possible (Bag b) (Pull p) =
+  if red b > red p
+    || green b > green p
+    || blue b > blue p
+    then Impossible
+    else Possible
