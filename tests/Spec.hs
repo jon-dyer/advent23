@@ -1,4 +1,6 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
+import DayTwo (Game (..))
+import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -110,9 +112,18 @@ day2 =
                 \Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green" ::
                   String
               )
+          lineOne = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
        in testGroup
             "pt 1"
-            [ testCase "turn a line into data" $
-                1 @?= 2
+            [ testCase "the game no." $
+                DayTwo.pline lineOne @?= Right 1,
+              testCase "turn a line into data" $
+                DayTwo.parseLine "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
+                  @?= Game
+                    { iteration = 1,
+                      red = 5,
+                      green = 4,
+                      blue = 9
+                    }
             ]
     ]
