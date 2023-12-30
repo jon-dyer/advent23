@@ -7,28 +7,6 @@ import Text.Parsec (anyChar, try)
 import Text.Parsec qualified as Char
 import Text.Parsec qualified as Parsec
 
-  {-
-zero = Parsec.string "zero"
-
-oneString = Parsec.string "one"
-
-two = Parsec.string "two"
-
-three = Parsec.string "three"
-
-four = Parsec.string "four"
-
-five = Parsec.string "five"
-
-six = Parsec.string "six"
-
-seven = Parsec.string "seven"
-
-eight = Parsec.string "eight"
-
-nine = Parsec.string "nine"
--}
-
 fromText :: String -> Int
 fromText n = case n of
   "zero" -> 0
@@ -42,18 +20,30 @@ fromText n = case n of
   "eight" -> 8
   "nine" -> 9
 
-numericWord :: forall {u}. Parsec.ParsecT Text u Identity String
-numericWord = foldr ((<|>)) empty (fmap Parsec.string ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
+numbersAsText :: [String]
+numbersAsText = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
--- numericWord = zero <|> oneString <|> two <|> three <|> four <|> five <|> six <|> seven <|> eight <|> nine
+usedLetters :: String
+usedLetters =
+  ordNub (concat numbersAsText)
+
+numericWord :: forall {u}. Parsec.ParsecT Text u Identity String
+numericWord = asum (Parsec.string <$> numbersAsText)
+
+backwardsNumbers :: forall {u}. Parsec.ParsecT Text u Identity String
+backwardsNumbers = asum (Parsec.string . reverse <$> numbersAsText)
 
 skipUntil p = try p <|> (anyChar >> skipUntil p)
 
-skipUntil' p skipper = try p <|> (skipper >> skipUntil' p skipper)
+-- skipUntil' p skipper = try p <|> (skipper >> skipUntil' p skipper)
 
 --
 number :: forall {u}. Parsec.ParsecT Text u Identity Int
 number =
+  (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText <$> numericWord)
+
+number' :: forall {u}. Parsec.ParsecT Text u Identity Int
+number' =
   (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText <$> numericWord)
 
 -- numbers =
@@ -66,7 +56,7 @@ parseFirstNumber :: Text -> Either Parsec.ParseError Int
 parseFirstNumber = Parsec.parse (skipUntil number) empty
 
 parseLastNumber :: Text -> Either Parsec.ParseError Int
-parseLastNumber = Parsec.parse (Parsec.skipMany Char.anyChar >> number) empty
+parseLastNumber = Parsec.parse (skipUntil number') empty . Text.reverse
 
 readTextyCali :: Text -> Either String Int
 readTextyCali t =
