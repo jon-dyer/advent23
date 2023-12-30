@@ -3,10 +3,11 @@ module DayOne (readCalibration, readCalibrations, sumCalibrations, parseFirstNum
 import Data.Char
 import Data.Text qualified as Text
 import Data.Text.Read (decimal)
+import Text.Parsec (anyChar, try)
 import Text.Parsec qualified as Char
 import Text.Parsec qualified as Parsec
-import Text.Parsec (anyChar,  try)
 
+  {-
 zero = Parsec.string "zero"
 
 oneString = Parsec.string "one"
@@ -26,6 +27,7 @@ seven = Parsec.string "seven"
 eight = Parsec.string "eight"
 
 nine = Parsec.string "nine"
+-}
 
 fromText :: String -> Int
 fromText n = case n of
@@ -40,12 +42,15 @@ fromText n = case n of
   "eight" -> 8
   "nine" -> 9
 
--- numericWord = asum (<|>) (Parsec.try . Parsec.string <$> ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
-numericWord = zero <|> oneString <|> two <|> three <|> four <|> five <|> six <|> seven <|> eight <|> nine
+numericWord :: forall {u}. Parsec.ParsecT Text u Identity String
+numericWord = foldr ((<|>)) empty (fmap Parsec.string ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
+
+-- numericWord = zero <|> oneString <|> two <|> three <|> four <|> five <|> six <|> seven <|> eight <|> nine
 
 skipUntil p = try p <|> (anyChar >> skipUntil p)
 
 skipUntil' p skipper = try p <|> (skipper >> skipUntil' p skipper)
+
 --
 number :: forall {u}. Parsec.ParsecT Text u Identity Int
 number =
