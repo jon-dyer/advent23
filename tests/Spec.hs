@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Bag (..), Cubes (..), Game (..), Possible (..), Pull (..), possible)
+import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, pullPossible)
 import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -126,14 +126,37 @@ day2 =
                             Pull Cubes {blue = 0, red = 0, green = 2}
                           ]
                       },
-              testCase "is bag possible?" $
+              testCase "is pull possible?" $
                 map
-                  (possible (Bag Cubes {red = 12, green = 13, blue = 14}))
+                  (pullPossible (Bag Cubes {red = 12, green = 13, blue = 14}))
                   [ Pull Cubes {red = 13, green = 0, blue = 0},
                     Pull Cubes {red = 0, green = 14, blue = 0},
                     Pull Cubes {red = 0, green = 0, blue = 15},
                     Pull Cubes {red = 12, green = 13, blue = 14}
                   ]
-                  @?= [Impossible, Impossible, Impossible, Possible]
+                  @?= [Impossible, Impossible, Impossible, Possible],
+              testCase "is game possible?" $
+                map
+                  (gamePossible (Bag Cubes {red = 12, green = 13, blue = 14}))
+                  [ Game {iteration = 1, pulls = [Pull Cubes {red = 13, green = 0, blue = 0}]},
+                    Game {iteration = 1, pulls = [Pull Cubes {red = 0, green = 14, blue = 0}]},
+                    Game {iteration = 1, pulls = [Pull Cubes {red = 0, green = 0, blue = 15}]},
+                    Game {iteration = 1, pulls = [Pull Cubes {red = 12, green = 13, blue = 14}]},
+                    Game
+                      { iteration = 1,
+                        pulls =
+                          [ Pull Cubes {red = 12, green = 13, blue = 14},
+                            Pull Cubes {red = 0, green = 0, blue = 0}
+                          ]
+                      },
+                    Game
+                      { iteration = 1,
+                        pulls =
+                          [ Pull Cubes {red = 12, green = 13, blue = 14},
+                            Pull Cubes {red = 0, green = 0, blue = 15}
+                          ]
+                      }
+                  ]
+                  @?= [Impossible, Impossible, Impossible, Possible, Possible, Impossible]
             ]
     ]

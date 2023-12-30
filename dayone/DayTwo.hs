@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), Possible (..), possible, Bag (..)) where
+module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..)) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -88,15 +88,29 @@ parseLine =
     gameParser
     empty
 
-data Possible
-  = Impossible
-  | Possible
-  deriving stock (Eq, Show)
-
-possible :: Bag -> Pull -> Possible
-possible (Bag b) (Pull p) =
+pullPossible :: Bag -> Pull -> GamePossible
+pullPossible (Bag b) (Pull p) =
   if red b > red p
     || green b > green p
     || blue b > blue p
     then Impossible
     else Possible
+
+data GamePossible
+  = Impossible
+  | Possible
+  deriving stock (Eq, Show)
+
+gamePossible :: Bag -> Game -> GamePossible
+gamePossible b (Game _ (ps :: [Pull])) =
+  let gps :: [GamePossible]
+      gps = pullPossible b <$> ps
+   in foldr
+        ( \val soFar ->
+            case (val, soFar) of
+              (Possible, Possible) -> Possible
+              (_, Impossible) -> Impossible
+              (Impossible, _) -> Impossible
+        )
+        Possible
+        gps
