@@ -46,29 +46,18 @@ qcProps =
 
 unitTests :: TestTree
 unitTests =
-  let testData :: Text
-      testData =
-        toText
-          ( "1abc2\n\
-            \pqr3stu8vwx\n\
-            \a1b2c3d4e5f\n\
-            \treb7uchet" ::
-              String
-          )
-      testDataPt2 =
-        toText
-          ( "two1nine\n\
-            \eightwothree\n\
-            \abcone2threexyz\n\
-            \xtwone3four\n\
-            \4nineeightseven2\n\
-            \zoneight234\n\
-            \7pqrstsixteen" ::
-              String
-          )
-   in testGroup
-        "day 1"
-        [ testGroup
+  testGroup
+    "day 1"
+    [ let testData :: Text
+          testData =
+            toText
+              ( "1abc2\n\
+                \pqr3stu8vwx\n\
+                \a1b2c3d4e5f\n\
+                \treb7uchet" ::
+                  String
+              )
+       in testGroup
             "pt 1"
             [ testCase "can do a thing" $
                 readCalibration "pqr3stu8vwx" @?= Right 38,
@@ -77,7 +66,18 @@ unitTests =
               testCase "can sum all" $
                 sumCalibrations testData @?= 142
             ],
-          testGroup
+      let testData =
+            toText
+              ( "two1nine\n\
+                \eightwothree\n\
+                \abcone2threexyz\n\
+                \xtwone3four\n\
+                \4nineeightseven2\n\
+                \zoneight234\n\
+                \7pqrstsixteen" ::
+                  String
+              )
+       in testGroup
             "pt 2"
             [ testCase "can parse all the numbers in a string" $
                 parseFirstNumber "two" @?= Right 2,
@@ -88,8 +88,8 @@ unitTests =
               testCase "can do a thing" $
                 readTextyCali "two1nine" @?= Right 29,
               testCase "can do all lines" $
-                readTextyCalis testDataPt2 @?= [29, 83, 13, 24, 42, 14, 76],
+                readTextyCalis testData @?= [29, 83, 13, 24, 42, 14, 76],
               testCase "can sum all" $
-                sumTextyCalis testDataPt2 @?= 281
+                sumTextyCalis testData @?= 281
             ]
-        ]
+    ]
