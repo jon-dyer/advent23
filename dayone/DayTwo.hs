@@ -50,10 +50,10 @@ wholeThing = do
   spaces
   iter <- read <$> many1 digit
   _ <- char ':' >> spaces
-  c <- cube
+  cs <- many1 (cube <* optional (string ", " <|> string "; "))
   return
-    ( addCubeCount
-        c
+    ( foldr
+        addCubeCount
         ( Game
             { iteration = iter,
               red = 0,
@@ -61,6 +61,7 @@ wholeThing = do
               blue = 0
             }
         )
+        cs
     )
 
 pline = Parsec.parse wholeThing empty
