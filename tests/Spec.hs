@@ -115,15 +115,14 @@ day2 =
           lineOne = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
        in testGroup
             "pt 1"
-            [ testCase "the game no." $
-                DayTwo.pline lineOne @?= Right 1,
-              testCase "turn a line into data" $
-                DayTwo.parseLine "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
-                  @?= Game
-                    { iteration = 1,
-                      red = 5,
-                      green = 4,
-                      blue = 9
-                    }
+            [ testCase "turn a line into data" $
+                DayTwo.parseLine lineOne
+                  @?= Right
+                    Game
+                      { iteration = 1,
+                        red = 5,
+                        green = 4,
+                        blue = 9
+                      }
             ]
     ]
