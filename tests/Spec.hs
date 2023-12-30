@@ -45,7 +45,10 @@ qcProps =
     -}
 
 unitTests :: TestTree
-unitTests =
+unitTests = testGroup "days" [day1, day2]
+
+day1 :: TestTree
+day1 =
   testGroup
     "day 1"
     [ let testData :: Text
@@ -91,5 +94,25 @@ unitTests =
                 readTextyCalis testData @?= [29, 83, 13, 24, 42, 14, 76],
               testCase "can sum all" $
                 sumTextyCalis testData @?= 281
+            ]
+    ]
+
+day2 :: TestTree
+day2 =
+  testGroup
+    "day 2"
+    [ let testData =
+            toText
+              ( "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n\
+                \Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n\
+                \Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red\n\
+                \Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n\
+                \Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green" ::
+                  String
+              )
+       in testGroup
+            "pt 1"
+            [ testCase "turn a line into data" $
+                1 @?= 2
             ]
     ]

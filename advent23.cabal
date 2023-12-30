@@ -104,7 +104,10 @@ executable dayone
 library dayone-lib
   import:          shared
   hs-source-dirs:  dayone
-  exposed-modules: DayOne
+  exposed-modules:
+    DayOne
+    DayTwo
+
   build-depends:   parsec
 
 test-suite tests

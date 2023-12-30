@@ -4,6 +4,6 @@ import DayOne (sumCalibrations, sumTextyCalis)
 
 main :: IO ()
 main = do
-  content <- readFileText "inputs/day1.txt"
-  print (show (sumCalibrations content))
-  print (show (sumTextyCalis content))
+  dayOneContent <- readFileText "inputs/day1.txt"
+  print (show (sumCalibrations dayOneContent))
+  print (show (sumTextyCalis dayOneContent))
