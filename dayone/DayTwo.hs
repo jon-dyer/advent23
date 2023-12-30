@@ -1,10 +1,7 @@
 module DayTwo (Game (..), parseLine, pline) where
 
-import Data.Char
-import Data.Text qualified as Text
-import Data.Text.Read (decimal)
 import Relude.Unsafe (read)
-import Text.Parsec (digit, many1, spaces, string)
+import Text.Parsec (char, digit, many1, spaces, string, try)
 import Text.Parsec qualified as Parsec
 
 data Cube
@@ -12,6 +9,13 @@ data Cube
   | Green Int
   | Blue Int
   deriving (Eq, Show)
+
+cubeStr :: String -> Int -> Cube
+cubeStr str =
+  case str of
+    "red" -> Red
+    "green" -> Green
+    "blue" -> Blue
 
 data Game where
   Game ::
@@ -23,23 +27,41 @@ data Game where
     Game
   deriving (Eq, Show)
 
-game = string "Game"
+gameParser = string "Game"
 
+addCubeCount :: Cube -> Game -> Game
+addCubeCount (Red val) game =
+  game {red = red game + val}
+addCubeCount (Green val) game =
+  game {green = green game + val}
+addCubeCount (Blue val) game =
+  game {blue = blue game + val}
+
+cube :: forall {u}. Parsec.ParsecT Text u Identity Cube
 cube = do
-  val <- many1 digit 
+  val <- read <$> many1 digit
+  spaces
+  c <- cubeStr <$> (try (string "red") <|> try (string "blue") <|> string "green")
+  return (c val)
 
 wholeThing :: forall {u}. Parsec.ParsecT Text u Identity Game
 wholeThing = do
-  game
+  _ <- gameParser
   spaces
   iter <- read <$> many1 digit
+  _ <- char ':' >> spaces
+  c <- cube
   return
-    Game
-      { iteration = iter,
-        red = 0,
-        green = 0,
-        blue = 0
-      }
+    ( addCubeCount
+        c
+        ( Game
+            { iteration = iter,
+              red = 0,
+              green = 0,
+              blue = 0
+            }
+        )
+    )
 
 pline = Parsec.parse wholeThing empty
 
