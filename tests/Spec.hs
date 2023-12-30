@@ -1,4 +1,4 @@
-import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, sumCalibrations)
+import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -55,18 +55,41 @@ unitTests =
             \treb7uchet" ::
               String
           )
+      testDataPt2 =
+        toText
+          ( "two1nine\n\
+            \eightwothree\n\
+            \abcone2threexyz\n\
+            \xtwone3four\n\
+            \4nineeightseven2\n\
+            \zoneight234\n\
+            \7pqrstsixteen" ::
+              String
+          )
    in testGroup
         "day 1"
-        [ testCase "can do a thing" $
-            readCalibration "pqr3stu8vwx" @?= Right 38,
-          testCase "can do all lines" $
-            readCalibrations testData @?= [12, 38, 15, 77],
-          testCase "can sum all" $
-            sumCalibrations testData @?= 142,
-          testCase "can parse all the numbers in a string" $
-            parseFirstNumber "two" @?= Right 2,
-          testCase "can parse all the numbers in a string, ignoring junk" $
-            parseFirstNumber "ontwoblue1two" @?= Right 2,
-          testCase "can parse all the numbers in a string, edge cases like twone" $
-            parseLastNumber "ontwoblue2twoney" @?= Right 1
+        [ testGroup
+            "pt 1"
+            [ testCase "can do a thing" $
+                readCalibration "pqr3stu8vwx" @?= Right 38,
+              testCase "can do all lines" $
+                readCalibrations testData @?= [12, 38, 15, 77],
+              testCase "can sum all" $
+                sumCalibrations testData @?= 142
+            ],
+          testGroup
+            "pt 2"
+            [ testCase "can parse all the numbers in a string" $
+                parseFirstNumber "two" @?= Right 2,
+              testCase "can find the first number ignoring junk" $
+                parseFirstNumber "onthreeblue1two" @?= Right 3,
+              testCase "can parse all the numbers in a string, edge cases like twone" $
+                parseLastNumber "onthreeblue4twoney" @?= Right 1,
+              testCase "can do a thing" $
+                readTextyCali "two1nine" @?= Right 29,
+              testCase "can do all lines" $
+                readTextyCalis testDataPt2 @?= [29, 83, 13, 24, 42, 14, 76],
+              testCase "can sum all" $
+                sumTextyCalis testDataPt2 @?= 281
+            ]
         ]

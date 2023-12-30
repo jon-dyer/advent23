@@ -1,6 +1,7 @@
-module DayOne (readCalibration, readCalibrations, sumCalibrations, parseFirstNumber, parseLastNumber) where
+module DayOne (readCalibration, readCalibrations, sumCalibrations, parseFirstNumber, parseLastNumber, readTextyCali, readTextyCalis, sumTextyCalis) where
 
 import Data.Char
+import Data.IntMap.Lazy (mapEither)
 import Data.Text qualified as Text
 import Data.Text.Read (decimal)
 import Text.Parsec (anyChar, try)
@@ -22,15 +23,11 @@ fromText n = case n of
 numbersAsText :: [String]
 numbersAsText = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
 
-usedLetters :: String
-usedLetters =
-  ordNub (concat numbersAsText)
-
 numericWord :: forall {u}. Parsec.ParsecT Text u Identity String
-numericWord = asum (Parsec.string <$> numbersAsText)
+numericWord = asum (Parsec.try . Parsec.string <$> numbersAsText)
 
 backwardsNumbers :: forall {u}. Parsec.ParsecT Text u Identity String
-backwardsNumbers = asum (Parsec.string . reverse <$> numbersAsText)
+backwardsNumbers = asum (Parsec.try . Parsec.string . reverse <$> numbersAsText)
 
 skipUntil p = try p <|> (anyChar >> skipUntil p)
 
@@ -40,7 +37,7 @@ number =
 
 number' :: forall {u}. Parsec.ParsecT Text u Identity Int
 number' =
-  (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText . reverse<$> backwardsNumbers)
+  (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText . reverse <$> backwardsNumbers)
 
 parseFirstNumber :: Text -> Either Parsec.ParseError Int
 parseFirstNumber = Parsec.parse (skipUntil number) empty
@@ -48,14 +45,15 @@ parseFirstNumber = Parsec.parse (skipUntil number) empty
 parseLastNumber :: Text -> Either Parsec.ParseError Int
 parseLastNumber = Parsec.parse (skipUntil number') empty . Text.reverse
 
-readTextyCali :: Text -> Either String Int
+readTextyCali :: Text -> Either Parsec.ParseError Int
 readTextyCali t =
-  let findDigit = Text.take 1 . Text.dropWhile (not . isDigit)
-      toInt :: Text -> Either String Int
-      toInt = fmap fst . decimal
-      firstDigit = findDigit t
-      lastDigit = findDigit (Text.reverse t)
-   in toInt (firstDigit <> lastDigit)
+  let firstDigit :: Either Parsec.ParseError Int
+      firstDigit = parseFirstNumber t
+      lastDigit :: Either Parsec.ParseError Int
+      lastDigit = parseLastNumber t
+      tens :: Either Parsec.ParseError Int
+      tens = (10 *) <$> firstDigit
+   in (+) <$> tens <*> lastDigit
 
 readCalibration :: Text -> Either String Int
 readCalibration t =
@@ -70,5 +68,12 @@ readCalibrations :: Text -> [Int]
 readCalibrations t =
   rights (readCalibration <$> lines t)
 
+readTextyCalis :: Text -> [Int]
+readTextyCalis t =
+  rights (readTextyCali <$> lines t)
+
 sumCalibrations :: Text -> Int
 sumCalibrations = sum . readCalibrations
+
+sumTextyCalis :: Text -> Int
+sumTextyCalis = sum . readTextyCalis
