@@ -31,8 +31,8 @@ newPull =
       blue = 0
     }
 
-groupPulls :: [Cube] -> Pull
-groupPulls = foldr addCubeCount newPull
+groupPulls :: [[Cube]] -> [Pull]
+groupPulls = map (foldr addCubeCount newPull)
 
 data Game where
   Game ::
@@ -66,17 +66,20 @@ cube = do
   c <- cubeStr <$> (try (string "red") <|> try (string "blue") <|> string "green")
   return (c val)
 
+pull =
+  many1 (cube <* optional (string ", "))
+
 wholeThing :: forall {u}. Parsec.ParsecT Text u Identity Game
 wholeThing = do
   _ <- gameParser
   spaces
   iter <- read <$> many1 digit
   _ <- char ':' >> spaces
-  cs <- many1 (cube <* optional (string ", " <|> string "; "))
+  ps <- many1 (pull <* optional (string "; "))
   return
     ( Game
         { iteration = iter,
-          pulls = [groupPulls cs]
+          pulls = groupPulls ps
         }
     )
 
