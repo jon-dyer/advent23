@@ -42,13 +42,6 @@ data Game where
     Game
   deriving (Eq, Show)
 
-newGame :: Int -> Game
-newGame i =
-  Game
-    { iteration = i,
-      pulls = []
-    }
-
 gameParser = string "Game"
 
 addCubeCount :: Cube -> Pull -> Pull
@@ -77,11 +70,10 @@ wholeThing = do
   _ <- char ':' >> spaces
   ps <- many1 (pull <* optional (string "; "))
   return
-    ( Game
-        { iteration = iter,
-          pulls = groupPulls ps
-        }
-    )
+    Game
+      { iteration = iter,
+        pulls = groupPulls ps
+      }
 
 pline = Parsec.parse wholeThing empty
 
