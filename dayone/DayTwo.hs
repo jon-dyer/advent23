@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, pline, Pull (..)) where
+module DayTwo (Game (..), parseLine, pline, Pull (..), Cubes (..), Possible (..), possible, Bag (..)) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -17,19 +17,26 @@ cubeStr str =
     "green" -> Green
     "blue" -> Blue
 
-data Pull = Pull
+data Cubes = Cubes
   { red :: Int,
     green :: Int,
     blue :: Int
   }
   deriving (Eq, Show)
 
+newtype Bag = Bag Cubes
+  deriving (Eq, Show)
+
+newtype Pull = Pull Cubes
+  deriving (Eq, Show)
+
 newPull =
   Pull
-    { red = 0,
-      green = 0,
-      blue = 0
-    }
+    Cubes
+      { red = 0,
+        green = 0,
+        blue = 0
+      }
 
 groupPulls :: [[Cube]] -> [Pull]
 groupPulls = map (foldr addCubeCount newPull)
@@ -45,12 +52,12 @@ data Game where
 gameParser = string "Game"
 
 addCubeCount :: Cube -> Pull -> Pull
-addCubeCount (Red val) pull =
-  pull {red = red pull + val}
-addCubeCount (Green val) pull =
-  pull {green = green pull + val}
-addCubeCount (Blue val) pull =
-  pull {blue = blue pull + val}
+addCubeCount (Red val) (Pull pull) =
+  Pull (pull {red = red pull + val})
+addCubeCount (Green val) (Pull pull) =
+  Pull (pull {green = green pull + val})
+addCubeCount (Blue val) (Pull pull) =
+  Pull (pull {blue = blue pull + val})
 
 cube :: forall {u}. Parsec.ParsecT Text u Identity Cube
 cube = do
@@ -59,7 +66,7 @@ cube = do
   c <- cubeStr <$> (try (string "red") <|> try (string "blue") <|> string "green")
   return (c val)
 
-pull =
+pullParser =
   many1 (cube <* optional (string ", "))
 
 wholeThing :: forall {u}. Parsec.ParsecT Text u Identity Game
@@ -68,7 +75,7 @@ wholeThing = do
   spaces
   iter <- read <$> many1 digit
   _ <- char ':' >> spaces
-  ps <- many1 (pull <* optional (string "; "))
+  ps <- many1 (pullParser <* optional (string "; "))
   return
     Game
       { iteration = iter,
@@ -82,3 +89,12 @@ parseLine =
   Parsec.parse
     wholeThing
     empty
+
+data Possible
+  = Impossible
+  | Possible
+  deriving (Eq, Show)
+
+possible :: Bag -> Pull -> Possible
+possible b p =
+  Impossible

@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Game (..), Pull (..))
+import DayTwo (Bag (..), Cubes (..), Game (..), Possible (..), Pull (..), possible)
 import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -121,10 +121,19 @@ day2 =
                     Game
                       { iteration = 1,
                         pulls =
-                          [ Pull {blue = 3, red = 4, green = 0},
-                            Pull {blue = 6, red = 1, green = 2},
-                            Pull {blue = 0, red = 0, green = 2}
+                          [ Pull Cubes {blue = 3, red = 4, green = 0},
+                            Pull Cubes {blue = 6, red = 1, green = 2},
+                            Pull Cubes {blue = 0, red = 0, green = 2}
                           ]
-                      }
+                      },
+              testCase "is bag possible?" $
+                map
+                  (possible (Bag Cubes {red = 12, green = 13, blue = 14}))
+                  [ Pull Cubes {red = 13, green = 0, blue = 0},
+                    Pull Cubes {red = 0, green = 14, blue = 0},
+                    Pull Cubes {red = 0, green = 0, blue = 15},
+                    Pull Cubes {red = 12, green = 13, blue = 14}
+                  ]
+                  @?= [Impossible, Impossible, Impossible, Possible]
             ]
     ]
