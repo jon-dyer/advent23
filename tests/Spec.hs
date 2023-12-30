@@ -1,4 +1,4 @@
-import DayOne (parseNumber, readCalibration, readCalibrations, sumCalibrations)
+import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, sumCalibrations)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -64,9 +64,9 @@ unitTests =
           testCase "can sum all" $
             sumCalibrations testData @?= 142,
           testCase "can parse all the numbers in a string" $
-            parseNumber "two1two" @?= Right ["two", "1", "two"],
+            parseFirstNumber "two" @?= Right 2,
           testCase "can parse all the numbers in a string, ignoring junk" $
-            parseNumber "ontwoblue1two" @?= Right ["two", "1", "two"]
-          -- ignoreCase "can parse all the numbers in a string, edge cases like twone" $
-            -- parseNumber "ontwoblue1two" @?= Right ["two", "1", "two"]
+            parseFirstNumber "ontwoblue1two" @?= Right 2,
+          testCase "can parse all the numbers in a string, edge cases like twone" $
+            parseLastNumber "ontwoblue1twoney" @?= Right 1
         ]

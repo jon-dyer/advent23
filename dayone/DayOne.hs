@@ -1,9 +1,11 @@
-module DayOne (readCalibration, readCalibrations, sumCalibrations, parseNumber) where
+module DayOne (readCalibration, readCalibrations, sumCalibrations, parseFirstNumber, parseLastNumber) where
 
 import Data.Char
 import Data.Text qualified as Text
 import Data.Text.Read (decimal)
+import Text.Parsec qualified as Char
 import Text.Parsec qualified as Parsec
+import Text.Parsec (anyChar,  try)
 
 zero = Parsec.string "zero"
 
@@ -25,21 +27,41 @@ eight = Parsec.string "eight"
 
 nine = Parsec.string "nine"
 
+fromText :: String -> Int
+fromText n = case n of
+  "zero" -> 0
+  "one" -> 1
+  "two" -> 2
+  "three" -> 3
+  "four" -> 4
+  "five" -> 5
+  "six" -> 6
+  "seven" -> 7
+  "eight" -> 8
+  "nine" -> 9
+
+-- numericWord = asum (<|>) (Parsec.try . Parsec.string <$> ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"])
 numericWord = zero <|> oneString <|> two <|> three <|> four <|> five <|> six <|> seven <|> eight <|> nine
 
+skipUntil p = try p <|> (anyChar >> skipUntil p)
+
+skipUntil' p skipper = try p <|> (skipper >> skipUntil' p skipper)
 --
-number = 
-  many loop
-    where
-      loop = Parsec.try (Parsec.many1 Parsec.digit) <|> Parsec.try numericWord <|> (Parsec.anyChar >> loop)
+number :: forall {u}. Parsec.ParsecT Text u Identity Int
+number =
+  (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText <$> numericWord)
 
 -- numbers =
-  -- Parsec.skipMany (Parsec.n number) >> number 
+-- Parsec.skipMany (Parsec.n number) >> number
 
 -- number = Parsec.many Parsec.digit -- (Parsec.try (Padigit)) <|> (Parsec.try numericWord)
 
-parseNumber :: Text -> Either Parsec.ParseError [String]
-parseNumber = Parsec.parse number []
+-- parseFirstNumber :: Text -> Either Parsec.ParseError Int
+parseFirstNumber :: Text -> Either Parsec.ParseError Int
+parseFirstNumber = Parsec.parse (skipUntil number) empty
+
+parseLastNumber :: Text -> Either Parsec.ParseError Int
+parseLastNumber = Parsec.parse (Parsec.skipMany Char.anyChar >> number) empty
 
 readTextyCali :: Text -> Either String Int
 readTextyCali t =
