@@ -30,6 +30,7 @@ newtype Bag = Bag Cubes
 newtype Pull = Pull Cubes
   deriving (Eq, Show)
 
+newPull :: Pull
 newPull =
   Pull
     Cubes
@@ -49,8 +50,6 @@ data Game where
     Game
   deriving (Eq, Show)
 
-gameParser = string "Game"
-
 addCubeCount :: Cube -> Pull -> Pull
 addCubeCount (Red val) (Pull pull) =
   Pull (pull {red = red pull + val})
@@ -69,9 +68,9 @@ cube = do
 pullParser =
   many1 (cube <* optional (string ", "))
 
-wholeThing :: forall {u}. Parsec.ParsecT Text u Identity Game
-wholeThing = do
-  _ <- gameParser
+gameParser :: forall {u}. Parsec.ParsecT Text u Identity Game
+gameParser = do
+  _ <- string "Game"
   spaces
   iter <- read <$> many1 digit
   _ <- char ':' >> spaces
@@ -85,7 +84,7 @@ wholeThing = do
 parseLine :: Text -> Either Parsec.ParseError Game
 parseLine =
   Parsec.parse
-    wholeThing
+    gameParser
     empty
 
 data Possible
