@@ -40,7 +40,7 @@ number =
 
 number' :: forall {u}. Parsec.ParsecT Text u Identity Int
 number' =
-  (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText <$> numericWord)
+  (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText . reverse<$> backwardsNumbers)
 
 parseFirstNumber :: Text -> Either Parsec.ParseError Int
 parseFirstNumber = Parsec.parse (skipUntil number) empty
