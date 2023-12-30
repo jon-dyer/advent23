@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, pline, Pull (..), Cubes (..), Possible (..), possible, Bag (..)) where
+module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), Possible (..), possible, Bag (..)) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -81,8 +81,6 @@ wholeThing = do
       { iteration = iter,
         pulls = groupPulls ps
       }
-
-pline = Parsec.parse wholeThing empty
 
 parseLine :: Text -> Either Parsec.ParseError Game
 parseLine =
