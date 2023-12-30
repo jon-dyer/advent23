@@ -113,6 +113,7 @@ day2 =
                   String
               )
           lineOne = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
+          standardBag = Bag Cubes {red = 12, green = 13, blue = 14}
        in testGroup
             "pt 1"
             [ testCase "turn a line into data" $
@@ -128,16 +129,25 @@ day2 =
                       },
               testCase "is pull possible?" $
                 map
-                  (pullPossible (Bag Cubes {red = 12, green = 13, blue = 14}))
+                  (pullPossible standardBag)
                   [ Pull Cubes {red = 13, green = 0, blue = 0},
                     Pull Cubes {red = 0, green = 14, blue = 0},
                     Pull Cubes {red = 0, green = 0, blue = 15},
                     Pull Cubes {red = 12, green = 13, blue = 14}
                   ]
                   @?= [Impossible, Impossible, Impossible, Possible],
+              testCase "sanity Check pullpossbile" $
+                ( let laterPulls =
+                        [ Pull Cubes {red = 12, green = 13, blue = 14},
+                          Pull Cubes {red = 0, green = 0, blue = 0}
+                        ]
+                      gps :: [GamePossible]
+                      gps = map (pullPossible standardBag) laterPulls
+                   in gps @?= [Possible, Possible]
+                ),
               testCase "is game possible?" $
                 map
-                  (gamePossible (Bag Cubes {red = 12, green = 13, blue = 14}))
+                  (gamePossible standardBag)
                   [ Game {iteration = 1, pulls = [Pull Cubes {red = 13, green = 0, blue = 0}]},
                     Game {iteration = 1, pulls = [Pull Cubes {red = 0, green = 14, blue = 0}]},
                     Game {iteration = 1, pulls = [Pull Cubes {red = 0, green = 0, blue = 15}]},

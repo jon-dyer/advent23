@@ -104,7 +104,7 @@ data GamePossible
 gamePossible :: Bag -> Game -> GamePossible
 gamePossible b (Game _ (ps :: [Pull])) =
   let gps :: [GamePossible]
-      gps = pullPossible b <$> ps
+      gps =  map (pullPossible b) ps
    in foldr
         ( \val soFar ->
             case (val, soFar) of
