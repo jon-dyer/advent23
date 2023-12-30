@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, pline) where
+module DayTwo (Game (..), parseLine, pline, Pull (..)) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -17,25 +17,47 @@ cubeStr str =
     "green" -> Green
     "blue" -> Blue
 
+data Pull = Pull
+  { red :: Int,
+    green :: Int,
+    blue :: Int
+  }
+  deriving (Eq, Show)
+
+newPull =
+  Pull
+    { red = 0,
+      green = 0,
+      blue = 0
+    }
+
+groupPulls :: [Cube] -> Pull
+groupPulls = foldr addCubeCount newPull
+
 data Game where
   Game ::
     { iteration :: Int,
-      red :: Int,
-      green :: Int,
-      blue :: Int
+      pulls :: [Pull]
     } ->
     Game
   deriving (Eq, Show)
 
+newGame :: Int -> Game
+newGame i =
+  Game
+    { iteration = i,
+      pulls = []
+    }
+
 gameParser = string "Game"
 
-addCubeCount :: Cube -> Game -> Game
-addCubeCount (Red val) game =
-  game {red = red game + val}
-addCubeCount (Green val) game =
-  game {green = green game + val}
-addCubeCount (Blue val) game =
-  game {blue = blue game + val}
+addCubeCount :: Cube -> Pull -> Pull
+addCubeCount (Red val) pull =
+  pull {red = red pull + val}
+addCubeCount (Green val) pull =
+  pull {green = green pull + val}
+addCubeCount (Blue val) pull =
+  pull {blue = blue pull + val}
 
 cube :: forall {u}. Parsec.ParsecT Text u Identity Cube
 cube = do
@@ -52,16 +74,10 @@ wholeThing = do
   _ <- char ':' >> spaces
   cs <- many1 (cube <* optional (string ", " <|> string "; "))
   return
-    ( foldr
-        addCubeCount
-        ( Game
-            { iteration = iter,
-              red = 0,
-              green = 0,
-              blue = 0
-            }
-        )
-        cs
+    ( Game
+        { iteration = iter,
+          pulls = [groupPulls cs]
+        }
     )
 
 pline = Parsec.parse wholeThing empty

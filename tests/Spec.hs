@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Game (..))
+import DayTwo (Game (..), Pull (..))
 import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -120,9 +120,11 @@ day2 =
                   @?= Right
                     Game
                       { iteration = 1,
-                        red = 5,
-                        green = 4,
-                        blue = 9
+                        pulls =
+                          [ Pull {blue = 3, red = 4, green = 0},
+                            Pull {blue = 6, red = 1, green = 2},
+                            Pull {blue = 0, red = 0, green = 2}
+                          ]
                       }
             ]
     ]
