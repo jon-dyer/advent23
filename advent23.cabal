@@ -98,6 +98,7 @@ executable advent23
 executable dayone
   import:         shared
   main-is:        Main.hs
+  build-depends:  parsec
   hs-source-dirs: dayone
 
 library dayone-lib

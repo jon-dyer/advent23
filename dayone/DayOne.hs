@@ -1,7 +1,6 @@
 module DayOne (readCalibration, readCalibrations, sumCalibrations, parseFirstNumber, parseLastNumber, readTextyCali, readTextyCalis, sumTextyCalis) where
 
 import Data.Char
-import Data.IntMap.Lazy (mapEither)
 import Data.Text qualified as Text
 import Data.Text.Read (decimal)
 import Text.Parsec (anyChar, try)
