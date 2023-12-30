@@ -8,7 +8,7 @@ data Cube
   = Red Int
   | Green Int
   | Blue Int
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 cubeStr :: String -> Int -> Cube
 cubeStr str =
@@ -22,13 +22,13 @@ data Cubes = Cubes
     green :: Int,
     blue :: Int
   }
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 newtype Bag = Bag Cubes
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 newtype Pull = Pull Cubes
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 newPull :: Pull
 newPull =
@@ -48,7 +48,7 @@ data Game where
       pulls :: [Pull]
     } ->
     Game
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 addCubeCount :: Cube -> Pull -> Pull
 addCubeCount (Red val) (Pull pull) =
@@ -65,6 +65,7 @@ cube = do
   c <- cubeStr <$> (try (string "red") <|> try (string "blue") <|> string "green")
   return (c val)
 
+pullParser :: Parsec.ParsecT Text u Identity [Cube]
 pullParser =
   many1 (cube <* optional (string ", "))
 
@@ -90,7 +91,7 @@ parseLine =
 data Possible
   = Impossible
   | Possible
-  deriving (Eq, Show)
+  deriving stock (Eq, Show)
 
 possible :: Bag -> Pull -> Possible
 possible (Bag b) (Pull p) =
