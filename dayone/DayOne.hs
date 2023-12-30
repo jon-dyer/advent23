@@ -4,7 +4,6 @@ import Data.Char
 import Data.Text qualified as Text
 import Data.Text.Read (decimal)
 import Text.Parsec (anyChar, try)
-import Text.Parsec qualified as Char
 import Text.Parsec qualified as Parsec
 
 fromText :: String -> Int
@@ -35,9 +34,6 @@ backwardsNumbers = asum (Parsec.string . reverse <$> numbersAsText)
 
 skipUntil p = try p <|> (anyChar >> skipUntil p)
 
--- skipUntil' p skipper = try p <|> (skipper >> skipUntil' p skipper)
-
---
 number :: forall {u}. Parsec.ParsecT Text u Identity Int
 number =
   (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText <$> numericWord)
@@ -46,12 +42,6 @@ number' :: forall {u}. Parsec.ParsecT Text u Identity Int
 number' =
   (digitToInt <$> Parsec.try Parsec.digit) <|> (fromText <$> numericWord)
 
--- numbers =
--- Parsec.skipMany (Parsec.n number) >> number
-
--- number = Parsec.many Parsec.digit -- (Parsec.try (Padigit)) <|> (Parsec.try numericWord)
-
--- parseFirstNumber :: Text -> Either Parsec.ParseError Int
 parseFirstNumber :: Text -> Either Parsec.ParseError Int
 parseFirstNumber = Parsec.parse (skipUntil number) empty
 

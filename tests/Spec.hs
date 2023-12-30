@@ -68,5 +68,5 @@ unitTests =
           testCase "can parse all the numbers in a string, ignoring junk" $
             parseFirstNumber "ontwoblue1two" @?= Right 2,
           testCase "can parse all the numbers in a string, edge cases like twone" $
-            parseLastNumber "ontwoblue1twoney" @?= Right 1
+            parseLastNumber "ontwoblue2twoney" @?= Right 1
         ]
