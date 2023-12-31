@@ -1,7 +1,7 @@
 module Main where
 
 import DayOne (sumCalibrations, sumTextyCalis)
-import DayTwo (standardBag, sumPossibleGames)
+import DayTwo (standardBag, sumPossibleGames, sumPowers)
 
 main :: IO ()
 main = do
@@ -10,3 +10,4 @@ main = do
   print (show (sumCalibrations dayOneContent))
   print (show (sumTextyCalis dayOneContent))
   print (show (sumPossibleGames standardBag dayTwoContent))
+  print (show (sumPowers dayTwoContent))
