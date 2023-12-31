@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, pullPossible, smallestBag, standardBag, sumPossibleGames)
+import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, powers, pullPossible, smallestBag, standardBag, sumPossibleGames)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -167,6 +167,15 @@ day2 =
                         Bag Cubes {red = 20, green = 13, blue = 6},
                         Bag Cubes {red = 14, green = 3, blue = 15},
                         Bag Cubes {red = 6, green = 3, blue = 2}
+                      ],
+              testCase "find powers" $
+                powers . smallestBag
+                  <$> rights (parseLine <$> lines testData)
+                  @?= [ 48,
+                        12,
+                        1560,
+                        630,
+                        36
                       ]
             ]
         ]
