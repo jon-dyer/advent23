@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, pullPossible, sumPossibleGames)
+import DayTwo (Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, pullPossible, standardBag, sumPossibleGames)
 import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -113,7 +113,6 @@ day2 =
                   String
               )
           lineOne = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
-          standardBag = Bag Cubes {red = 12, green = 13, blue = 14}
        in testGroup
             "pt 1"
             [ testCase "turn a line into data" $
