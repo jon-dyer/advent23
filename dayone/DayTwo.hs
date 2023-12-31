@@ -147,5 +147,4 @@ sumPowers t =
   let games = rights (parseLine <$> lines t)
       sb = smallestBag <$> games
       ps = power <$> sb
-  in
-  sum ps
+   in sum ps
