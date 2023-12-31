@@ -176,6 +176,8 @@ day2 =
                         1560,
                         630,
                         36
-                      ]
+                      ],
+              testCase "the sum, for completeness" $
+                sum  ( powers . smallestBag <$> rights (parseLine <$> lines testData)) @?= 2286
             ]
         ]
