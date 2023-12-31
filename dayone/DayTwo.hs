@@ -44,7 +44,7 @@ groupPulls = map (foldr addCubeCount newPull)
 
 data Game where
   Game ::
-    { iteration :: Int,
+    { ident :: Int,
       pulls :: [Pull]
     } ->
     Game
@@ -78,7 +78,7 @@ gameParser = do
   ps <- many1 (pullParser <* optional (string "; "))
   return
     Game
-      { iteration = iter,
+      { ident = iter,
         pulls = groupPulls ps
       }
 
@@ -90,9 +90,9 @@ parseLine =
 
 pullPossible :: Bag -> Pull -> GamePossible
 pullPossible (Bag b) (Pull p) =
-  if red b > red p
-    || green b > green p
-    || blue b > blue p
+  if red b < red p
+    || green b < green p
+    || blue b < blue p
     then Impossible
     else Possible
 
@@ -104,13 +104,13 @@ data GamePossible
 gamePossible :: Bag -> Game -> GamePossible
 gamePossible b (Game _ (ps :: [Pull])) =
   let gps :: [GamePossible]
-      gps =  map (pullPossible b) ps
+      gps = pullPossible b <$> ps
    in foldr
         ( \val soFar ->
             case (val, soFar) of
-              (Possible, Possible) -> Possible
               (_, Impossible) -> Impossible
               (Impossible, _) -> Impossible
+              (Possible, Possible) -> Possible
         )
         Possible
         gps

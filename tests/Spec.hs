@@ -120,7 +120,7 @@ day2 =
                 DayTwo.parseLine lineOne
                   @?= Right
                     Game
-                      { iteration = 1,
+                      { ident = 1,
                         pulls =
                           [ Pull Cubes {blue = 3, red = 4, green = 0},
                             Pull Cubes {blue = 6, red = 1, green = 2},
@@ -136,31 +136,22 @@ day2 =
                     Pull Cubes {red = 12, green = 13, blue = 14}
                   ]
                   @?= [Impossible, Impossible, Impossible, Possible],
-              testCase "sanity Check pullpossbile" $
-                ( let laterPulls =
-                        [ Pull Cubes {red = 12, green = 13, blue = 14},
-                          Pull Cubes {red = 0, green = 0, blue = 0}
-                        ]
-                      gps :: [GamePossible]
-                      gps = map (pullPossible standardBag) laterPulls
-                   in gps @?= [Possible, Possible]
-                ),
               testCase "is game possible?" $
                 map
                   (gamePossible standardBag)
-                  [ Game {iteration = 1, pulls = [Pull Cubes {red = 13, green = 0, blue = 0}]},
-                    Game {iteration = 1, pulls = [Pull Cubes {red = 0, green = 14, blue = 0}]},
-                    Game {iteration = 1, pulls = [Pull Cubes {red = 0, green = 0, blue = 15}]},
-                    Game {iteration = 1, pulls = [Pull Cubes {red = 12, green = 13, blue = 14}]},
+                  [ Game {ident = 1, pulls = [Pull Cubes {red = 13, green = 0, blue = 0}]},
+                    Game {ident = 1, pulls = [Pull Cubes {red = 0, green = 14, blue = 0}]},
+                    Game {ident = 1, pulls = [Pull Cubes {red = 0, green = 0, blue = 15}]},
+                    Game {ident = 1, pulls = [Pull Cubes {red = 12, green = 13, blue = 14}]},
                     Game
-                      { iteration = 1,
+                      { ident = 1,
                         pulls =
                           [ Pull Cubes {red = 12, green = 13, blue = 14},
                             Pull Cubes {red = 0, green = 0, blue = 0}
                           ]
                       },
                     Game
-                      { iteration = 1,
+                      { ident = 1,
                         pulls =
                           [ Pull Cubes {red = 12, green = 13, blue = 14},
                             Pull Cubes {red = 0, green = 0, blue = 15}
