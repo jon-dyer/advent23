@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, pullPossible, standardBag, sumPossibleGames)
+import DayTwo (Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, pullPossible, standardBag, sumPossibleGames)
 import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -101,64 +101,107 @@ day1 =
 
 day2 :: TestTree
 day2 =
-  testGroup
-    "day 2"
-    [ let testData =
-            toText
-              ( "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n\
-                \Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n\
-                \Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red\n\
-                \Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n\
-                \Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green" ::
-                  String
-              )
-          lineOne = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
-       in testGroup
-            "pt 1"
-            [ testCase "turn a line into data" $
-                DayTwo.parseLine lineOne
-                  @?= Right
-                    Game
-                      { ident = 1,
-                        pulls =
-                          [ Pull Cubes {blue = 3, red = 4, green = 0},
-                            Pull Cubes {blue = 6, red = 1, green = 2},
-                            Pull Cubes {blue = 0, red = 0, green = 2}
+  let testData =
+        toText
+          ( "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green\n\
+            \Game 2: 1 blue, 2 green; 3 green, 4 blue, 1 red; 1 green, 1 blue\n\
+            \Game 3: 8 green, 6 blue, 20 red; 5 blue, 4 red, 13 green; 5 green, 1 red\n\
+            \Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red\n\
+            \Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green" ::
+              String
+          )
+   in testGroup
+        "day 2"
+        [ let lineOne = "Game 1: 3 blue, 4 red; 1 red, 2 green, 6 blue; 2 green"
+           in testGroup
+                "pt 1"
+                [ testCase "turn a line into data" $
+                    DayTwo.parseLine lineOne
+                      @?= Right
+                        Game
+                          { ident = 1,
+                            pulls =
+                              [ Pull Cubes {blue = 3, red = 4, green = 0},
+                                Pull Cubes {blue = 6, red = 1, green = 2},
+                                Pull Cubes {blue = 0, red = 0, green = 2}
+                              ]
+                          },
+                  testCase "is pull possible?" $
+                    pullPossible standardBag
+                      <$> [ Pull Cubes {red = 13, green = 0, blue = 0},
+                            Pull Cubes {red = 0, green = 14, blue = 0},
+                            Pull Cubes {red = 0, green = 0, blue = 15},
+                            Pull Cubes {red = 12, green = 13, blue = 14}
                           ]
-                      },
-              testCase "is pull possible?" $
-                map
-                  (pullPossible standardBag)
-                  [ Pull Cubes {red = 13, green = 0, blue = 0},
-                    Pull Cubes {red = 0, green = 14, blue = 0},
-                    Pull Cubes {red = 0, green = 0, blue = 15},
-                    Pull Cubes {red = 12, green = 13, blue = 14}
-                  ]
-                  @?= [Impossible, Impossible, Impossible, Possible],
-              testCase "is game possible?" $
-                map
-                  (gamePossible standardBag)
-                  [ Game {ident = 1, pulls = [Pull Cubes {red = 13, green = 0, blue = 0}]},
-                    Game {ident = 1, pulls = [Pull Cubes {red = 0, green = 14, blue = 0}]},
-                    Game {ident = 1, pulls = [Pull Cubes {red = 0, green = 0, blue = 15}]},
-                    Game {ident = 1, pulls = [Pull Cubes {red = 12, green = 13, blue = 14}]},
-                    Game
-                      { ident = 1,
-                        pulls =
-                          [ Pull Cubes {red = 12, green = 13, blue = 14},
-                            Pull Cubes {red = 0, green = 0, blue = 0}
+                      @?= [Impossible, Impossible, Impossible, Possible],
+                  testCase "is game possible?" $
+                    gamePossible standardBag
+                      <$> [ Game {ident = 1, pulls = [Pull Cubes {red = 13, green = 0, blue = 0}]},
+                            Game {ident = 1, pulls = [Pull Cubes {red = 0, green = 14, blue = 0}]},
+                            Game {ident = 1, pulls = [Pull Cubes {red = 0, green = 0, blue = 15}]},
+                            Game {ident = 1, pulls = [Pull Cubes {red = 12, green = 13, blue = 14}]},
+                            Game
+                              { ident = 1,
+                                pulls =
+                                  [ Pull Cubes {red = 12, green = 13, blue = 14},
+                                    Pull Cubes {red = 0, green = 0, blue = 0}
+                                  ]
+                              },
+                            Game
+                              { ident = 1,
+                                pulls =
+                                  [ Pull Cubes {red = 12, green = 13, blue = 14},
+                                    Pull Cubes {red = 0, green = 0, blue = 15}
+                                  ]
+                              }
                           ]
-                      },
-                    Game
-                      { ident = 1,
-                        pulls =
-                          [ Pull Cubes {red = 12, green = 13, blue = 14},
-                            Pull Cubes {red = 0, green = 0, blue = 15}
-                          ]
-                      }
-                  ]
-                  @?= [Impossible, Impossible, Impossible, Possible, Possible, Impossible],
-              testCase "can sum game IDs correctly" $
-                sumPossibleGames standardBag testData @?= 8
+                      @?= [Impossible, Impossible, Impossible, Possible, Possible, Impossible],
+                  testCase "can sum game IDs correctly" $
+                    sumPossibleGames standardBag testData @?= 8
+                ],
+          testGroup
+            "pt 2"
+            [ testCase "find smallest possible" $
+                rights (parseLine <$> lines testData)
+                  @?= [ Game
+                          { ident = 1,
+                            pulls =
+                              [ Pull Cubes {red = 4, green = 0, blue = 3},
+                                Pull Cubes {red = 1, green = 2, blue = 6},
+                                Pull Cubes {red = 0, green = 2, blue = 0}
+                              ]
+                          },
+                        Game
+                          { ident = 2,
+                            pulls =
+                              [ Pull Cubes {red = 0, green = 2, blue = 1},
+                                Pull Cubes {red = 1, green = 3, blue = 4},
+                                Pull Cubes {red = 0, green = 1, blue = 1}
+                              ]
+                          },
+                        Game
+                          { ident = 3,
+                            pulls =
+                              [ Pull Cubes {red = 20, green = 8, blue = 6},
+                                Pull Cubes {red = 4, green = 13, blue = 5},
+                                Pull Cubes {red = 1, green = 5, blue = 0}
+                              ]
+                          },
+                        Game
+                          { ident = 4,
+                            pulls =
+                              [ Pull Cubes {red = 3, green = 1, blue = 6},
+                                Pull Cubes {red = 6, green = 3, blue = 0},
+                                Pull Cubes {red = 14, green = 3, blue = 15}
+                              ]
+                          },
+                        Game
+                          { ident = 5,
+                            pulls =
+                              [ Pull Cubes {red = 6, green = 3, blue = 1},
+                                Pull Cubes {red = 1, green = 2, blue = 2}
+                              ]
+                          }
+                      ]
             ]
-    ]
+        ]
