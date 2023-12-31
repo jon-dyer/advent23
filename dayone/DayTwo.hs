@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..)) where
+module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..), sumPossibleGames) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -114,3 +114,9 @@ gamePossible b (Game _ (ps :: [Pull])) =
         )
         Possible
         gps
+
+sumPossibleGames :: Bag -> Text -> Int
+sumPossibleGames b t =
+  let thing = rights (fmap parseLine (lines t))
+      possibles = filter (\g -> Possible == gamePossible b g) thing
+   in sum (ident <$> possibles)

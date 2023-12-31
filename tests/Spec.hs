@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, pullPossible)
+import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, pullPossible, sumPossibleGames)
 import DayTwo qualified
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -158,6 +158,8 @@ day2 =
                           ]
                       }
                   ]
-                  @?= [Impossible, Impossible, Impossible, Possible, Possible, Impossible]
+                  @?= [Impossible, Impossible, Impossible, Possible, Possible, Impossible],
+              testCase "can sum game IDs correctly" $
+                sumPossibleGames standardBag testData @?= 8
             ]
     ]
