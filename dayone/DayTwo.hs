@@ -121,4 +121,5 @@ sumPossibleGames b t =
       possibles = filter (\g -> Possible == gamePossible b g) thing
    in sum (ident <$> possibles)
 
+standardBag :: Bag
 standardBag = Bag Cubes {red = 12, green = 13, blue = 14}
