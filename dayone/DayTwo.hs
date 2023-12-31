@@ -117,7 +117,7 @@ gamePossible b (Game _ (ps :: [Pull])) =
 
 sumPossibleGames :: Bag -> Text -> Int
 sumPossibleGames b t =
-  let thing = rights (fmap parseLine (lines t))
+  let thing = rights (parseLine <$> lines t)
       possibles = filter (\g -> Possible == gamePossible b g) thing
    in sum (ident <$> possibles)
 

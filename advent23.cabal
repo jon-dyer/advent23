@@ -106,6 +106,7 @@ library dayone-lib
   hs-source-dirs:  dayone
   exposed-modules:
     DayOne
+    DayThree
     DayTwo
 
   build-depends:   parsec

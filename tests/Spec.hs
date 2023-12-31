@@ -1,4 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
+import DayThreeSpec (day3)
 import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, power, pullPossible, smallestBag, standardBag, sumPossibleGames, sumPowers)
 import Test.Tasty
 import Test.Tasty.HUnit
@@ -46,7 +47,7 @@ qcProps =
     -}
 
 unitTests :: TestTree
-unitTests = testGroup "days" [day1, day2]
+unitTests = testGroup "days" [day1, day2, day3]
 
 day1 :: TestTree
 day1 =
