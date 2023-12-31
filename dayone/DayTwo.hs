@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..), sumPossibleGames, standardBag) where
+module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..), sumPossibleGames, standardBag, smallestBag) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -123,3 +123,17 @@ sumPossibleGames b t =
 
 standardBag :: Bag
 standardBag = Bag Cubes {red = 12, green = 13, blue = 14}
+
+maxPull :: Pull -> Pull -> Pull
+maxPull (Pull p1) (Pull p2) =
+  Pull
+    ( Cubes
+        (max (red p1) (red p2))
+        (max (green p1) (green p2))
+        (max (blue p1) (blue p2))
+    )
+
+smallestBag :: Game -> Bag
+smallestBag (Game _ (ps :: [Pull])) =
+  let Pull mp = foldr maxPull (Pull (Cubes 0 0 0)) ps
+   in Bag mp

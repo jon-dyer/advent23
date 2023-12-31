@@ -1,6 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, pullPossible, standardBag, sumPossibleGames)
-import DayTwo qualified
+import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, pullPossible, smallestBag, standardBag, sumPossibleGames)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -162,46 +161,12 @@ day2 =
           testGroup
             "pt 2"
             [ testCase "find smallest possible" $
-                rights (parseLine <$> lines testData)
-                  @?= [ Game
-                          { ident = 1,
-                            pulls =
-                              [ Pull Cubes {red = 4, green = 0, blue = 3},
-                                Pull Cubes {red = 1, green = 2, blue = 6},
-                                Pull Cubes {red = 0, green = 2, blue = 0}
-                              ]
-                          },
-                        Game
-                          { ident = 2,
-                            pulls =
-                              [ Pull Cubes {red = 0, green = 2, blue = 1},
-                                Pull Cubes {red = 1, green = 3, blue = 4},
-                                Pull Cubes {red = 0, green = 1, blue = 1}
-                              ]
-                          },
-                        Game
-                          { ident = 3,
-                            pulls =
-                              [ Pull Cubes {red = 20, green = 8, blue = 6},
-                                Pull Cubes {red = 4, green = 13, blue = 5},
-                                Pull Cubes {red = 1, green = 5, blue = 0}
-                              ]
-                          },
-                        Game
-                          { ident = 4,
-                            pulls =
-                              [ Pull Cubes {red = 3, green = 1, blue = 6},
-                                Pull Cubes {red = 6, green = 3, blue = 0},
-                                Pull Cubes {red = 14, green = 3, blue = 15}
-                              ]
-                          },
-                        Game
-                          { ident = 5,
-                            pulls =
-                              [ Pull Cubes {red = 6, green = 3, blue = 1},
-                                Pull Cubes {red = 1, green = 2, blue = 2}
-                              ]
-                          }
+                smallestBag <$> rights (parseLine <$> lines testData)
+                  @?= [ Bag Cubes {red = 4, green = 2, blue = 6},
+                        Bag Cubes {red = 1, green = 3, blue = 4},
+                        Bag Cubes {red = 20, green = 13, blue = 6},
+                        Bag Cubes {red = 14, green = 3, blue = 15},
+                        Bag Cubes {red = 6, green = 3, blue = 2}
                       ]
             ]
         ]
