@@ -1,4 +1,4 @@
-module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..), sumPossibleGames, standardBag, smallestBag, powers) where
+module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..), sumPossibleGames, standardBag, smallestBag, power, sumPowers) where
 
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
@@ -138,6 +138,14 @@ smallestBag (Game _ (ps :: [Pull])) =
   let Pull mp = foldr maxPull (Pull (Cubes 0 0 0)) ps
    in Bag mp
 
-powers :: Bag -> Int
-powers (Bag g) =
+power :: Bag -> Int
+power (Bag g) =
   red g * green g * blue g
+
+sumPowers :: Text -> Int
+sumPowers t =
+  let games = rights (parseLine <$> lines t)
+      sb = smallestBag <$> games
+      ps = power <$> sb
+  in
+  sum ps

@@ -1,5 +1,5 @@
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
-import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, powers, pullPossible, smallestBag, standardBag, sumPossibleGames)
+import DayTwo (Bag (..), Cubes (..), Game (..), GamePossible (..), Pull (..), gamePossible, parseLine, power, pullPossible, smallestBag, standardBag, sumPossibleGames, sumPowers)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -169,7 +169,7 @@ day2 =
                         Bag Cubes {red = 6, green = 3, blue = 2}
                       ],
               testCase "find powers" $
-                powers . smallestBag
+                power . smallestBag
                   <$> rights (parseLine <$> lines testData)
                   @?= [ 48,
                         12,
@@ -178,6 +178,6 @@ day2 =
                         36
                       ],
               testCase "the sum, for completeness" $
-                sum  ( powers . smallestBag <$> rights (parseLine <$> lines testData)) @?= 2286
+                sumPowers testData @?= 2286
             ]
         ]
