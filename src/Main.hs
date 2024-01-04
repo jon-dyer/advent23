@@ -1,12 +1,16 @@
 module Main where
 
-import Main.Utf8 qualified as Utf8
+import DayOne (sumCalibrations, sumTextyCalis)
+import DayThree (day3pt1)
+import DayTwo (standardBag, sumPossibleGames, sumPowers)
 
--- |
--- Main entry point.
---
--- The `, run` script will invoke this function.
 main :: IO ()
 main = do
-  Utf8.withUtf8 $ do
-    putTextLn "Hello 🌎"
+  dayOneContent <- readFileText "inputs/day1.txt"
+  dayTwoContent <- readFileText "inputs/day2.txt"
+  dayThreeContent <- readFileText "inputs/day3.txt"
+  print (show (sumCalibrations dayOneContent))
+  print (show (sumTextyCalis dayOneContent))
+  print (show (sumPossibleGames standardBag dayTwoContent))
+  print (show (sumPowers dayTwoContent))
+  print ("day3pt1: " ++ show (day3pt1 dayThreeContent))

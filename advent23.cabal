@@ -94,16 +94,13 @@ executable advent23
   import:         shared
   main-is:        Main.hs
   hs-source-dirs: src
+  build-depends:
+    , days-lib
+    , parsec
 
-executable dayone
-  import:         shared
-  main-is:        Main.hs
-  build-depends:  parsec
-  hs-source-dirs: dayone
-
-library dayone-lib
+library days-lib
   import:          shared
-  hs-source-dirs:  dayone
+  hs-source-dirs:  days
   exposed-modules:
     DayOne
     DayThree
@@ -119,7 +116,7 @@ test-suite tests
   -- type:             detailed-0.9
   -- test-module:      Spec
   build-depends:
-    , dayone-lib
+    , days-lib
     , either
     , hedgehog
     , tasty

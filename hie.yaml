@@ -3,11 +3,8 @@ cradle:
     - path: "src/Main.hs"
       component: "advent23:exe:advent23"
 
-    - path: "dayone/Main.hs"
-      component: "advent23:exe:dayone"
-
-    - path: "dayone"
-      component: "advent23:lib:dayone-lib"
+    - path: "days"
+      component: "advent23:lib:days-lib"
 
     - path: "tests"
       component: "advent23:test:tests"

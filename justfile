@@ -12,7 +12,7 @@ repl *ARGS:
 
 # Autoformat the project tree
 fmt:
-    treefmt
+    nix fmt
 
 # Run ghcid -- auto-recompile and run `main` function
 run:
