@@ -1,3 +1,5 @@
+[![CI](https://github.com/jon-dyer/advent23/actions/workflows/ci.yaml/badge.svg)](https://github.com/jon-dyer/advent23/actions/workflows/ci.yaml)
+
 # haskell-template
 
 Get a Haskell development environment up and running quickly. Thanks to Nix, this template is optimized for a fully reproducible and friendly development environment. It is based on:
