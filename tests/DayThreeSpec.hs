@@ -64,6 +64,6 @@ day3 =
                             NumberCoord 9 1 3,
                             NumberCoord 9 5 7
                           ]
-                        @?= [True, False, True, True, True, False, True, True, True, True]
+                      @?= [True, False, True, True, True, False, True, True, True, True]
             ]
     ]

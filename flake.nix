@@ -90,7 +90,7 @@
             config.haskellProjects.default.outputs.devShell
             config.treefmt.build.devShell
           ];
-          nativeBuildInputs = with pkgs; [ just ];
+          nativeBuildInputs = with pkgs; [ just nixci ];
         };
       };
     };

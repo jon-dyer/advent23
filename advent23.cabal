@@ -114,6 +114,7 @@ library dayone-lib
 test-suite tests
   import:         shared
   type:           exitcode-stdio-1.0
+  other-modules:  DayThreeSpec
 
   -- type:             detailed-0.9
   -- test-module:      Spec
