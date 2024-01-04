@@ -7,6 +7,7 @@ module DayThree where
 import Data.Char (digitToInt, isDigit)
 import Data.List (maximum)
 import Data.List.NonEmpty (prependList)
+import Data.Map.Lazy (assocs)
 import Data.Map.Strict (insert, lookup)
 import Data.Sequence (mapWithIndex)
 import Relude.Unsafe (read)
@@ -25,6 +26,9 @@ data NumberCoord = NumberCoord
   }
   deriving stock (Show, Eq)
 
+data GearCoord = GearCoord Int Int
+  deriving stock (Show, Eq)
+
 defaultGrid :: Grid
 defaultGrid =
   Grid 0 0 mempty
@@ -37,6 +41,12 @@ data Datum = Digit Int | Symbol Char | Empty
 isSymbol :: Datum -> Bool
 isSymbol (Symbol _) = True
 isSymbol _ = False
+
+isSymbolOf :: Char -> Datum -> Bool
+isSymbolOf c (Symbol s)
+  | c == s = True
+  | otherwise = False
+isSymbolOf _ _ = False
 
 getNumber :: Grid -> NumberCoord -> Maybe Int
 getNumber g (NumberCoord r ca cb) =
@@ -135,3 +145,32 @@ symbolAdjacentNumbers g = mapMaybe (getNumber g) (filter (isSymbolAdjacent g) (f
 
 day3pt1 :: Text -> Int
 day3pt1 = sum . symbolAdjacentNumbers . consumeSchematic
+
+findPotentialGear :: Grid -> [GearCoord]
+findPotentialGear grid =
+  let pointies :: [((Int, Int), Datum)]
+      pointies = assocs $ points grid
+      symbols :: [((Int, Int), Datum)]
+      symbols = filter (isSymbolOf '*' . snd) pointies
+      coords = uncurry GearCoord . fst <$> symbols
+   in coords
+
+findGearAttachments :: Grid -> GearCoord -> [NumberCoord]
+findGearAttachments g (GearCoord sr sc) =
+  filter
+    ( \(NumberCoord r cSa cSo) ->
+        let tlr = r - 1
+            tlc = cSa - 1
+            brr = r + 1
+            brc = cSo + 1
+         in sr >= tlr && sr <= brr && sc >= tlc && sc <= brc
+    )
+    (findNumbers g)
+
+day3pt2 :: Text -> Int
+day3pt2 t =
+  let g = consumeSchematic t
+      attachments = findGearAttachments g <$> findPotentialGear g
+      actualGears = filter ((> 1) . length) attachments
+      products = map (product . mapMaybe (getNumber g)) actualGears
+   in sum products
