@@ -102,6 +102,7 @@ library days-lib
   import:          shared
   hs-source-dirs:  days
   exposed-modules:
+    DayFour
     DayOne
     DayThree
     DayTwo
@@ -111,7 +112,9 @@ library days-lib
 test-suite tests
   import:         shared
   type:           exitcode-stdio-1.0
-  other-modules:  DayThreeSpec
+  other-modules:
+    DayFourSpec
+    DayThreeSpec
 
   -- type:             detailed-0.9
   -- test-module:      Spec
