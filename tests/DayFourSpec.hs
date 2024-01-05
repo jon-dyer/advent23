@@ -1,6 +1,6 @@
 module DayFourSpec (day4) where
 
-import DayFour (Game (..), day4pt1, parseGame)
+import DayFour (Game (..), day4pt1, day4pt2, parseGame, parseGames, wins)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -26,5 +26,13 @@ day4 =
               testCase "parseFirstLine" $
                 parseGame "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
                   @?= Right (Game [41, 48, 83, 86, 17] [83, 86, 6, 31, 17, 9, 48, 53])
+            ],
+          testGroup
+            "pt 2"
+            [ testCase "all the way through" $
+                day4pt2 testData
+                  @?= 30,
+              testCase "wins are right" $
+                map wins (parseGames testData) @?= [4, 2, 2, 1, 0, 0]
             ]
         ]

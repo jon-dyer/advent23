@@ -18,6 +18,20 @@ day4pt1 input =
       points = score <$> games
    in sum points
 
+day4pt2 :: Text -> Int
+day4pt2 input =
+  let games :: [Game]
+      games = parseGames input
+      points :: [Int]
+      points = wins <$> games
+   in collect points
+
+collect :: [Int] -> Int
+collect [] = 0
+collect [_] = 1
+collect ws =
+  sum $ foldr (\val soFar -> 1 + sum (take val soFar) : soFar) [] ws
+
 parseGames :: Text -> [Game]
 parseGames t =
   rights $ parseGame <$> lines t
@@ -43,9 +57,12 @@ parseGame =
     gameParser
     empty
 
+wins :: Game -> Int
+wins (Game ws hs) =
+  length $ filter (`elem` ws) hs
+
 score :: Game -> Int
-score (Game ws hs) =
-  let matches = filter (`elem` ws) hs
-   in case length matches of
-        0 -> 0
-        n -> 2 ^ (n - 1)
+score g =
+  case wins g of
+    0 -> 0
+    n -> 2 ^ (n - 1)
