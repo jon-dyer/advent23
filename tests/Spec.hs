@@ -1,3 +1,4 @@
+import DayFiveSpec (day5)
 import DayFourSpec (day4)
 import DayOne (parseFirstNumber, parseLastNumber, readCalibration, readCalibrations, readTextyCali, readTextyCalis, sumCalibrations, sumTextyCalis)
 import DayThreeSpec (day3)
@@ -48,7 +49,7 @@ qcProps =
     -}
 
 unitTests :: TestTree
-unitTests = testGroup "days" [day1, day2, day3, day4]
+unitTests = testGroup "days" [day1, day2, day3, day4, day5]
 
 day1 :: TestTree
 day1 =

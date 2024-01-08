@@ -3,6 +3,7 @@ module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), p
 import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string, try)
 import Text.Parsec qualified as Parsec
+import Text.Parsec.Number (nat)
 
 data Cube
   = Red Int
@@ -60,7 +61,7 @@ addCubeCount (Blue val) (Pull pull) =
 
 cube :: forall {u}. Parsec.ParsecT Text u Identity Cube
 cube = do
-  val <- read <$> many1 digit
+  val <- nat
   spaces
   c <- cubeStr <$> (try (string "red") <|> try (string "blue") <|> string "green")
   return (c val)
@@ -73,7 +74,7 @@ gameParser :: forall {u}. Parsec.ParsecT Text u Identity Game
 gameParser = do
   _ <- string "Game"
   spaces
-  iter <- read <$> many1 digit
+  iter <- nat
   _ <- char ':' >> spaces
   ps <- many1 (pullParser <* optional (string "; "))
   return

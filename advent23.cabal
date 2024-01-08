@@ -102,17 +102,21 @@ library days-lib
   import:          shared
   hs-source-dirs:  days
   exposed-modules:
+    DayFive
     DayFour
     DayOne
     DayThree
     DayTwo
 
-  build-depends:   parsec
+  build-depends:
+    , parsec
+    , parsec3-numbers
 
 test-suite tests
   import:         shared
   type:           exitcode-stdio-1.0
   other-modules:
+    DayFiveSpec
     DayFourSpec
     DayThreeSpec
 
