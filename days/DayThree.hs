@@ -6,10 +6,10 @@ module DayThree where
 
 import Data.Char (digitToInt, isDigit)
 import Data.List (maximum)
-import Data.List.NonEmpty (prependList)
 import Data.Map.Lazy (assocs)
 import Data.Map.Strict (insert, lookup)
-import Data.Sequence (mapWithIndex)
+import Data.Sequence (Seq ((:|>)), mapWithIndex, (|>))
+import Data.Sequence qualified as Seq
 import Relude.Unsafe (read)
 
 data Grid = Grid
@@ -108,23 +108,26 @@ findNumbers (Grid rows cols ps) =
           c <- [0 .. cols]
           let coords = (r, c)
           return (coords, fromMaybe Empty (lookup coords ps))
-      myCoords :: ([NumberCoord], Datum)
+      myCoords :: (Seq NumberCoord, Datum)
       myCoords =
         foldr
-          ( \(((r, c), datum) :: ((Int, Int), Datum)) ((res, prev) :: ([NumberCoord], Datum)) ->
-              case (datum, nonEmpty res, prev) of
-                (Digit d, Nothing, Digit _) ->
-                  ([NumberCoord r c c], Digit d)
-                (Digit d, Just n, Digit _) ->
-                  let (NumberCoord oldR _ oldCS) = last n
-                      updatedCoord = NumberCoord oldR c oldCS
-                   in (toList $ prependList (init n) (updatedCoord :| []), Digit d)
-                (Digit d, _, _) -> (reverse (NumberCoord r c c : reverse res), Digit d)
-                (curr, _, _) -> (res, curr)
-          )
-          ([], Empty)
+          theFold
+          (Seq.Empty, Empty)
           sr
-   in reverse $ fst myCoords
+   in reverse $ toList $ fst myCoords
+
+theFold :: ((Int, Int), Datum) -> (Seq NumberCoord, Datum) -> (Seq NumberCoord, Datum)
+theFold (_, Empty) (sf, Empty) = (sf, Empty)
+theFold ((r, c), Digit d) (Seq.Empty, _) =
+  (NumberCoord r c c Seq.<| Seq.Empty, Digit d)
+theFold ((r, c), Digit d) (res, prev) =
+  case (res, prev) of
+    (begin :|> (NumberCoord oldR _ oldCS), Digit _) ->
+      let updatedCoord = NumberCoord oldR c oldCS
+       in (begin |> updatedCoord, Digit d)
+    (_, _) -> (res |> NumberCoord r c c, Digit d)
+theFold (_, datum) (res, _) =
+  (res, datum)
 
 isSymbolAdjacent :: Grid -> NumberCoord -> Bool
 isSymbolAdjacent g (NumberCoord r cmin cmax) =

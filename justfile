@@ -20,3 +20,6 @@ run:
 
 test:
     cabal test test:tests --test-show-details=streaming
+
+profile:
+    cabal v2-run --enable-profiling exes --  +RTS -p

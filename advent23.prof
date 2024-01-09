@@ -1,0 +1,111 @@
+	Tue Jan  9 15:57 2024 Time and Allocation Profiling Report  (Final)
+
+	   advent23 +RTS -p -RTS
+
+	total time  =        1.46 secs   (1463 ticks @ 1000 us, 1 processor)
+	total alloc = 1,185,279,320 bytes  (excludes profiling overheads)
+
+COST CENTRE      MODULE   SRC                                %time %alloc
+
+findNumbers      DayThree days/DayThree.hs:(103,1)-(117,37)   78.9   37.4
+theFold          DayThree days/DayThree.hs:(120,1)-(130,14)   10.9   44.2
+numbersParser    DayFour  days/DayFour.hs:(40,1)-(41,40)       3.8    8.3
+consumeSchematic DayThree days/DayThree.hs:(72,1)-(100,21)     2.7    4.9
+parseLine        DayTwo   days/DayTwo.hs:(86,1)-(89,9)         0.8    1.7
+parseLastNumber  DayOne   days/DayOne.hs:45:1-71               0.5    1.4
+
+
+                                                                                                    individual      inherited
+COST CENTRE              MODULE                SRC                               no.     entries  %time %alloc   %time %alloc
+
+MAIN                     MAIN                  <built-in>                        237           0    0.0    0.0   100.0  100.0
+ CAF                     GHC.Conc.Signal       <entire-module>                   414           0    0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.Encoding       <entire-module>                   379           0    0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.Encoding.Iconv <entire-module>                   377           0    0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.FD             <entire-module>                   370           0    0.0    0.0     0.0    0.0
+ CAF                     GHC.IO.Handle.FD      <entire-module>                   368           0    0.0    0.0     0.0    0.0
+ CAF                     GHC.Read              <entire-module>                   352           0    0.0    0.0     0.0    0.0
+ CAF                     Data.Text.Array       <entire-module>                   279           0    0.0    0.0     0.0    0.0
+ CAF                     Main                  <entire-module>                   248           0    0.0    0.0     0.0    0.0
+  main                   Main                  src/Main.hs:(9,1)-(21,54)         474           1    0.0    0.0     0.0    0.0
+ CAF                     DayFour               <entire-module>                   247           0    0.0    0.0     0.0    0.0
+  gameParser             DayFour               days/DayFour.hs:(44,1)-(52,14)    539           1    0.0    0.0     0.0    0.0
+  numbersParser          DayFour               days/DayFour.hs:(40,1)-(41,40)    541           1    0.0    0.0     0.0    0.0
+  parseGame              DayFour               days/DayFour.hs:(55,1)-(58,9)     537           1    0.0    0.0     0.0    0.0
+ CAF                     DayOne                <entire-module>                   246           0    0.0    0.0     0.0    0.0
+  parseFirstNumber       DayOne                days/DayOne.hs:42:1-56            484           1    0.0    0.0     0.0    0.0
+  parseLastNumber        DayOne                days/DayOne.hs:45:1-71            486           1    0.0    0.0     0.0    0.0
+  sumCalibrations        DayOne                days/DayOne.hs:75:1-40            476           1    0.0    0.0     0.0    0.0
+  sumTextyCalis          DayOne                days/DayOne.hs:78:1-36            480           1    0.0    0.0     0.0    0.0
+ CAF                     DayThree              <entire-module>                   245           0    0.0    0.0     0.0    0.0
+  day3pt1                DayThree              days/DayThree.hs:150:1-56         514           1    0.0    0.0     0.0    0.0
+ CAF                     DayTwo                <entire-module>                   244           0    0.0    0.0     0.0    0.0
+  parseLine              DayTwo                days/DayTwo.hs:(86,1)-(89,9)      489           1    0.0    0.0     0.0    0.0
+  standardBag            DayTwo                days/DayTwo.hs:125:1-57           492           1    0.0    0.0     0.0    0.0
+ main                    Main                  src/Main.hs:(9,1)-(21,54)         475           0    0.0    0.0   100.0  100.0
+  day3pt2                DayThree              days/DayThree.hs:(174,1)-(179,18) 525           1    0.0    0.0    91.9   84.2
+   getNumber             DayThree              days/DayThree.hs:(52,1)-(66,8)    533         654    0.3    0.3     0.3    0.3
+    gridAt               DayThree              days/DayThree.hs:69:1-61          534        1878    0.0    0.0     0.0    0.0
+   findGearAttachments   DayThree              days/DayThree.hs:(162,1)-(171,19) 530         374    0.5    0.0    90.2   81.4
+    findNumbers          DayThree              days/DayThree.hs:(103,1)-(117,37) 531         374   78.7   37.3    89.7   81.4
+     theFold             DayThree              days/DayThree.hs:(120,1)-(130,14) 532     7330400   10.9   44.1    10.9   44.1
+   consumeSchematic      DayThree              days/DayThree.hs:(72,1)-(100,21)  526           1    1.3    2.5     1.3    2.5
+   findPotentialGear     DayThree              days/DayThree.hs:(153,1)-(159,12) 527           1    0.1    0.1     0.1    0.1
+    isSymbolOf           DayThree              days/DayThree.hs:(46,1)-(49,22)   529       19600    0.0    0.0     0.0    0.0
+    points               DayThree              days/DayThree.hs:18:5-10          528           1    0.0    0.0     0.0    0.0
+  day4pt1                DayFour               days/DayFour.hs:(14,1)-(19,16)    535           1    0.0    0.0     2.1    4.3
+   score                 DayFour               days/DayFour.hs:(65,1)-(68,20)    543         206    0.0    0.0     0.1    0.0
+    wins                 DayFour               days/DayFour.hs:(61,1)-(62,32)    544         206    0.1    0.0     0.1    0.0
+   parseGames            DayFour               days/DayFour.hs:(36,1)-(37,32)    536           1    0.0    0.0     2.1    4.2
+    parseGame            DayFour               days/DayFour.hs:(55,1)-(58,9)     538           0    0.0    0.0     2.1    4.2
+     gameParser          DayFour               days/DayFour.hs:(44,1)-(52,14)    540           0    0.1    0.1     2.1    4.2
+      numbersParser      DayFour               days/DayFour.hs:(40,1)-(41,40)    542           0    1.9    4.2     1.9    4.2
+  day4pt2                DayFour               days/DayFour.hs:(22,1)-(27,20)    545           1    0.0    0.0     2.1    4.3
+   wins                  DayFour               days/DayFour.hs:(61,1)-(62,32)    551         206    0.1    0.0     0.1    0.0
+   collect               DayFour               days/DayFour.hs:(30,1)-(33,68)    546           1    0.1    0.0     0.1    0.0
+   parseGames            DayFour               days/DayFour.hs:(36,1)-(37,32)    547           1    0.0    0.0     1.9    4.2
+    parseGame            DayFour               days/DayFour.hs:(55,1)-(58,9)     548           0    0.0    0.0     1.9    4.2
+     gameParser          DayFour               days/DayFour.hs:(44,1)-(52,14)    549           0    0.0    0.1     1.9    4.2
+      numbersParser      DayFour               days/DayFour.hs:(40,1)-(41,40)    550           0    1.9    4.2     1.9    4.2
+  sumPossibleGames       DayTwo                days/DayTwo.hs:(119,1)-(122,31)   488           1    0.0    0.0     0.3    0.8
+   gamePossible          DayTwo                days/DayTwo.hs:(105,1)-(116,11)   491         100    0.0    0.0     0.0    0.0
+    pullPossible         DayTwo                days/DayTwo.hs:(92,1)-(97,17)     494         293    0.0    0.0     0.0    0.0
+     red                 DayTwo                days/DayTwo.hs:21:5-7             495         586    0.0    0.0     0.0    0.0
+     green               DayTwo                days/DayTwo.hs:22:5-9             496         532    0.0    0.0     0.0    0.0
+     blue                DayTwo                days/DayTwo.hs:23:5-8             498         502    0.0    0.0     0.0    0.0
+   ident                 DayTwo                days/DayTwo.hs:47:7-11            500          40    0.0    0.0     0.0    0.0
+   parseLine             DayTwo                days/DayTwo.hs:(86,1)-(89,9)      490           0    0.3    0.8     0.3    0.8
+    red                  DayTwo                days/DayTwo.hs:21:5-7             493         248    0.0    0.0     0.0    0.0
+    blue                 DayTwo                days/DayTwo.hs:23:5-8             499         236    0.0    0.0     0.0    0.0
+    green                DayTwo                days/DayTwo.hs:22:5-9             497         222    0.0    0.0     0.0    0.0
+  sumPowers              DayTwo                days/DayTwo.hs:(146,1)-(150,12)   501           1    0.0    0.0     0.5    0.9
+   power                 DayTwo                days/DayTwo.hs:(142,1)-(143,26)   510         100    0.0    0.0     0.0    0.0
+    blue                 DayTwo                days/DayTwo.hs:23:5-8             513         100    0.0    0.0     0.0    0.0
+    green                DayTwo                days/DayTwo.hs:22:5-9             512         100    0.0    0.0     0.0    0.0
+    red                  DayTwo                days/DayTwo.hs:21:5-7             511         100    0.0    0.0     0.0    0.0
+   smallestBag           DayTwo                days/DayTwo.hs:(137,1)-(139,12)   503         100    0.1    0.0     0.1    0.0
+    blue                 DayTwo                days/DayTwo.hs:23:5-8             508         898    0.0    0.0     0.0    0.0
+    green                DayTwo                days/DayTwo.hs:22:5-9             506         898    0.0    0.0     0.0    0.0
+    red                  DayTwo                days/DayTwo.hs:21:5-7             504         898    0.0    0.0     0.0    0.0
+   parseLine             DayTwo                days/DayTwo.hs:(86,1)-(89,9)      502           0    0.5    0.9     0.5    0.9
+    blue                 DayTwo                days/DayTwo.hs:23:5-8             509         409    0.0    0.0     0.0    0.0
+    red                  DayTwo                days/DayTwo.hs:21:5-7             505         390    0.0    0.0     0.0    0.0
+    green                DayTwo                days/DayTwo.hs:22:5-9             507         381    0.0    0.0     0.0    0.0
+  day3pt1                DayThree              days/DayThree.hs:150:1-56         515           0    0.0    0.0     2.1    3.2
+   consumeSchematic      DayThree              days/DayThree.hs:(72,1)-(100,21)  516           1    1.4    2.5     1.4    2.5
+   symbolAdjacentNumbers DayThree              days/DayThree.hs:147:1-94         517           1    0.0    0.0     0.7    0.7
+    isSymbolAdjacent     DayThree              days/DayThree.hs:(133,1)-(144,21) 520        1208    0.0    0.0     0.1    0.0
+     gridAt              DayThree              days/DayThree.hs:69:1-61          522       10186    0.1    0.0     0.1    0.0
+     isSymbol            DayThree              days/DayThree.hs:(42,1)-(43,18)   521       10186    0.0    0.0     0.0    0.0
+    getNumber            DayThree              days/DayThree.hs:(52,1)-(66,8)    523        1080    0.4    0.4     0.4    0.4
+     gridAt              DayThree              days/DayThree.hs:69:1-61          524        3109    0.0    0.0     0.0    0.0
+    findNumbers          DayThree              days/DayThree.hs:(103,1)-(117,37) 518           1    0.2    0.1     0.2    0.2
+     theFold             DayThree              days/DayThree.hs:(120,1)-(130,14) 519       19600    0.0    0.1     0.0    0.1
+  sumCalibrations        DayOne                days/DayOne.hs:75:1-40            477           0    0.0    0.0     0.1    0.0
+   readCalibrations      DayOne                days/DayOne.hs:(67,1)-(68,38)     478           1    0.0    0.0     0.1    0.0
+    readCalibration      DayOne                days/DayOne.hs:(58,1)-(64,37)     479        1000    0.1    0.0     0.1    0.0
+  sumTextyCalis          DayOne                days/DayOne.hs:78:1-36            481           0    0.0    0.0     0.8    2.4
+   readTextyCalis        DayOne                days/DayOne.hs:(71,1)-(72,36)     482           1    0.1    0.0     0.8    2.4
+    readTextyCali        DayOne                days/DayOne.hs:(48,1)-(55,32)     483        1000    0.0    0.0     0.8    2.3
+     parseFirstNumber    DayOne                days/DayOne.hs:42:1-56            485           0    0.2    0.9     0.2    0.9
+     parseLastNumber     DayOne                days/DayOne.hs:45:1-71            487           0    0.5    1.4     0.5    1.4
