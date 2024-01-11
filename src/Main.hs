@@ -1,6 +1,6 @@
 module Main where
 
-import DayFive (day5pt1)
+import DayFive (day5pt1, day5pt2)
 import DayFour (day4pt1, day4pt2)
 import DayOne (sumCalibrations, sumTextyCalis)
 import DayThree (day3pt1, day3pt2)
@@ -22,3 +22,5 @@ main = do
   print ("day4pt1: " ++ show (day4pt1 dayFourContent))
   print ("day4pt2: " ++ show (day4pt2 dayFourContent))
   print ("day5pt1: " ++ show (day5pt1 dayFiveContent))
+
+-- print ("day5pt2: " ++ show (day5pt2 dayFiveContent)) -- too slow and hot to run every time

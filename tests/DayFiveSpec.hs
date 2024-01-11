@@ -1,6 +1,6 @@
 module DayFiveSpec (day5) where
 
-import DayFive (Mapper (..), Range (..), Seed (..), day5pt1, parseIt, seedLocation, srcToDst)
+import DayFive (Range (..), Seed (..), SeedRange (..), day5pt1, day5pt2, dstToSrc, parseIt, parseItSeedRanges, seedLocation, srcToDst)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -54,30 +54,30 @@ day5 =
                 parseIt testData
                   @?= Right
                     ( Seed [79, 14, 55, 13],
-                      [ [ SeedToSoil (Range 50 98 2),
-                          SeedToSoil (Range 52 50 48)
+                      [ [ Range 50 51 98 99,
+                          Range 52 99 50 97
                         ],
-                        [ SoilToFertilizer (Range 0 15 37),
-                          SoilToFertilizer (Range 37 52 2),
-                          SoilToFertilizer (Range 39 0 15)
+                        [ Range 0 36 15 51,
+                          Range 37 38 52 53,
+                          Range 39 53 0 14
                         ],
-                        [ FertilizerToWater (Range 49 53 8),
-                          FertilizerToWater (Range 0 11 42),
-                          FertilizerToWater (Range 42 0 7),
-                          FertilizerToWater (Range 57 7 4)
+                        [ Range 49 56 53 60,
+                          Range 0 41 11 52,
+                          Range 42 48 0 6,
+                          Range 57 60 7 10
                         ],
-                        [ WaterToLight (Range 88 18 7),
-                          WaterToLight (Range 18 25 70)
+                        [ Range 88 94 18 24,
+                          Range 18 87 25 94
                         ],
-                        [ LightToTemp (Range 45 77 23),
-                          LightToTemp (Range 81 45 19),
-                          LightToTemp (Range 68 64 13)
+                        [ Range 45 67 77 99,
+                          Range 81 99 45 63,
+                          Range 68 80 64 76
                         ],
-                        [ TempToHumidity (Range 0 69 1),
-                          TempToHumidity (Range 1 0 69)
+                        [ Range 0 0 69 69,
+                          Range 1 69 0 68
                         ],
-                        [ HumidityToLocation (Range 60 56 37),
-                          HumidityToLocation (Range 56 93 4)
+                        [ Range 60 96 56 92,
+                          Range 56 59 93 96
                         ]
                       ]
                     ),
@@ -88,17 +88,60 @@ day5 =
                 let (Right (_, ms)) = parseIt testData
                  in seedLocation ms 13 @?= 35,
               testCase "src2dst" $
-                srcToDst 3 (Range 4 2 3) @?= 5,
+                srcToDst 3 (Range 4 6 2 4) @?= 5,
               testCase "src2dst2" $
-                srcToDst 5 (Range 2 4 3) @?= 3,
+                srcToDst 5 (Range 2 4 4 6) @?= 3,
               testCase "src2dst3" $
-                srcToDst 5 (Range 0 4 3) @?= 1,
+                srcToDst 5 (Range 0 2 4 6) @?= 1,
               testCase "src2dst4" $
-                srcToDst 1 (Range 2 0 3) @?= 3,
+                srcToDst 1 (Range 2 4 0 2) @?= 3,
               testCase "src2dst5" $
-                srcToDst 45 (Range 45 45 1) @?= 45
+                srcToDst 45 (Range 45 45 45 45) @?= 45
             ],
           testGroup
             "pt 2"
-            []
+            [ testCase "the seed as ranges" $
+                parseItSeedRanges testData
+                  @?= Right
+                    ( [SeedRange 79 92, SeedRange 55 67],
+                      [ [ Range 50 51 98 99,
+                          Range 52 99 50 97
+                        ],
+                        [ Range 0 36 15 51,
+                          Range 37 38 52 53,
+                          Range 39 53 0 14
+                        ],
+                        [ Range 49 56 53 60,
+                          Range 0 41 11 52,
+                          Range 42 48 0 6,
+                          Range 57 60 7 10
+                        ],
+                        [ Range 88 94 18 24,
+                          Range 18 87 25 94
+                        ],
+                        [ Range 45 67 77 99,
+                          Range 81 99 45 63,
+                          Range 68 80 64 76
+                        ],
+                        [ Range 0 0 69 69,
+                          Range 1 69 0 68
+                        ],
+                        [ Range 60 96 56 92,
+                          Range 56 59 93 96
+                        ]
+                      ]
+                    ),
+              testCase "the seed" $
+                day5pt2 testData @?= 46,
+              testCase "dst2src" $
+                dstToSrc 5 (Range 4 6 2 4) @?= 3,
+              testCase "dst2Src2" $
+                dstToSrc 3 (Range 2 4 4 6) @?= 5,
+              testCase "dst2src3" $
+                dstToSrc 1 (Range 0 2 4 6) @?= 5,
+              testCase "dst2src4" $
+                dstToSrc 3 (Range 2 4 0 2) @?= 1,
+              testCase "dst2src5" $
+                dstToSrc 45 (Range 45 45 45 45) @?= 45
+            ]
         ]

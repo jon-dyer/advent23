@@ -3,98 +3,137 @@
 {-# HLINT ignore "Use <$>" #-}
 module DayFive where
 
+import Control.Parallel.Strategies (parList, parMap, rdeepseq, rpar, using)
 import Data.Foldable (Foldable (minimum))
-import Text.Parsec (many1, spaces, string)
+import Text.Parsec (anyChar, many1, manyTill, spaces, string, try)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Number (nat)
 
 newtype Seed = Seed [Int]
   deriving stock (Eq, Show)
 
-data Range = Range
-  { destinationStart :: Int,
-    sourceStart :: Int,
-    rangeLength :: Int
-  }
+data Range where
+  Range ::
+    { destinationStart :: Int,
+      destinationStop :: Int,
+      sourceStart :: Int,
+      sourceStop :: Int
+    } ->
+    Range
   deriving stock (Eq, Show)
 
-data Mapper
-  = SeedToSoil Range
-  | SoilToFertilizer Range
-  | FertilizerToWater Range
-  | WaterToLight Range
-  | LightToTemp Range
-  | TempToHumidity Range
-  | HumidityToLocation Range
+data SeedRange where
+  SeedRange :: {start :: Int, stop :: Int} -> SeedRange
   deriving stock (Eq, Show)
 
-toRange :: Mapper -> Range
-toRange (SeedToSoil m) = m
-toRange (SoilToFertilizer m) = m
-toRange (FertilizerToWater m) = m
-toRange (WaterToLight m) = m
-toRange (LightToTemp m) = m
-toRange (TempToHumidity m) = m
-toRange (HumidityToLocation m) = m
+inputParser :: Parsec.ParsecT Text u Identity a -> Parsec.ParsecT Text u Identity (a, [[Range]])
+inputParser sp =
+  do
+    seed <- sp
+    ranges <- many1 parseMapRanges
+    return (seed, ranges)
 
-lineParser ::
-  forall {u}.
-  Parsec.ParsecT
-    Text
-    u
-    Identity
-    (Seed, [[Mapper]])
-lineParser =
+seedParser :: forall {u}. Parsec.ParsecT Text u Identity Seed
+seedParser =
   do
     _ <- string "seeds:"
     spaces
-    iter <- many1 $ nat <* optional spaces
-    stss <- parseMapRanges "seed-to-soil map:" SeedToSoil
-    stfs <- parseMapRanges "soil-to-fertilizer map:" SoilToFertilizer
-    ftws <- parseMapRanges "fertilizer-to-water map:" FertilizerToWater
-    wtls <- parseMapRanges "water-to-light map:" WaterToLight
-    ltts <- parseMapRanges "light-to-temperature map:" LightToTemp
-    tths <- parseMapRanges "temperature-to-humidity map:" TempToHumidity
-    htls <- parseMapRanges "humidity-to-location map:" HumidityToLocation
-    return (Seed iter, [stss, stfs, ftws, wtls, ltts, tths, htls])
+    ss <- many1 $ nat <* optional spaces
+    return $ Seed ss
 
-parseMapRanges :: String -> (Range -> a) -> Parsec.ParsecT Text u Identity [a]
-parseMapRanges header constructor =
+seedRangeParser :: forall {u}. Parsec.ParsecT Text u Identity [SeedRange]
+seedRangeParser =
   do
-    _ <- string header
+    _ <- string "seeds:"
+    spaces
+    many1 $ do
+      strt <- nat
+      spaces
+      stp <- nat <* optional spaces
+      return $ SeedRange strt (strt + stp - 1)
+
+parseMapRanges :: Parsec.ParsecT Text u Identity [Range]
+parseMapRanges =
+  do
+    _ <- manyTill anyChar $ try (string "map:")
     _ <- spaces
     many1 $ do
-      st <- nat <* spaces
-      sp <- nat <* spaces
+      dst <- nat <* spaces
+      sr <- nat <* spaces
       r <- nat <* spaces
-      return $ constructor (Range st sp r)
+      return $ Range dst (dst + r - 1) sr (sr + r - 1)
 
-parseIt :: Text -> Either Parsec.ParseError (Seed, [[Mapper]])
+parseIt :: Text -> Either Parsec.ParseError (Seed, [[Range]])
 parseIt =
   Parsec.parse
-    lineParser
+    (inputParser seedParser)
+    empty
+
+parseItSeedRanges :: Text -> Either Parsec.ParseError ([SeedRange], [[Range]])
+parseItSeedRanges =
+  Parsec.parse
+    (inputParser seedRangeParser)
     empty
 
 srcToDst :: Int -> Range -> Int
-srcToDst i (Range fd fs _) =
+srcToDst i (Range fd _ fs _) =
   i + (fd - fs)
 
-theOneTrueRange :: Int -> [Range] -> Range
-theOneTrueRange i rs =
-  fromMaybe (Range i i 0) (find (\(Range _ src l) -> i >= src && i < src + l) rs)
+dstToSrc :: Int -> Range -> Int
+dstToSrc i (Range fd _ fs _) =
+  i + (fs - fd)
 
-seedLocation :: [[Mapper]] -> Int -> Int
-seedLocation m i =
-  foldl'
-    findDestination
-    i
-    ((toRange <$>) <$> m)
+inStartRange :: Int -> Range -> Bool
+inStartRange i (Range _ _ ss se) = i >= ss && i <= se
 
-findDestination :: Int -> [Range] -> Int
-findDestination i a =
-  srcToDst i $ theOneTrueRange i a
+inDestRange :: Int -> Range -> Bool
+inDestRange i (Range ds de _ _) = i >= ds && i <= de
+
+inSeedRange :: Int -> SeedRange -> Bool
+inSeedRange i (SeedRange ss se) = i >= ss && i <= se
+
+mapSrcToDst :: Int -> [Range] -> Range
+mapSrcToDst i rs =
+  fromMaybe (Range i i i i) (find (inStartRange i) rs)
+
+mapDstToSrc :: Int -> [Range] -> Range
+mapDstToSrc i rs =
+  let found = listToMaybe (filter (inDestRange i) rs `using` parList rpar)
+   in fromMaybe (Range i i i i) found
+
+seedLocation :: [[Range]] -> Int -> Int
+seedLocation =
+  let findDestination :: Int -> [Range] -> Int
+      findDestination i' = (srcToDst i' . mapSrcToDst i')
+   in flip $ foldl' findDestination
+
+findSource :: [[Range]] -> Int -> Int
+findSource rs i =
+  let findDestination :: Int -> [Range] -> Int
+      findDestination i' =
+        (dstToSrc i' . mapDstToSrc i')
+   in foldl' findDestination i rs
 
 day5pt1 :: Text -> Int
 day5pt1 text =
   let Right (Seed seeds, maps) = parseIt text
-   in minimum $ map (seedLocation maps) seeds
+   in minimum $ seedLocation maps <$> seeds
+
+basicForLoop :: [[Range]] -> Int -> Int -> Int -> Int
+basicForLoop ms prev current stp
+  | current > stp = min prev (seedLocation ms current)
+  | otherwise = basicForLoop ms (min (seedLocation ms current) prev) (current + 1) stp
+
+pt2 :: [SeedRange] -> [[Range]] -> Int -> Int
+pt2 seedRanges maps i =
+  let isSeed :: Bool
+      isSeed = or $ parMap rdeepseq (inSeedRange src) seedRanges
+      src = findSource maps i
+   in if isSeed
+        then i
+        else pt2 seedRanges maps (i + 1)
+
+day5pt2 :: Text -> Int
+day5pt2 text =
+  let Right (seedRanges, maps) = parseItSeedRanges text
+   in pt2 seedRanges (reverse maps) 0

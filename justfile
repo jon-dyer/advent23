@@ -16,10 +16,10 @@ fmt:
 
 # Run ghcid -- auto-recompile and run `main` function
 run:
-    ghcid -c "cabal repl exe:advent23" --warnings -T :main
+    ghcid -c "cabal repl exe:advent23 +RTS -N" --warnings -T :main
 
 test:
     cabal test test:tests --test-show-details=streaming
 
 profile:
-    cabal v2-run --enable-profiling exes --  +RTS -p
+    cabal v2-run --enable-profiling exes --  +RTS -N -p
