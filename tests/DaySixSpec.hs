@@ -1,6 +1,6 @@
 module DaySixSpec (day6) where
 
-import DaySix (Race (..), day6pt1, parseIt)
+import DaySix (Race (..), day6pt1, day6pt2, parseIt, parseSpaced)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -29,5 +29,9 @@ day6 =
             ],
           testGroup
             "pt 2"
-            []
+            [ testCase "all the way through" $
+                day6pt2 testData @?= "71503",
+              testCase "parse pt 2" $
+                parseSpaced testData @?= Right (Race 71530 940200)
+            ]
         ]
