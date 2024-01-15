@@ -105,6 +105,7 @@ library days-lib
     DayFive
     DayFour
     DayOne
+    DaySix
     DayThree
     DayTwo
 
@@ -119,6 +120,7 @@ test-suite tests
   other-modules:
     DayFiveSpec
     DayFourSpec
+    DaySixSpec
     DayThreeSpec
 
   -- type:             detailed-0.9
