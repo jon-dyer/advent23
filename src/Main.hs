@@ -1,6 +1,5 @@
 module Main where
 
-import Data.Aeson.Key (fromText)
 import Data.Text (append)
 import DayFive (day5pt1, day5pt2)
 import DayFour (day4pt1, day4pt2)

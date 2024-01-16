@@ -40,7 +40,7 @@ numbers =
 
 spacyNumber :: forall {u}. Parsec.ParsecT Text u Identity Int
 spacyNumber =
-  fmap read (many1 (digit <* spaces))
+  read <$> many1 (digit <* spaces)
 
 racesParser :: Parsec.Parsec Text () [Race]
 racesParser =
