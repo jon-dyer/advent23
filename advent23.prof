@@ -1,139 +1,81 @@
-	Mon Jan 15 04:39 2024 Time and Allocation Profiling Report  (Final)
+	Wed Jan 17 22:09 2024 Time and Allocation Profiling Report  (Final)
 
 	   advent23 +RTS -N -p -RTS
 
-	total time  =      452.84 secs   (1544217 ticks @ 1000 us, 12 processors)
-	total alloc = 678,435,732,760 bytes  (excludes profiling overheads)
+	total time  =        0.03 secs   (111 ticks @ 1000 us, 12 processors)
+	total alloc = 171,590,608 bytes  (excludes profiling overheads)
 
-COST CENTRE MODULE                      SRC                                              %time %alloc
+COST CENTRE MODULE             SRC                                     %time %alloc
 
-mapDstToSrc DayFive                     days/DayFive.hs:(100,1)-(102,37)                  41.2   12.6
-inDestRange DayFive                     days/DayFive.hs:90:1-52                           12.0    0.0
-pt2         DayFive                     days/DayFive.hs:(128,1)-(134,40)                   7.7   12.5
-runEval     Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42            6.9    4.4
-parEval     Control.Parallel.Strategies Control/Parallel/Strategies.hs:(513,1)-(518,28)    6.8   17.4
-MAIN        MAIN                        <built-in>                                         5.5    0.0
-rparWith    Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32            5.1   21.5
-parList     Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24            3.9    6.5
-findSource  DayFive                     days/DayFive.hs:(111,1)-(115,33)                   2.7    0.3
-parMap      Control.Parallel.Strategies Control/Parallel/Strategies.hs:616:1-48            2.5   13.4
-using       Control.Parallel.Strategies Control/Parallel/Strategies.hs:338:1-35            2.2    7.8
-rdeepseq    Control.Parallel.Strategies Control/Parallel/Strategies.hs:450:1-38            1.7    3.6
-inSeedRange DayFive                     days/DayFive.hs:93:1-52                            1.5    0.0
+categorize  DaySeven           days/DaySeven.hs:(46,1)-(75,19)          65.8   53.8
+parseCard   DaySeven           days/DaySeven.hs:(110,1)-(128,25)        22.5   38.4
+sortEm      DaySeven           days/DaySeven.hs:(81,1)-(89,37)           2.7    0.8
+zeroNumber  Text.Parsec.Number Text/Parsec/Number.hs:(320,1)-(321,56)    2.7    1.4
+MAIN        MAIN               <built-in>                                1.8    0.1
+decimal     Text.Parsec.Number Text/Parsec/Number.hs:302:1-25            1.8    3.0
 
 
-                                                                                                                           individual      inherited
-COST CENTRE                 MODULE                      SRC                                             no.     entries  %time %alloc   %time %alloc
+                                                                                                    individual      inherited
+COST CENTRE         MODULE                SRC                                    no.     entries  %time %alloc   %time %alloc
 
-MAIN                        MAIN                        <built-in>                                      204           0    5.5    0.0   100.0  100.0
- CAF                        GHC.Conc.Signal             <entire-module>                                 355           0    0.0    0.0     0.0    0.0
- CAF                        GHC.Event.Thread            <entire-module>                                 340           0    0.0    0.0     0.0    0.0
- CAF                        GHC.IO.Encoding             <entire-module>                                 321           0    0.0    0.0     0.0    0.0
- CAF                        GHC.IO.Encoding.Iconv       <entire-module>                                 319           0    0.0    0.0     0.0    0.0
- CAF                        GHC.IO.FD                   <entire-module>                                 312           0    0.0    0.0     0.0    0.0
- CAF                        GHC.IO.Handle.FD            <entire-module>                                 310           0    0.0    0.0     0.0    0.0
- CAF                        Control.Parallel.Strategies <entire-module>                                 246           0    0.0    0.0     0.0    0.0
-  parList                   Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         418           1    0.0    0.0     0.0    0.0
-  runEval                   Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         414           1    0.0    0.0     0.0    0.0
- CAF                        Text.Parsec.Number          <entire-module>                                 245           0    0.0    0.0     0.0    0.0
- CAF                        Data.Text.Array             <entire-module>                                 237           0    0.0    0.0     0.0    0.0
- CAF                        Main                        <entire-module>                                 212           0    0.0    0.0     0.0    0.0
-  main                      Main                        src/Main.hs:(10,1)-(25,54)                      408           1    0.0    0.0     0.0    0.0
- CAF                        DayFive                     <entire-module>                                 211           0    0.0    0.0     0.0    0.0
-  parseItSeedRanges         DayFive                     days/DayFive.hs:(73,1)-(76,9)                   421           1    0.0    0.0     0.0    0.0
-   inputParser              DayFive                     days/DayFive.hs:(30,1)-(34,25)                  423           1    0.0    0.0     0.0    0.0
-  parseMapRanges            DayFive                     days/DayFive.hs:(56,1)-(64,54)                  439           1    0.0    0.0     0.0    0.0
-   nat                      Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  441           1    0.0    0.0     0.0    0.0
-    decimal                 Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  444           1    0.0    0.0     0.0    0.0
-     number                 Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          445           1    0.0    0.0     0.0    0.0
-      numberValue           Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          448           1    0.0    0.0     0.0    0.0
-    zeroNumber              Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          442           1    0.0    0.0     0.0    0.0
-  seedRangeParser           DayFive                     days/DayFive.hs:(45,1)-(53,46)                  425           1    0.0    0.0     0.0    0.0
-   nat                      Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  427           1    0.0    0.0     0.0    0.0
-    decimal                 Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  431           1    0.0    0.0     0.0    0.0
-     number                 Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          432           1    0.0    0.0     0.0    0.0
-      numberValue           Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          435           1    0.0    0.0     0.0    0.0
-    zeroNumber              Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          429           1    0.0    0.0     0.0    0.0
-  mapDstToSrc               DayFive                     days/DayFive.hs:(100,1)-(102,37)                482           0    0.0    0.0     0.0    0.0
-   parList                  Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         483           0    0.0    0.0     0.0    0.0
-    rparWith                Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32         486           1    0.0    0.0     0.0    0.0
-  pt2                       DayFive                     days/DayFive.hs:(128,1)-(134,40)                416           0    0.0    0.0     0.0    0.0
-   parMap                   Control.Parallel.Strategies Control/Parallel/Strategies.hs:616:1-48         417           0    0.0    0.0     0.0    0.0
-    parList                 Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         419           0    0.0    0.0     0.0    0.0
-     rparWith               Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32         470           1    0.0    0.0     0.0    0.0
- main                       Main                        src/Main.hs:(10,1)-(25,54)                      409           0    0.0    0.0    94.5  100.0
-  day5pt2                   DayFive                     days/DayFive.hs:(137,1)-(143,33)                410           1    0.0    0.0    94.5  100.0
-   pt2                      DayFive                     days/DayFive.hs:(128,1)-(134,40)                411    99751241    7.7   12.5    94.5  100.0
-    findSource              DayFive                     days/DayFive.hs:(111,1)-(115,33)                478   120870257    2.7    0.3    69.3   43.7
-     dstToSrc               DayFive                     days/DayFive.hs:(83,1)-(84,15)                  490   845473951    0.0    0.0     0.0    0.0
-     mapDstToSrc            DayFive                     days/DayFive.hs:(100,1)-(102,37)                479   845364386   41.2   12.6    66.6   43.4
-      inDestRange           DayFive                     days/DayFive.hs:90:1-52                         485 20280034362   12.0    0.0    12.0    0.0
-      using                 Control.Parallel.Strategies Control/Parallel/Strategies.hs:338:1-35         480   846661611    1.9    7.0     3.2    7.0
-       runEval              Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         481           0    1.3    0.0     1.3    0.0
-      parList               Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         484           0    2.1    3.0    10.2   23.8
-       parMap               Control.Parallel.Strategies Control/Parallel/Strategies.hs:616:1-48         506           0    0.0    0.0     0.0    0.0
-        inSeedRange         DayFive                     days/DayFive.hs:93:1-52                         507           0    0.0    0.0     0.0    0.0
-       rparWith             Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32         487           0    2.7   10.9     8.1   20.8
-        parEval             Control.Parallel.Strategies Control/Parallel/Strategies.hs:(513,1)-(518,28) 488   845781953    3.0    7.9     5.4    9.9
-         runEval            Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         489           0    2.4    2.0     2.4    2.0
-    parMap                  Control.Parallel.Strategies Control/Parallel/Strategies.hs:616:1-48         412    99751241    2.5   13.4    17.5   43.8
-     inSeedRange            DayFive                     days/DayFive.hs:93:1-52                         477  1018356489    1.5    0.0     1.5    0.0
-      dstToSrc              DayFive                     days/DayFive.hs:(83,1)-(84,15)                  499          94    0.0    0.0     0.0    0.0
-      mapDstToSrc           DayFive                     days/DayFive.hs:(100,1)-(102,37)                491          94    0.0    0.0     0.0    0.0
-       inDestRange          DayFive                     days/DayFive.hs:90:1-52                         495        2258    0.0    0.0     0.0    0.0
-       using                Control.Parallel.Strategies Control/Parallel/Strategies.hs:338:1-35         492          94    0.0    0.0     0.0    0.0
-        runEval             Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         493           0    0.0    0.0     0.0    0.0
-       parList              Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         494           0    0.0    0.0     0.0    0.0
-        rparWith            Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32         496           0    0.0    0.0     0.0    0.0
-         parEval            Control.Parallel.Strategies Control/Parallel/Strategies.hs:(513,1)-(518,28) 497          98    0.0    0.0     0.0    0.0
-          runEval           Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         498           0    0.0    0.0     0.0    0.0
-      findSource            DayFive                     days/DayFive.hs:(111,1)-(115,33)                500           0    0.0    0.0     0.0    0.0
-       mapDstToSrc          DayFive                     days/DayFive.hs:(100,1)-(102,37)                501           0    0.0    0.0     0.0    0.0
-        parList             Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         502           0    0.0    0.0     0.0    0.0
-         rparWith           Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32         503           0    0.0    0.0     0.0    0.0
-          parEval           Control.Parallel.Strategies Control/Parallel/Strategies.hs:(513,1)-(518,28) 504           0    0.0    0.0     0.0    0.0
-           runEval          Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         505           0    0.0    0.0     0.0    0.0
-     using                  Control.Parallel.Strategies Control/Parallel/Strategies.hs:338:1-35         413    99751241    0.3    0.8     0.6    0.8
-      runEval               Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         415           0    0.3    0.0     0.3    0.0
-     parList                Control.Parallel.Strategies Control/Parallel/Strategies.hs:552:1-24         420           0    1.8    3.5    12.8   29.6
-      rparWith              Control.Parallel.Strategies Control/Parallel/Strategies.hs:494:1-32         471           0    2.4   10.6    11.0   26.1
-       parEval              Control.Parallel.Strategies Control/Parallel/Strategies.hs:(513,1)-(518,28) 472   997512410    3.9    9.5     8.6   15.5
-        runEval             Control.Parallel.Strategies Control/Parallel/Strategies.hs:219:1-42         473           0    2.9    2.4     4.7    6.0
-         rdeepseq           Control.Parallel.Strategies Control/Parallel/Strategies.hs:450:1-38         475           0    1.7    3.6     1.9    3.6
-          rseq              Control.Parallel.Strategies Control/Parallel/Strategies.hs:429:1-26         476  1021186798    0.2    0.0     0.2    0.0
-       rdeepseq             Control.Parallel.Strategies Control/Parallel/Strategies.hs:450:1-38         474   997187561    0.0    0.0     0.0    0.0
-   parseItSeedRanges        DayFive                     days/DayFive.hs:(73,1)-(76,9)                   422           0    0.0    0.0     0.0    0.0
-    inputParser             DayFive                     days/DayFive.hs:(30,1)-(34,25)                  424           0    0.0    0.0     0.0    0.0
-     seedRangeParser        DayFive                     days/DayFive.hs:(45,1)-(53,46)                  426           0    0.0    0.0     0.0    0.0
-      nat                   Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  428           0    0.0    0.0     0.0    0.0
-       decimal              Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  433           0    0.0    0.0     0.0    0.0
-        number              Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          434           0    0.0    0.0     0.0    0.0
-         numberValue        Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          436           0    0.0    0.0     0.0    0.0
-          parseMapRanges    DayFive                     days/DayFive.hs:(56,1)-(64,54)                  449           0    0.0    0.0     0.0    0.0
-         parseMapRanges     DayFive                     days/DayFive.hs:(56,1)-(64,54)                  447           0    0.0    0.0     0.0    0.0
-          zeroNumber        Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          451           0    0.0    0.0     0.0    0.0
-           hexOrOct         Text.Parsec.Number          Text/Parsec/Number.hs:325:1-32                  464           0    0.0    0.0     0.0    0.0
-            hexadecimal     Text.Parsec.Number          Text/Parsec/Number.hs:329:1-34                  465           0    0.0    0.0     0.0    0.0
-             octal          Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  466           0    0.0    0.0     0.0    0.0
-         zeroNumber         Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          450           0    0.0    0.0     0.0    0.0
-          hexOrOct          Text.Parsec.Number          Text/Parsec/Number.hs:325:1-32                  461           0    0.0    0.0     0.0    0.0
-           hexadecimal      Text.Parsec.Number          Text/Parsec/Number.hs:329:1-34                  462           0    0.0    0.0     0.0    0.0
-            octal           Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  463           0    0.0    0.0     0.0    0.0
-        zeroNumber          Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          437           0    0.0    0.0     0.0    0.0
-         number             Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          438           0    0.0    0.0     0.0    0.0
-          parseMapRanges    DayFive                     days/DayFive.hs:(56,1)-(64,54)                  440           0    0.0    0.0     0.0    0.0
-       parseMapRanges       DayFive                     days/DayFive.hs:(56,1)-(64,54)                  443           0    0.0    0.0     0.0    0.0
-       zeroNumber           Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          430           0    0.0    0.0     0.0    0.0
-        decimal             Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  456          14    0.0    0.0     0.0    0.0
-         number             Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          457          14    0.0    0.0     0.0    0.0
-        hexOrOct            Text.Parsec.Number          Text/Parsec/Number.hs:325:1-32                  452          14    0.0    0.0     0.0    0.0
-         hexadecimal        Text.Parsec.Number          Text/Parsec/Number.hs:329:1-34                  453          14    0.0    0.0     0.0    0.0
-          octal             Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  455           0    0.0    0.0     0.0    0.0
-           decimal          Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  458           0    0.0    0.0     0.0    0.0
-            number          Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          459           0    0.0    0.0     0.0    0.0
-             parseMapRanges DayFive                     days/DayFive.hs:(56,1)-(64,54)                  460           0    0.0    0.0     0.0    0.0
-         octal              Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  454          14    0.0    0.0     0.0    0.0
-        number              Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          467           0    0.0    0.0     0.0    0.0
-         parseMapRanges     DayFive                     days/DayFive.hs:(56,1)-(64,54)                  468           0    0.0    0.0     0.0    0.0
-          decimal           Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  469           0    0.0    0.0     0.0    0.0
-        parseMapRanges      DayFive                     days/DayFive.hs:(56,1)-(64,54)                  446           0    0.0    0.0     0.0    0.0
+MAIN                MAIN                  <built-in>                             202           0    1.8    0.1   100.0  100.0
+ CAF                GHC.Conc.Signal       <entire-module>                        351           0    0.0    0.0     0.0    0.0
+ CAF                GHC.Event.Thread      <entire-module>                        336           0    0.0    0.0     0.0    0.0
+ CAF                GHC.IO.Encoding       <entire-module>                        317           0    0.0    0.0     0.0    0.0
+ CAF                GHC.IO.Encoding.Iconv <entire-module>                        315           0    0.0    0.0     0.0    0.0
+ CAF                GHC.IO.FD             <entire-module>                        308           0    0.0    0.0     0.0    0.0
+ CAF                GHC.IO.Handle.FD      <entire-module>                        306           0    0.0    0.0     0.0    0.0
+ CAF                Data.Text.Array       <entire-module>                        235           0    0.0    0.0     0.0    0.0
+ CAF                Main                  <entire-module>                        210           0    0.0    0.0     0.0    0.0
+  main              Main                  src/Main.hs:(13,1)-(36,37)             404           1    0.0    0.0     0.0    0.0
+ CAF                DaySeven              <entire-module>                        209           0    0.0    0.0     0.0    0.0
+  sortEm            DaySeven              days/DaySeven.hs:(81,1)-(89,37)        429           1    0.0    0.0     0.0    0.0
+  day7pt1           DaySeven              days/DaySeven.hs:(25,1)-(27,40)        408           0    0.0    0.0     0.0    0.0
+   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         409           0    0.0    0.0     0.0    0.0
+    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        410           1    0.0    0.0     0.0    0.0
+     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      412           1    0.0    0.0     0.0    0.0
+  day7pt2           DaySeven              days/DaySeven.hs:(30,1)-(38,11)        436           0    0.0    0.0     0.0    0.0
+   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         437           0    0.0    0.0     0.0    0.0
+    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        438           1    0.0    0.0     0.0    0.0
+     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      440           1    0.0    0.0     0.0    0.0
+  parseHandBids     DaySeven              days/DaySeven.hs:(98,1)-(107,7)        414           0    0.0    0.0     0.0    0.0
+   nat              Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         415           1    0.0    0.0     0.0    0.0
+    decimal         Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         419           1    0.0    0.0     0.0    0.0
+     number         Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 420           1    0.0    0.0     0.0    0.0
+      numberValue   Text.Parsec.Number    Text/Parsec/Number.hs:(348,1)-(349,74) 423           1    0.0    0.0     0.0    0.0
+    zeroNumber      Text.Parsec.Number    Text/Parsec/Number.hs:(320,1)-(321,56) 417           1    0.0    0.0     0.0    0.0
+ main               Main                  src/Main.hs:(13,1)-(36,37)             405           0    0.9    0.0    98.2   99.9
+  day7pt1           DaySeven              days/DaySeven.hs:(25,1)-(27,40)        406           1    0.0    0.0    50.5   51.1
+   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         407           1    0.0    0.0    14.4   22.4
+    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        411           0    0.0    0.1    14.4   22.4
+     nat            Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         416           0    0.0    0.1     4.5    3.9
+      decimal       Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         421           0    1.8    1.5     2.7    3.2
+       number       Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 422           0    0.9    0.4     0.9    1.6
+        numberValue Text.Parsec.Number    Text/Parsec/Number.hs:(348,1)-(349,74) 424           0    0.0    0.4     0.0    0.4
+        parseCard   DaySeven              days/DaySeven.hs:(110,1)-(128,25)      425           0    0.0    0.8     0.0    0.8
+      zeroNumber    Text.Parsec.Number    Text/Parsec/Number.hs:(320,1)-(321,56) 418           0    1.8    0.7     1.8    0.7
+     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      413           0    9.9   18.4     9.9   18.4
+      nat           Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         426           0    0.0    0.0     0.0    0.0
+       decimal      Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         427           0    0.0    0.0     0.0    0.0
+        number      Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 428           0    0.0    0.0     0.0    0.0
+   priceEm          DaySeven              days/DaySeven.hs:41:1-73               433           1    0.0    0.2     0.0    0.2
+   sortEm           DaySeven              days/DaySeven.hs:(81,1)-(89,37)        430           0    1.8    0.4    36.0   28.5
+    handNo          DaySeven              days/DaySeven.hs:78:1-28               432       20170    0.0    0.0     0.0    0.0
+    categorize      DaySeven              days/DaySeven.hs:(46,1)-(75,19)        431       18546   34.2   28.1    34.2   28.1
+  day7pt2           DaySeven              days/DaySeven.hs:(30,1)-(38,11)        434           1    0.0    0.0    46.8   48.8
+   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         435           1    0.0    0.0    14.4   22.4
+    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        439           0    0.0    0.1    14.4   22.4
+     nat            Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         442           0    0.0    0.1     3.6    3.9
+      decimal       Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         444           0    0.0    1.5     2.7    3.2
+       number       Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 445           0    0.0    0.4     2.7    1.6
+        numberValue Text.Parsec.Number    Text/Parsec/Number.hs:(348,1)-(349,74) 446           0    0.9    0.4     0.9    0.4
+        parseCard   DaySeven              days/DaySeven.hs:(110,1)-(128,25)      447           0    1.8    0.8     1.8    0.8
+      zeroNumber    Text.Parsec.Number    Text/Parsec/Number.hs:(320,1)-(321,56) 443           0    0.9    0.7     0.9    0.7
+     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      441           0   10.8   18.4    10.8   18.4
+      nat           Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         448           0    0.0    0.0     0.0    0.0
+       decimal      Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         449           0    0.0    0.0     0.0    0.0
+        number      Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 450           0    0.0    0.0     0.0    0.0
+   priceEm          DaySeven              days/DaySeven.hs:41:1-73               454           1    0.0    0.2     0.0    0.2
+   sortEm           DaySeven              days/DaySeven.hs:(81,1)-(89,37)        451           0    0.9    0.4    32.4   26.1
+    categorize      DaySeven              days/DaySeven.hs:(46,1)-(75,19)        452       24534   31.5   25.7    31.5   25.7
+    handNo          DaySeven              days/DaySeven.hs:78:1-28               453       19846    0.0    0.0     0.0    0.0

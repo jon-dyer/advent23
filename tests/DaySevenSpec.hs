@@ -23,17 +23,17 @@ day7 =
             [ testCase "all the way through" $
                 day7pt1 testData @?= "6440",
               testCase "parseIt" $
-                parseIt testData
+                parseIt Jack testData
                   @?= Right
                     [ (Hand [Three, Two, T, Three, K], Bid 765),
-                      (Hand [T, Five, Five, J, Five], Bid 684),
+                      (Hand [T, Five, Five, Ja, Five], Bid 684),
                       (Hand [K, K, Six, Seven, Seven], Bid 28),
-                      (Hand [K, T, J, J, T], Bid 220),
-                      (Hand [Q, Q, Q, J, A], Bid 483)
+                      (Hand [K, T, Ja, Ja, T], Bid 220),
+                      (Hand [Q, Q, Q, Ja, A], Bid 483)
                     ],
               testCase "categorize" $
-                let thing = parseIt testData
-                 in (categorize Jack . fst <$>) <$> thing
+                let thing = parseIt Jack testData
+                 in (categorize . fst <$>) <$> thing
                       @?= Right
                         [ Pair,
                           ThreeOf,
@@ -42,14 +42,14 @@ day7 =
                           ThreeOf
                         ],
               testCase "sortEm actually right" $
-                let thing = parseIt testData
-                 in sortEm Jack <$> thing
+                let thing = parseIt Jack testData
+                 in sortEm <$> thing
                       @?= Right
                         [ (Hand [Three, Two, T, Three, K], Bid 765),
-                          (Hand [K, T, J, J, T], Bid 220),
+                          (Hand [K, T, Ja, Ja, T], Bid 220),
                           (Hand [K, K, Six, Seven, Seven], Bid 28),
-                          (Hand [T, Five, Five, J, Five], Bid 684),
-                          (Hand [Q, Q, Q, J, A], Bid 483)
+                          (Hand [T, Five, Five, Ja, Five], Bid 684),
+                          (Hand [Q, Q, Q, Ja, A], Bid 483)
                         ]
             ],
           testGroup
