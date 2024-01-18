@@ -10,13 +10,6 @@ data Cube where
   Blue :: Int -> Cube
   deriving stock (Eq, Show)
 
-cubeStr :: String -> Int -> Cube
-cubeStr str =
-  case str of
-    "red" -> Red
-    "green" -> Green
-    "blue" -> Blue
-
 data Cubes where
   Cubes :: {red :: Int, green :: Int, blue :: Int} -> Cubes
   deriving stock (Eq, Show)
@@ -59,7 +52,11 @@ cube :: forall {u}. Parsec.ParsecT Text u Identity Cube
 cube = do
   val <- nat
   spaces
-  c <- cubeStr <$> (try (string "red") <|> try (string "blue") <|> string "green")
+  c <-
+    Red
+      <$ try (string "red")
+        <|> (Blue <$ try (string "blue"))
+        <|> (Green <$ string "green")
   return (c val)
 
 pullParser :: Parsec.ParsecT Text u Identity [Cube]
