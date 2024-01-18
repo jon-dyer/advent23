@@ -21,21 +21,20 @@ data Hand where
 newtype Bid = Bid Int
   deriving stock (Eq, Show)
 
-day7pt1 :: Text -> Text
-day7pt1 input = case parseIt Jack input of
-  Left e -> show e
-  Right hs -> show $ priceEm $ sortEm hs
+day7pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
+day7pt1 input =
+  evaluateWHNF $
+    case parseIt Jack input of
+      Left e -> show e
+      Right hs -> show $ priceEm $ sortEm hs
 
-day7pt2 :: Text -> IO Text
+day7pt2 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
 day7pt2 input =
-  let res :: IO Text
-      res = evaluateWHNF $ case parseIt Joker input of
-        Left e ->
-          show e
-        Right hs ->
-          show $ priceEm $ sortEm hs
-   in do
-        res
+  evaluateWHNF $ case parseIt Joker input of
+    Left e ->
+      show e
+    Right hs ->
+      show $ priceEm $ sortEm hs
 
 priceEm :: [(Hand, Bid)] -> Int
 priceEm hs = sum $ uncurry (*) <$> zip [1 ..] ((\(_, Bid b) -> b) <$> hs)

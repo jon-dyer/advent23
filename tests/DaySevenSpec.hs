@@ -21,7 +21,9 @@ day7 =
         [ testGroup
             "pt 1"
             [ testCase "all the way through" $
-                day7pt1 testData @?= "6440",
+                do
+                  res <- day7pt1 testData
+                  res @?= "6440",
               testCase "parseIt" $
                 parseIt Jack testData
                   @?= Right
@@ -50,11 +52,23 @@ day7 =
                           (Hand [K, K, Six, Seven, Seven], Bid 28),
                           (Hand [T, Five, Five, Ja, Five], Bid 684),
                           (Hand [Q, Q, Q, Ja, A], Bid 483)
-                        ]
+                        ],
+              testCase "stay right" $
+                do
+                  daySevenContent <- decodeUtf8 <$> readFileBS "inputs/day7.txt"
+                  res <- day7pt1 daySevenContent
+                  res @?= show (249_483_956 :: Int)
             ],
           testGroup
             "pt 2"
             [ testCase "all the way through" $
-                day7pt2 testData >>= (@?= "5905")
+                do
+                  res <- day7pt2 testData
+                  res @?= "5905",
+              testCase "stay right" $
+                do
+                  daySevenContent <- decodeUtf8 <$> readFileBS "inputs/day7.txt"
+                  res <- day7pt2 daySevenContent
+                  res @?= show (252_137_472 :: Int)
             ]
         ]

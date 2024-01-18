@@ -30,7 +30,10 @@ main = do
   -- print ("day5pt2: " ++ show (day5pt2 dayFiveContent)) -- too slow and hot to run every time
   print ("day6pt1: " `append` day6pt1 daySixContent)
   print ("day6pt2: " `append` day6pt2 daySixContent)
-  print ("day7pt1: " `append` day7pt1 daySevenContent)
-  do
-    putStr "day7pt2: "
-    print =<< day7pt2 daySevenContent
+  run "day7pt1" $ day7pt1 daySevenContent
+  run "day7pt2" $ day7pt2 daySevenContent
+
+run :: forall {m :: Type -> Type} {a}. (MonadIO m, Show a) => String -> m a -> m ()
+run label f = do
+  putStr (label ++ ": ")
+  print =<< f
