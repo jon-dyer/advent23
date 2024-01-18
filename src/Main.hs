@@ -4,7 +4,7 @@ import Data.Text (append)
 import DayFive (day5pt1, day5pt2)
 import DayFour (day4pt1, day4pt2)
 import DayOne (sumCalibrations, sumTextyCalis)
-import DaySeven (day7pt1)
+import DaySeven (day7pt1, day7pt2)
 import DaySix (day6pt1, day6pt2)
 import DayThree (day3pt1, day3pt2)
 import DayTwo (standardBag, sumPossibleGames, sumPowers)
@@ -31,3 +31,6 @@ main = do
   print ("day6pt1: " `append` day6pt1 daySixContent)
   print ("day6pt2: " `append` day6pt2 daySixContent)
   print ("day7pt1: " `append` day7pt1 daySevenContent)
+  do
+    putStr "day7pt2: "
+    print =<< day7pt2 daySevenContent

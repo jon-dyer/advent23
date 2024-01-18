@@ -1,14 +1,13 @@
 module DayTwo (Game (..), parseLine, Pull (..), Cubes (..), GamePossible (..), pullPossible, gamePossible, Bag (..), sumPossibleGames, standardBag, smallestBag, power, sumPowers) where
 
-import Relude.Unsafe (read)
-import Text.Parsec (char, digit, many1, spaces, string, try)
+import Text.Parsec (char, many1, spaces, string, try)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Number (nat)
 
-data Cube
-  = Red Int
-  | Green Int
-  | Blue Int
+data Cube where
+  Red :: Int -> Cube
+  Green :: Int -> Cube
+  Blue :: Int -> Cube
   deriving stock (Eq, Show)
 
 cubeStr :: String -> Int -> Cube
@@ -18,11 +17,8 @@ cubeStr str =
     "green" -> Green
     "blue" -> Blue
 
-data Cubes = Cubes
-  { red :: Int,
-    green :: Int,
-    blue :: Int
-  }
+data Cubes where
+  Cubes :: {red :: Int, green :: Int, blue :: Int} -> Cubes
   deriving stock (Eq, Show)
 
 newtype Bag = Bag Cubes

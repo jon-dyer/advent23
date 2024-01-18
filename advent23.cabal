@@ -109,6 +109,7 @@ library days-lib
     DaySix
     DayThree
     DayTwo
+    Lib
 
   build-depends:
     , parallel

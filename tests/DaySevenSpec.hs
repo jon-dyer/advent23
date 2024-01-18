@@ -1,6 +1,6 @@
 module DaySevenSpec (day7) where
 
-import DaySeven (Bid (..), Card (..), Hand (..), Kind (..), categorize, day7pt1, parseIt, sortEm)
+import DaySeven (Bid (..), Card (..), Hand (..), Kind (..), Rule (..), categorize, day7pt1, day7pt2, parseIt, sortEm)
 import Test.Tasty
 import Test.Tasty.HUnit
 
@@ -32,25 +32,29 @@ day7 =
                       (Hand [Q, Q, Q, J, A], Bid 483)
                     ],
               testCase "categorize" $
-                let (Right thing) = parseIt testData
-                 in categorize . fst <$> thing
-                      @?= [ Pair,
-                            ThreeOf,
-                            TwoPair,
-                            TwoPair,
-                            ThreeOf
-                          ],
+                let thing = parseIt testData
+                 in (categorize Jack . fst <$>) <$> thing
+                      @?= Right
+                        [ Pair,
+                          ThreeOf,
+                          TwoPair,
+                          TwoPair,
+                          ThreeOf
+                        ],
               testCase "sortEm actually right" $
-                let (Right thing) = parseIt testData
-                 in sortEm thing
-                      @?= [ (Hand [Three, Two, T, Three, K], Bid 765),
-                            (Hand [K, T, J, J, T], Bid 220),
-                            (Hand [K, K, Six, Seven, Seven], Bid 28),
-                            (Hand [T, Five, Five, J, Five], Bid 684),
-                            (Hand [Q, Q, Q, J, A], Bid 483)
-                          ]
+                let thing = parseIt testData
+                 in sortEm Jack <$> thing
+                      @?= Right
+                        [ (Hand [Three, Two, T, Three, K], Bid 765),
+                          (Hand [K, T, J, J, T], Bid 220),
+                          (Hand [K, K, Six, Seven, Seven], Bid 28),
+                          (Hand [T, Five, Five, J, Five], Bid 684),
+                          (Hand [Q, Q, Q, J, A], Bid 483)
+                        ]
             ],
           testGroup
             "pt 2"
-            []
+            [ testCase "all the way through" $
+                day7pt2 testData >>= (@?= "5905")
+            ]
         ]
