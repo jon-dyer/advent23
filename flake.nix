@@ -7,21 +7,14 @@
     haskell-flake.url = "github:srid/haskell-flake";
     treefmt-nix.url = "github:numtide/treefmt-nix";
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
-    mission-control.url = "github:Platonic-Systems/mission-control";
   };
 
   outputs = inputs:
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
       systems = import inputs.systems;
-      imports = [
-        inputs.haskell-flake.flakeModule
-        inputs.treefmt-nix.flakeModule
-        inputs.mission-control.flakeModule
-      ];
+      imports =
+        [ inputs.haskell-flake.flakeModule inputs.treefmt-nix.flakeModule ];
       perSystem = { self', system, config, pkgs, ... }: {
-        # Our only Haskell project. You can have multiple projects, but this template
-        # has only one.
-        # See https://github.com/srid/haskell-flake/blob/master/example/flake.nix
         haskellProjects.default = {
           # The base package set (this value is the default)
           # basePackages = pkgs.haskellPackages;
@@ -68,15 +61,6 @@
           };
         };
 
-        mission-control.scripts = {
-          test = {
-            description = "Run all tests";
-            exec = ''
-              ghcid -c "cabal repl test:tests" -T :main
-            '';
-          };
-        };
-
         # Default package & app.
         packages.default = self'.packages.advent23;
         apps.default = self'.apps.advent23;
@@ -90,7 +74,7 @@
             config.haskellProjects.default.outputs.devShell
             config.treefmt.build.devShell
           ];
-          nativeBuildInputs = with pkgs; [ just nixci ];
+          nativeBuildInputs = with pkgs; [ just nixci ghostscript gv ];
         };
       };
     };

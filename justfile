@@ -23,3 +23,9 @@ test:
 
 profile:
     cabal v2-run --enable-profiling exes --  +RTS -N -p
+
+prof:
+    cabal v2-run --enable-profiling exes --  +RTS -N -hr -p
+
+ps:
+  hp2ps -e8in -c advent23.hp

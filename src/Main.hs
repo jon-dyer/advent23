@@ -1,6 +1,7 @@
 module Main where
 
 import Data.Text (append)
+import DayEight (day8pt1, day8pt2)
 import DayFive (day5pt1, day5pt2)
 import DayFour (day4pt1, day4pt2)
 import DayOne (sumCalibrations, sumTextyCalis)
@@ -18,6 +19,7 @@ main = do
   dayFiveContent <- decodeUtf8 <$> readFileBS "inputs/day5.txt"
   daySixContent <- decodeUtf8 <$> readFileBS "inputs/day6.txt"
   daySevenContent <- decodeUtf8 <$> readFileBS "inputs/day7.txt"
+  dayEightContent <- decodeUtf8 <$> readFileBS "inputs/day8.txt"
   print ("day1pt1" ++ show (sumCalibrations dayOneContent))
   print ("day1pt2" ++ show (sumTextyCalis dayOneContent))
   print ("day2pt1" ++ show (sumPossibleGames standardBag dayTwoContent))
@@ -32,6 +34,8 @@ main = do
   print ("day6pt2: " `append` day6pt2 daySixContent)
   run "day7pt1" $ day7pt1 daySevenContent
   run "day7pt2" $ day7pt2 daySevenContent
+  run "day8pt1" $ day8pt1 dayEightContent
+  run "day8pt2" $ day8pt2 dayEightContent
 
 run :: forall {m :: Type -> Type} {a}. (MonadIO m, Show a) => String -> m a -> m ()
 run label f = do

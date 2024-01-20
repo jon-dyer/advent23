@@ -7,6 +7,8 @@ maintainer:         idk
 author:             idk
 category:           kata
 homepage:           https://example.org
+data-dir:           inputs
+data-files:         **/*.txt
 
 -- TODO: Before hackage release.
 -- A short (one-line) description of the package.

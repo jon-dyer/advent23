@@ -1,81 +1,418 @@
-	Wed Jan 17 22:09 2024 Time and Allocation Profiling Report  (Final)
+Retainer Profiling: 0, at 0.126900 seconds
+	Max auxiliary stack size = 394
+	Average number of visits per object = 4.923037
+Retainer Profiling: 1, at 0.234078 seconds
+	Max auxiliary stack size = 369
+	Average number of visits per object = 4.667745
+Retainer Profiling: 2, at 0.340068 seconds
+	Max auxiliary stack size = 567
+	Average number of visits per object = 4.472666
+Retainer Profiling: 3, at 0.448753 seconds
+	Max auxiliary stack size = 415
+	Average number of visits per object = 4.277876
+Retainer Profiling: 4, at 0.557012 seconds
+	Max auxiliary stack size = 422
+	Average number of visits per object = 4.045163
+Retainer Profiling: 5, at 0.664715 seconds
+	Max auxiliary stack size = 485
+	Average number of visits per object = 3.823375
+Retainer Profiling: 6, at 0.778441 seconds
+	Max auxiliary stack size = 463
+	Average number of visits per object = 3.591942
+Retainer Profiling: 7, at 0.883050 seconds
+	Max auxiliary stack size = 384
+	Average number of visits per object = 3.394095
+Retainer Profiling: 8, at 0.989675 seconds
+	Max auxiliary stack size = 420
+	Average number of visits per object = 3.195720
+Retainer Profiling: 9, at 1.094068 seconds
+	Max auxiliary stack size = 295
+	Average number of visits per object = 3.053725
+Retainer Profiling: 10, at 1.204656 seconds
+	Max auxiliary stack size = 488
+	Average number of visits per object = 2.835573
+Retainer Profiling: 11, at 1.331384 seconds
+	Max auxiliary stack size = 195
+	Average number of visits per object = 2.623431
+Retainer Profiling: 12, at 1.438802 seconds
+	Max auxiliary stack size = 196
+	Average number of visits per object = 2.623286
+Retainer Profiling: 13, at 1.554447 seconds
+	Max auxiliary stack size = 196
+	Average number of visits per object = 2.623286
+Retainer Profiling: 14, at 1.684214 seconds
+	Max auxiliary stack size = 196
+	Average number of visits per object = 2.623286
+Retainer Profiling: 15, at 1.791265 seconds
+	Max auxiliary stack size = 196
+	Average number of visits per object = 2.623286
+Retainer Profiling: 16, at 1.897256 seconds
+	Max auxiliary stack size = 196
+	Average number of visits per object = 2.623286
+Retainer Profiling: 17, at 2.022990 seconds
+	Max auxiliary stack size = 196
+	Average number of visits per object = 2.623286
+Retainer Profiling: 18, at 2.140204 seconds
+	Max auxiliary stack size = 198
+	Average number of visits per object = 2.145797
+	Mon Jan 22 07:34 2024 Time and Allocation Profiling Report  (Final)
 
-	   advent23 +RTS -N -p -RTS
+	   advent23 +RTS -N -hr -p -RTS
 
-	total time  =        0.03 secs   (111 ticks @ 1000 us, 12 processors)
-	total alloc = 171,590,608 bytes  (excludes profiling overheads)
+	total time  =        0.57 secs   (1951 ticks @ 1000 us, 12 processors)
+	total alloc = 3,037,616,592 bytes  (excludes profiling overheads)
 
-COST CENTRE MODULE             SRC                                     %time %alloc
+COST CENTRE      MODULE   SRC                                %time %alloc
 
-categorize  DaySeven           days/DaySeven.hs:(46,1)-(75,19)          65.8   53.8
-parseCard   DaySeven           days/DaySeven.hs:(110,1)-(128,25)        22.5   38.4
-sortEm      DaySeven           days/DaySeven.hs:(81,1)-(89,37)           2.7    0.8
-zeroNumber  Text.Parsec.Number Text/Parsec/Number.hs:(320,1)-(321,56)    2.7    1.4
-MAIN        MAIN               <built-in>                                1.8    0.1
-decimal     Text.Parsec.Number Text/Parsec/Number.hs:302:1-25            1.8    3.0
+findNumbers      DayThree days/DayThree.hs:(103,1)-(117,37)   48.0   14.6
+winningRaces     DaySix   days/DaySix.hs:(71,1)-(72,55)       29.9   54.1
+theFold          DayThree days/DayThree.hs:(120,1)-(130,14)    7.8   17.2
+day6pt2          DaySix   days/DaySix.hs:(61,1)-(64,21)        3.0    0.0
+categorize       DaySeven days/DaySeven.hs:(45,1)-(74,19)      2.9    3.0
+consumeSchematic DayThree days/DayThree.hs:(72,1)-(100,21)     1.9    1.9
+numbersParser    DayFour  days/DayFour.hs:(40,1)-(41,40)       1.7    3.2
+parseCard        DaySeven days/DaySeven.hs:(109,1)-(127,25)    0.9    2.2
 
 
-                                                                                                    individual      inherited
-COST CENTRE         MODULE                SRC                                    no.     entries  %time %alloc   %time %alloc
+                                                                                                                                individual      inherited
+COST CENTRE                      MODULE                      SRC                                             no.     entries  %time %alloc   %time %alloc
 
-MAIN                MAIN                  <built-in>                             202           0    1.8    0.1   100.0  100.0
- CAF                GHC.Conc.Signal       <entire-module>                        351           0    0.0    0.0     0.0    0.0
- CAF                GHC.Event.Thread      <entire-module>                        336           0    0.0    0.0     0.0    0.0
- CAF                GHC.IO.Encoding       <entire-module>                        317           0    0.0    0.0     0.0    0.0
- CAF                GHC.IO.Encoding.Iconv <entire-module>                        315           0    0.0    0.0     0.0    0.0
- CAF                GHC.IO.FD             <entire-module>                        308           0    0.0    0.0     0.0    0.0
- CAF                GHC.IO.Handle.FD      <entire-module>                        306           0    0.0    0.0     0.0    0.0
- CAF                Data.Text.Array       <entire-module>                        235           0    0.0    0.0     0.0    0.0
- CAF                Main                  <entire-module>                        210           0    0.0    0.0     0.0    0.0
-  main              Main                  src/Main.hs:(13,1)-(36,37)             404           1    0.0    0.0     0.0    0.0
- CAF                DaySeven              <entire-module>                        209           0    0.0    0.0     0.0    0.0
-  sortEm            DaySeven              days/DaySeven.hs:(81,1)-(89,37)        429           1    0.0    0.0     0.0    0.0
-  day7pt1           DaySeven              days/DaySeven.hs:(25,1)-(27,40)        408           0    0.0    0.0     0.0    0.0
-   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         409           0    0.0    0.0     0.0    0.0
-    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        410           1    0.0    0.0     0.0    0.0
-     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      412           1    0.0    0.0     0.0    0.0
-  day7pt2           DaySeven              days/DaySeven.hs:(30,1)-(38,11)        436           0    0.0    0.0     0.0    0.0
-   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         437           0    0.0    0.0     0.0    0.0
-    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        438           1    0.0    0.0     0.0    0.0
-     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      440           1    0.0    0.0     0.0    0.0
-  parseHandBids     DaySeven              days/DaySeven.hs:(98,1)-(107,7)        414           0    0.0    0.0     0.0    0.0
-   nat              Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         415           1    0.0    0.0     0.0    0.0
-    decimal         Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         419           1    0.0    0.0     0.0    0.0
-     number         Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 420           1    0.0    0.0     0.0    0.0
-      numberValue   Text.Parsec.Number    Text/Parsec/Number.hs:(348,1)-(349,74) 423           1    0.0    0.0     0.0    0.0
-    zeroNumber      Text.Parsec.Number    Text/Parsec/Number.hs:(320,1)-(321,56) 417           1    0.0    0.0     0.0    0.0
- main               Main                  src/Main.hs:(13,1)-(36,37)             405           0    0.9    0.0    98.2   99.9
-  day7pt1           DaySeven              days/DaySeven.hs:(25,1)-(27,40)        406           1    0.0    0.0    50.5   51.1
-   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         407           1    0.0    0.0    14.4   22.4
-    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        411           0    0.0    0.1    14.4   22.4
-     nat            Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         416           0    0.0    0.1     4.5    3.9
-      decimal       Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         421           0    1.8    1.5     2.7    3.2
-       number       Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 422           0    0.9    0.4     0.9    1.6
-        numberValue Text.Parsec.Number    Text/Parsec/Number.hs:(348,1)-(349,74) 424           0    0.0    0.4     0.0    0.4
-        parseCard   DaySeven              days/DaySeven.hs:(110,1)-(128,25)      425           0    0.0    0.8     0.0    0.8
-      zeroNumber    Text.Parsec.Number    Text/Parsec/Number.hs:(320,1)-(321,56) 418           0    1.8    0.7     1.8    0.7
-     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      413           0    9.9   18.4     9.9   18.4
-      nat           Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         426           0    0.0    0.0     0.0    0.0
-       decimal      Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         427           0    0.0    0.0     0.0    0.0
-        number      Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 428           0    0.0    0.0     0.0    0.0
-   priceEm          DaySeven              days/DaySeven.hs:41:1-73               433           1    0.0    0.2     0.0    0.2
-   sortEm           DaySeven              days/DaySeven.hs:(81,1)-(89,37)        430           0    1.8    0.4    36.0   28.5
-    handNo          DaySeven              days/DaySeven.hs:78:1-28               432       20170    0.0    0.0     0.0    0.0
-    categorize      DaySeven              days/DaySeven.hs:(46,1)-(75,19)        431       18546   34.2   28.1    34.2   28.1
-  day7pt2           DaySeven              days/DaySeven.hs:(30,1)-(38,11)        434           1    0.0    0.0    46.8   48.8
-   parseIt          DaySeven              days/DaySeven.hs:(92,1)-(95,9)         435           1    0.0    0.0    14.4   22.4
-    parseHandBids   DaySeven              days/DaySeven.hs:(98,1)-(107,7)        439           0    0.0    0.1    14.4   22.4
-     nat            Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         442           0    0.0    0.1     3.6    3.9
-      decimal       Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         444           0    0.0    1.5     2.7    3.2
-       number       Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 445           0    0.0    0.4     2.7    1.6
-        numberValue Text.Parsec.Number    Text/Parsec/Number.hs:(348,1)-(349,74) 446           0    0.9    0.4     0.9    0.4
-        parseCard   DaySeven              days/DaySeven.hs:(110,1)-(128,25)      447           0    1.8    0.8     1.8    0.8
-      zeroNumber    Text.Parsec.Number    Text/Parsec/Number.hs:(320,1)-(321,56) 443           0    0.9    0.7     0.9    0.7
-     parseCard      DaySeven              days/DaySeven.hs:(110,1)-(128,25)      441           0   10.8   18.4    10.8   18.4
-      nat           Text.Parsec.Number    Text/Parsec/Number.hs:314:1-28         448           0    0.0    0.0     0.0    0.0
-       decimal      Text.Parsec.Number    Text/Parsec/Number.hs:302:1-25         449           0    0.0    0.0     0.0    0.0
-        number      Text.Parsec.Number    Text/Parsec/Number.hs:(342,1)-(344,18) 450           0    0.0    0.0     0.0    0.0
-   priceEm          DaySeven              days/DaySeven.hs:41:1-73               454           1    0.0    0.2     0.0    0.2
-   sortEm           DaySeven              days/DaySeven.hs:(81,1)-(89,37)        451           0    0.9    0.4    32.4   26.1
-    categorize      DaySeven              days/DaySeven.hs:(46,1)-(75,19)        452       24534   31.5   25.7    31.5   25.7
-    handNo          DaySeven              days/DaySeven.hs:78:1-28               453       19846    0.0    0.0     0.0    0.0
+MAIN                             MAIN                        <built-in>                                      298           0    0.4    0.0   100.0  100.0
+ CAF                             GHC.Conc.Signal             <entire-module>                                 532           0    0.0    0.0     0.0    0.0
+ CAF                             GHC.Event.Thread            <entire-module>                                 517           0    0.0    0.0     0.0    0.0
+ CAF                             GHC.IO.Encoding             <entire-module>                                 497           0    0.0    0.0     0.0    0.0
+ CAF                             GHC.IO.Encoding.Iconv       <entire-module>                                 495           0    0.0    0.0     0.0    0.0
+ CAF                             GHC.IO.FD                   <entire-module>                                 488           0    0.0    0.0     0.0    0.0
+ CAF                             GHC.IO.Handle.FD            <entire-module>                                 486           0    0.0    0.0     0.0    0.0
+ CAF                             GHC.Read                    <entire-module>                                 470           0    0.0    0.0     0.0    0.0
+ CAF                             Data.Hashable.Class         <entire-module>                                 384           0    0.0    0.0     0.0    0.0
+  defaultHash                    Data.Hashable.Class         src/Data/Hashable/Class.hs:308:1-38             846           1    0.0    0.0     0.0    0.0
+ CAF                             Text.Parsec.Number          <entire-module>                                 375           0    0.0    0.0     0.0    0.0
+ CAF                             Data.Text.Array             <entire-module>                                 358           0    0.0    0.0     0.0    0.0
+ CAF                             Data.HashMap.Internal       <entire-module>                                 316           0    0.0    0.0     0.0    0.0
+  bitsPerSubkey                  Data.HashMap.Internal       Data/HashMap/Internal.hs:2383:1-17              858           1    0.0    0.0     0.0    0.0
+  empty                          Data.HashMap.Internal       Data/HashMap/Internal.hs:565:1-13               857           1    0.0    0.0     0.0    0.0
+ CAF                             Main                        <entire-module>                                 313           0    0.0    0.0     0.0    0.0
+  main                           Main                        src/Main.hs:(14,1)-(38,41)                      596           1    0.0    0.0     0.0    0.0
+ CAF                             DayEight                    <entire-module>                                 312           0    0.0    0.0     0.0    0.0
+  fromList                       Data.HashMap.Internal       Data/HashMap/Internal.hs:2174:1-63              850           1    0.0    0.0     0.0    0.0
+  parseDay8                      DayEight                    days/DayEight.hs:(60,1)-(66,37)                 835           1    0.0    0.0     0.0    0.0
+  parseIndex                     DayEight                    days/DayEight.hs:(69,1)-(78,36)                 837           1    0.0    0.0     0.0    0.0
+  parseIt                        DayEight                    days/DayEight.hs:(54,1)-(57,9)                  833           1    0.0    0.0     0.0    0.0
+  solve                          DayEight                    days/DayEight.hs:(27,1)-(30,35)                 841           0    0.0    0.0     0.0    0.0
+ CAF                             DayFive                     <entire-module>                                 311           0    0.0    0.0     0.0    0.0
+  parseIt                        DayFive                     days/DayFive.hs:(67,1)-(70,9)                   696           1    0.0    0.0     0.0    0.0
+   inputParser                   DayFive                     days/DayFive.hs:(30,1)-(34,25)                  698           1    0.0    0.0     0.0    0.0
+  parseMapRanges                 DayFive                     days/DayFive.hs:(56,1)-(64,54)                  714           1    0.0    0.0     0.0    0.0
+   nat                           Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  716           1    0.0    0.0     0.0    0.0
+    decimal                      Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  719           1    0.0    0.0     0.0    0.0
+     number                      Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          720           1    0.0    0.0     0.0    0.0
+      numberValue                Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          723           1    0.0    0.0     0.0    0.0
+    zeroNumber                   Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          717           1    0.0    0.0     0.0    0.0
+  seedLocation                   DayFive                     days/DayFive.hs:(105,1)-(108,35)                745           1    0.0    0.0     0.0    0.0
+  seedParser                     DayFive                     days/DayFive.hs:(37,1)-(42,20)                  700           1    0.0    0.0     0.0    0.0
+   nat                           Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  702           1    0.0    0.0     0.0    0.0
+    decimal                      Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  706           1    0.0    0.0     0.0    0.0
+     number                      Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          707           1    0.0    0.0     0.0    0.0
+      numberValue                Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          710           1    0.0    0.0     0.0    0.0
+    zeroNumber                   Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          704           1    0.0    0.0     0.0    0.0
+ CAF                             DayFour                     <entire-module>                                 310           0    0.0    0.0     0.0    0.0
+  gameParser                     DayFour                     days/DayFour.hs:(44,1)-(52,14)                  682           1    0.0    0.0     0.0    0.0
+  numbersParser                  DayFour                     days/DayFour.hs:(40,1)-(41,40)                  684           1    0.0    0.0     0.0    0.0
+  parseGame                      DayFour                     days/DayFour.hs:(55,1)-(58,9)                   680           1    0.0    0.0     0.0    0.0
+ CAF                             DayOne                      <entire-module>                                 309           0    0.0    0.0     0.0    0.0
+  parseFirstNumber               DayOne                      days/DayOne.hs:42:1-56                          606           1    0.0    0.0     0.0    0.0
+  parseLastNumber                DayOne                      days/DayOne.hs:45:1-71                          608           1    0.0    0.0     0.0    0.0
+  sumCalibrations                DayOne                      days/DayOne.hs:75:1-40                          598           1    0.0    0.0     0.0    0.0
+  sumTextyCalis                  DayOne                      days/DayOne.hs:78:1-36                          602           1    0.0    0.0     0.0    0.0
+ CAF                             DaySeven                    <entire-module>                                 308           0    0.0    0.0     0.0    0.0
+  sortEm                         DaySeven                    days/DaySeven.hs:(80,1)-(88,37)                 804           1    0.0    0.0     0.0    0.0
+  day7pt1                        DaySeven                    days/DaySeven.hs:(25,1)-(29,44)                 783           0    0.0    0.0     0.0    0.0
+   parseIt                       DaySeven                    days/DaySeven.hs:(91,1)-(94,9)                  784           0    0.0    0.0     0.0    0.0
+    parseHandBids                DaySeven                    days/DaySeven.hs:(97,1)-(106,7)                 785           1    0.0    0.0     0.0    0.0
+     parseCard                   DaySeven                    days/DaySeven.hs:(109,1)-(127,25)               787           1    0.0    0.0     0.0    0.0
+  day7pt2                        DaySeven                    days/DaySeven.hs:(32,1)-(37,32)                 812           0    0.0    0.0     0.0    0.0
+   parseIt                       DaySeven                    days/DaySeven.hs:(91,1)-(94,9)                  813           0    0.0    0.0     0.0    0.0
+    parseHandBids                DaySeven                    days/DaySeven.hs:(97,1)-(106,7)                 814           1    0.0    0.0     0.0    0.0
+     parseCard                   DaySeven                    days/DaySeven.hs:(109,1)-(127,25)               816           1    0.0    0.0     0.0    0.0
+  parseHandBids                  DaySeven                    days/DaySeven.hs:(97,1)-(106,7)                 789           0    0.0    0.0     0.0    0.0
+   nat                           Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  790           1    0.0    0.0     0.0    0.0
+    decimal                      Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  794           1    0.0    0.0     0.0    0.0
+     number                      Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          795           1    0.0    0.0     0.0    0.0
+      numberValue                Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          798           1    0.0    0.0     0.0    0.0
+    zeroNumber                   Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          792           1    0.0    0.0     0.0    0.0
+ CAF                             DaySix                      <entire-module>                                 307           0    0.0    0.0     0.0    0.0
+  numbers                        DaySix                      days/DaySix.hs:(38,1)-(39,23)                   755           1    0.0    0.0     0.0    0.0
+   nat                           Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  757           1    0.0    0.0     0.0    0.0
+    decimal                      Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  761           1    0.0    0.0     0.0    0.0
+     number                      Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          762           1    0.0    0.0     0.0    0.0
+      numberValue                Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          765           1    0.0    0.0     0.0    0.0
+    zeroNumber                   Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          759           1    0.0    0.0     0.0    0.0
+  parseIt                        DaySix                      days/DaySix.hs:(17,1)-(20,9)                    751           1    0.0    0.0     0.0    0.0
+  parseSpaced                    DaySix                      days/DaySix.hs:(23,1)-(26,9)                    772           1    0.0    0.0     0.0    0.0
+  racesParser                    DaySix                      days/DaySix.hs:(46,1)-(52,39)                   753           1    0.0    0.0     0.0    0.0
+  racesSpacelessParser           DaySix                      days/DaySix.hs:(29,1)-(35,21)                   774           1    0.0    0.0     0.0    0.0
+  spacyNumber                    DaySix                      days/DaySix.hs:(42,1)-(43,34)                   776           1    0.0    0.0     0.0    0.0
+ CAF                             DayThree                    <entire-module>                                 306           0    0.0    0.0     0.0    0.0
+  day3pt1                        DayThree                    days/DayThree.hs:150:1-56                       657           1    0.0    0.0     0.0    0.0
+ CAF                             DayTwo                      <entire-module>                                 305           0    0.0    0.0     0.0    0.0
+  nat                            Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  613           1    0.0    0.0     0.0    0.0
+   decimal                       Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  617           1    0.0    0.0     0.0    0.0
+    number                       Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          618           1    0.0    0.0     0.0    0.0
+     numberValue                 Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          621           1    0.0    0.0     0.0    0.0
+   zeroNumber                    Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          615           1    0.0    0.0     0.0    0.0
+  parseLine                      DayTwo                      days/DayTwo.hs:(80,1)-(83,9)                    611           1    0.0    0.0     0.0    0.0
+  standardBag                    DayTwo                      days/DayTwo.hs:119:1-57                         627           1    0.0    0.0     0.0    0.0
+ main                            Main                        src/Main.hs:(14,1)-(38,41)                      597           0    0.0    0.0    99.6  100.0
+  run                            Main                        src/Main.hs:(41,1)-(43,13)                      779           4    0.0    0.0     5.7    6.5
+   day7pt1                       DaySeven                    days/DaySeven.hs:(25,1)-(29,44)                 781           0    0.0    0.0     2.2    2.9
+    parseIt                      DaySeven                    days/DaySeven.hs:(91,1)-(94,9)                  782           1    0.0    0.0     0.6    1.3
+     parseHandBids               DaySeven                    days/DaySeven.hs:(97,1)-(106,7)                 786           0    0.0    0.0     0.6    1.3
+      nat                        Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  791           0    0.0    0.0     0.1    0.2
+       decimal                   Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  796           0    0.1    0.1     0.1    0.2
+        number                   Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          797           0    0.0    0.0     0.0    0.1
+         numberValue             Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          799           0    0.0    0.0     0.0    0.0
+         parseCard               DaySeven                    days/DaySeven.hs:(109,1)-(127,25)               800           0    0.0    0.0     0.0    0.0
+       zeroNumber                Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          793           0    0.0    0.0     0.0    0.0
+      parseCard                  DaySeven                    days/DaySeven.hs:(109,1)-(127,25)               788           0    0.5    1.0     0.5    1.0
+       nat                       Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  801           0    0.0    0.0     0.0    0.0
+        decimal                  Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  802           0    0.0    0.0     0.0    0.0
+         number                  Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          803           0    0.0    0.0     0.0    0.0
+    priceEm                      DaySeven                    days/DaySeven.hs:40:1-73                        808           1    0.0    0.0     0.0    0.0
+    sortEm                       DaySeven                    days/DaySeven.hs:(80,1)-(88,37)                 805           0    0.2    0.0     1.5    1.6
+     handNo                      DaySeven                    days/DaySeven.hs:77:1-28                        807       20170    0.1    0.0     0.1    0.0
+     categorize                  DaySeven                    days/DaySeven.hs:(45,1)-(74,19)                 806       18546    1.3    1.6     1.3    1.6
+   day7pt2                       DaySeven                    days/DaySeven.hs:(32,1)-(37,32)                 810           0    0.0    0.0     2.2    2.8
+    parseIt                      DaySeven                    days/DaySeven.hs:(91,1)-(94,9)                  811           1    0.0    0.0     0.6    1.3
+     parseHandBids               DaySeven                    days/DaySeven.hs:(97,1)-(106,7)                 815           0    0.0    0.0     0.6    1.3
+      nat                        Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  818           0    0.1    0.0     0.2    0.2
+       decimal                   Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  820           0    0.0    0.1     0.2    0.2
+        number                   Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          821           0    0.2    0.0     0.2    0.1
+         numberValue             Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          822           0    0.0    0.0     0.0    0.0
+         parseCard               DaySeven                    days/DaySeven.hs:(109,1)-(127,25)               823           0    0.0    0.0     0.0    0.0
+       zeroNumber                Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          819           0    0.0    0.0     0.0    0.0
+      parseCard                  DaySeven                    days/DaySeven.hs:(109,1)-(127,25)               817           0    0.4    1.0     0.4    1.0
+       nat                       Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  824           0    0.0    0.0     0.0    0.0
+        decimal                  Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  825           0    0.0    0.0     0.0    0.0
+         number                  Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          826           0    0.0    0.0     0.0    0.0
+    priceEm                      DaySeven                    days/DaySeven.hs:40:1-73                        830           1    0.0    0.0     0.0    0.0
+    sortEm                       DaySeven                    days/DaySeven.hs:(80,1)-(88,37)                 827           0    0.0    0.0     1.6    1.5
+     categorize                  DaySeven                    days/DaySeven.hs:(45,1)-(74,19)                 828       24534    1.5    1.5     1.5    1.5
+     handNo                      DaySeven                    days/DaySeven.hs:77:1-28                        829       19846    0.1    0.0     0.1    0.0
+   day8pt1                       DayEight                    days/DayEight.hs:(21,1)-(24,39)                 832           0    0.0    0.0     0.4    0.3
+    solve                        DayEight                    days/DayEight.hs:(27,1)-(30,35)                 839           1    0.0    0.0     0.2    0.1
+     plumb                       DayEight                    days/DayEight.hs:(42,1)-(51,40)                 840       21252    0.0    0.0     0.2    0.1
+      drop                       Data.Stream.Infinite        src/Data/Stream/Infinite.hs:(288,1)-(291,54)    865       42500    0.0    0.0     0.0    0.0
+      !                          Data.HashMap.Internal       Data/HashMap/Internal.hs:(738,1)-(740,63)       844       21251    0.1    0.0     0.2    0.0
+       unArray                   Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         864       54596    0.0    0.0     0.0    0.0
+       hash                      Data.HashMap.Internal       Data/HashMap/Internal.hs:180:1-28               845       21251    0.1    0.0     0.2    0.0
+        defaultHash              Data.Hashable.Class         src/Data/Hashable/Class.hs:308:1-38             847           0    0.1    0.0     0.1    0.0
+         hashByteArrayWithSalt   Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(129,1)-(131,20)  849       21251    0.0    0.0     0.0    0.0
+         hashInt                 Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(64,1)-(80,31)    848       21251    0.0    0.0     0.0    0.0
+      head                       Data.Stream.Infinite        src/Data/Stream/Infinite.hs:128:1-17            842       21251    0.0    0.0     0.0    0.0
+     cycle                       Data.Stream.Infinite        src/Data/Stream/Infinite.hs:270:1-41            843           1    0.0    0.0     0.0    0.0
+    parseIt                      DayEight                    days/DayEight.hs:(54,1)-(57,9)                  834           0    0.0    0.0     0.2    0.3
+     parseDay8                   DayEight                    days/DayEight.hs:(60,1)-(66,37)                 836           0    0.0    0.0     0.2    0.3
+      parseIndex                 DayEight                    days/DayEight.hs:(69,1)-(78,36)                 838           0    0.1    0.3     0.2    0.3
+       fromList                  Data.HashMap.Internal       Data/HashMap/Internal.hs:2174:1-63              851           0    0.0    0.0     0.1    0.0
+        unsafeInsert             Data.HashMap.Internal       Data/HashMap/Internal.hs:(888,1)-(918,76)       852         730    0.1    0.0     0.1    0.0
+         unMArray                Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:158:7-14         859        2716    0.0    0.0     0.0    0.0
+         unArray                 Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         860        2334    0.0    0.0     0.0    0.0
+         copy                    Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:(297,1)-(302,30) 861        1080    0.0    0.0     0.0    0.0
+          unArray                Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         863        1080    0.0    0.0     0.0    0.0
+          unMArray               Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:158:7-14         862        1080    0.0    0.0     0.0    0.0
+         hash                    Data.HashMap.Internal       Data/HashMap/Internal.hs:180:1-28               853         730    0.0    0.0     0.0    0.0
+          defaultHash            Data.Hashable.Class         src/Data/Hashable/Class.hs:308:1-38             854           0    0.0    0.0     0.0    0.0
+           hashByteArrayWithSalt Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(129,1)-(131,20)  856         730    0.0    0.0     0.0    0.0
+           hashInt               Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(64,1)-(80,31)    855         730    0.0    0.0     0.0    0.0
+   day8pt2                       DayEight                    days/DayEight.hs:(81,1)-(84,36)                 867           0    0.0    0.0     1.0    0.5
+    ghostSolve                   DayEight                    days/DayEight.hs:(33,1)-(39,52)                 882           1    0.0    0.0     0.9    0.3
+     plumb                       DayEight                    days/DayEight.hs:(42,1)-(51,40)                 884       97384    0.4    0.2     0.9    0.3
+      drop                       Data.Stream.Infinite        src/Data/Stream/Infinite.hs:(288,1)-(291,54)    893      194744    0.0    0.0     0.0    0.0
+      !                          Data.HashMap.Internal       Data/HashMap/Internal.hs:(738,1)-(740,63)       887       97378    0.4    0.0     0.5    0.1
+       unArray                   Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         892      243015    0.0    0.0     0.0    0.0
+       hash                      Data.HashMap.Internal       Data/HashMap/Internal.hs:180:1-28               888       97378    0.0    0.0     0.1    0.1
+        defaultHash              Data.Hashable.Class         src/Data/Hashable/Class.hs:308:1-38             889           0    0.1    0.0     0.1    0.1
+         hashByteArrayWithSalt   Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(129,1)-(131,20)  891       97378    0.1    0.1     0.1    0.1
+         hashInt                 Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(64,1)-(80,31)    890       97378    0.0    0.0     0.0    0.0
+      head                       Data.Stream.Infinite        src/Data/Stream/Infinite.hs:128:1-17            885       97378    0.0    0.0     0.0    0.0
+     unArray                     Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         883        1115    0.0    0.0     0.0    0.0
+     cycle                       Data.Stream.Infinite        src/Data/Stream/Infinite.hs:270:1-41            886           1    0.0    0.0     0.0    0.0
+    parseIt                      DayEight                    days/DayEight.hs:(54,1)-(57,9)                  868           0    0.0    0.0     0.2    0.3
+     parseDay8                   DayEight                    days/DayEight.hs:(60,1)-(66,37)                 869           0    0.0    0.0     0.2    0.3
+      parseIndex                 DayEight                    days/DayEight.hs:(69,1)-(78,36)                 870           0    0.2    0.3     0.2    0.3
+       fromList                  Data.HashMap.Internal       Data/HashMap/Internal.hs:2174:1-63              871           0    0.0    0.0     0.0    0.0
+        unsafeInsert             Data.HashMap.Internal       Data/HashMap/Internal.hs:(888,1)-(918,76)       872         730    0.0    0.0     0.0    0.0
+         unMArray                Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:158:7-14         877        2716    0.0    0.0     0.0    0.0
+         unArray                 Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         878        2334    0.0    0.0     0.0    0.0
+         copy                    Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:(297,1)-(302,30) 879        1080    0.0    0.0     0.0    0.0
+          unArray                Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:126:7-13         881        1080    0.0    0.0     0.0    0.0
+          unMArray               Data.HashMap.Internal.Array Data/HashMap/Internal/Array.hs:158:7-14         880        1080    0.0    0.0     0.0    0.0
+         hash                    Data.HashMap.Internal       Data/HashMap/Internal.hs:180:1-28               873         730    0.0    0.0     0.0    0.0
+          defaultHash            Data.Hashable.Class         src/Data/Hashable/Class.hs:308:1-38             874           0    0.0    0.0     0.0    0.0
+           hashByteArrayWithSalt Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(129,1)-(131,20)  876         730    0.0    0.0     0.0    0.0
+           hashInt               Data.Hashable.LowLevel      src/Data/Hashable/LowLevel.hs:(64,1)-(80,31)    875         730    0.0    0.0     0.0    0.0
+  day3pt2                        DayThree                    days/DayThree.hs:(174,1)-(179,18)               668           1    0.0    0.0    57.2   32.9
+   getNumber                     DayThree                    days/DayThree.hs:(52,1)-(66,8)                  676         654    0.1    0.1     0.1    0.1
+    gridAt                       DayThree                    days/DayThree.hs:69:1-61                        677        1878    0.0    0.0     0.0    0.0
+   findGearAttachments           DayThree                    days/DayThree.hs:(162,1)-(171,19)               673         374    0.5    0.0    56.1   31.8
+    findNumbers                  DayThree                    days/DayThree.hs:(103,1)-(117,37)               674         374   47.8   14.6    55.7   31.8
+     theFold                     DayThree                    days/DayThree.hs:(120,1)-(130,14)               675     7330400    7.8   17.2     7.8   17.2
+   consumeSchematic              DayThree                    days/DayThree.hs:(72,1)-(100,21)                669           1    1.0    1.0     1.0    1.0
+   findPotentialGear             DayThree                    days/DayThree.hs:(153,1)-(159,12)               670           1    0.0    0.0     0.0    0.0
+    isSymbolOf                   DayThree                    days/DayThree.hs:(46,1)-(49,22)                 672       19600    0.0    0.0     0.0    0.0
+    points                       DayThree                    days/DayThree.hs:18:5-10                        671           1    0.0    0.0     0.0    0.0
+  day4pt1                        DayFour                     days/DayFour.hs:(14,1)-(19,16)                  678           1    0.0    0.0     1.1    1.7
+   score                         DayFour                     days/DayFour.hs:(65,1)-(68,20)                  686         206    0.0    0.0     0.0    0.0
+    wins                         DayFour                     days/DayFour.hs:(61,1)-(62,32)                  687         206    0.0    0.0     0.0    0.0
+   parseGames                    DayFour                     days/DayFour.hs:(36,1)-(37,32)                  679           1    0.0    0.0     1.1    1.7
+    parseGame                    DayFour                     days/DayFour.hs:(55,1)-(58,9)                   681           0    0.0    0.0     1.1    1.7
+     gameParser                  DayFour                     days/DayFour.hs:(44,1)-(52,14)                  683           0    0.1    0.0     1.1    1.7
+      numbersParser              DayFour                     days/DayFour.hs:(40,1)-(41,40)                  685           0    1.0    1.6     1.0    1.6
+  day4pt2                        DayFour                     days/DayFour.hs:(22,1)-(27,20)                  688           1    0.0    0.0     0.7    1.7
+   wins                          DayFour                     days/DayFour.hs:(61,1)-(62,32)                  694         206    0.1    0.0     0.1    0.0
+   collect                       DayFour                     days/DayFour.hs:(30,1)-(33,68)                  689           1    0.0    0.0     0.0    0.0
+   parseGames                    DayFour                     days/DayFour.hs:(36,1)-(37,32)                  690           1    0.0    0.0     0.7    1.7
+    parseGame                    DayFour                     days/DayFour.hs:(55,1)-(58,9)                   691           0    0.0    0.0     0.7    1.7
+     gameParser                  DayFour                     days/DayFour.hs:(44,1)-(52,14)                  692           0    0.0    0.0     0.7    1.7
+      numbersParser              DayFour                     days/DayFour.hs:(40,1)-(41,40)                  693           0    0.7    1.6     0.7    1.6
+  day5pt1                        DayFive                     days/DayFive.hs:(118,1)-(120,43)                695           1    0.0    0.0     0.2    0.3
+   parseIt                       DayFive                     days/DayFive.hs:(67,1)-(70,9)                   697           0    0.0    0.0     0.2    0.3
+    inputParser                  DayFive                     days/DayFive.hs:(30,1)-(34,25)                  699           0    0.0    0.0     0.2    0.3
+     seedParser                  DayFive                     days/DayFive.hs:(37,1)-(42,20)                  701           0    0.0    0.0     0.2    0.3
+      nat                        Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  703           0    0.0    0.0     0.2    0.3
+       decimal                   Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  708           0    0.0    0.1     0.2    0.3
+        number                   Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          709           0    0.0    0.0     0.1    0.1
+         numberValue             Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          711           0    0.1    0.0     0.1    0.0
+          parseMapRanges         DayFive                     days/DayFive.hs:(56,1)-(64,54)                  724           0    0.0    0.0     0.0    0.0
+         parseMapRanges          DayFive                     days/DayFive.hs:(56,1)-(64,54)                  722           0    0.1    0.0     0.1    0.0
+          zeroNumber             Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          726           0    0.0    0.0     0.0    0.0
+           hexOrOct              Text.Parsec.Number          Text/Parsec/Number.hs:325:1-32                  739           0    0.0    0.0     0.0    0.0
+            hexadecimal          Text.Parsec.Number          Text/Parsec/Number.hs:329:1-34                  740           0    0.0    0.0     0.0    0.0
+             octal               Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  741           0    0.0    0.0     0.0    0.0
+         zeroNumber              Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          725           0    0.0    0.0     0.0    0.0
+          hexOrOct               Text.Parsec.Number          Text/Parsec/Number.hs:325:1-32                  736           0    0.0    0.0     0.0    0.0
+           hexadecimal           Text.Parsec.Number          Text/Parsec/Number.hs:329:1-34                  737           0    0.0    0.0     0.0    0.0
+            octal                Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  738           0    0.0    0.0     0.0    0.0
+        zeroNumber               Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          712           0    0.0    0.0     0.1    0.0
+         number                  Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          713           0    0.0    0.0     0.1    0.0
+          parseMapRanges         DayFive                     days/DayFive.hs:(56,1)-(64,54)                  715           0    0.1    0.0     0.1    0.0
+       parseMapRanges            DayFive                     days/DayFive.hs:(56,1)-(64,54)                  718           0    0.0    0.0     0.0    0.0
+       zeroNumber                Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          705           0    0.0    0.0     0.0    0.0
+        decimal                  Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  731          14    0.0    0.0     0.0    0.0
+         number                  Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          732          14    0.0    0.0     0.0    0.0
+        hexOrOct                 Text.Parsec.Number          Text/Parsec/Number.hs:325:1-32                  727          14    0.0    0.0     0.0    0.0
+         hexadecimal             Text.Parsec.Number          Text/Parsec/Number.hs:329:1-34                  728          14    0.0    0.0     0.0    0.0
+          octal                  Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  730           0    0.0    0.0     0.0    0.0
+           decimal               Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  733           0    0.0    0.0     0.0    0.0
+            number               Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          734           0    0.0    0.0     0.0    0.0
+             parseMapRanges      DayFive                     days/DayFive.hs:(56,1)-(64,54)                  735           0    0.0    0.0     0.0    0.0
+         octal                   Text.Parsec.Number          Text/Parsec/Number.hs:337:1-39                  729          14    0.0    0.0     0.0    0.0
+        number                   Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          742           0    0.0    0.0     0.0    0.0
+         parseMapRanges          DayFive                     days/DayFive.hs:(56,1)-(64,54)                  743           0    0.0    0.0     0.0    0.0
+          decimal                Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  744           0    0.0    0.0     0.0    0.0
+        parseMapRanges           DayFive                     days/DayFive.hs:(56,1)-(64,54)                  721           0    0.0    0.0     0.0    0.0
+   seedLocation                  DayFive                     days/DayFive.hs:(105,1)-(108,35)                746           0    0.0    0.0     0.0    0.0
+    mapSrcToDst                  DayFive                     days/DayFive.hs:(96,1)-(97,54)                  747         140    0.0    0.0     0.0    0.0
+     inStartRange                DayFive                     days/DayFive.hs:87:1-53                         748        2040    0.0    0.0     0.0    0.0
+    srcToDst                     DayFive                     days/DayFive.hs:(79,1)-(80,15)                  749         140    0.0    0.0     0.0    0.0
+  day6pt1                        DaySix                      days/DaySix.hs:(55,1)-(58,21)                   750           1    0.0    0.0     0.0    0.0
+   solveAll                      DaySix                      days/DaySix.hs:(67,1)-(68,40)                   769           1    0.0    0.0     0.0    0.0
+    winningRaces                 DaySix                      days/DaySix.hs:(71,1)-(72,55)                   770           4    0.0    0.0     0.0    0.0
+   parseIt                       DaySix                      days/DaySix.hs:(17,1)-(20,9)                    752           0    0.0    0.0     0.0    0.0
+    racesParser                  DaySix                      days/DaySix.hs:(46,1)-(52,39)                   754           0    0.0    0.0     0.0    0.0
+     numbers                     DaySix                      days/DaySix.hs:(38,1)-(39,23)                   756           0    0.0    0.0     0.0    0.0
+      nat                        Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  758           0    0.0    0.0     0.0    0.0
+       decimal                   Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  763           0    0.0    0.0     0.0    0.0
+        number                   Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          764           0    0.0    0.0     0.0    0.0
+         numberValue             Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          766           0    0.0    0.0     0.0    0.0
+        zeroNumber               Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          767           0    0.0    0.0     0.0    0.0
+         number                  Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          768           0    0.0    0.0     0.0    0.0
+       zeroNumber                Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          760           0    0.0    0.0     0.0    0.0
+  day6pt2                        DaySix                      days/DaySix.hs:(61,1)-(64,21)                   771           1    3.0    0.0    33.0   54.1
+   winningRaces                  DaySix                      days/DaySix.hs:(71,1)-(72,55)                   778           1   29.9   54.1    29.9   54.1
+   parseSpaced                   DaySix                      days/DaySix.hs:(23,1)-(26,9)                    773           0    0.0    0.0     0.0    0.0
+    racesSpacelessParser         DaySix                      days/DaySix.hs:(29,1)-(35,21)                   775           0    0.0    0.0     0.0    0.0
+     spacyNumber                 DaySix                      days/DaySix.hs:(42,1)-(43,34)                   777           0    0.0    0.0     0.0    0.0
+  day7pt1                        DaySeven                    days/DaySeven.hs:(25,1)-(29,44)                 780           1    0.0    0.0     0.0    0.0
+  day7pt2                        DaySeven                    days/DaySeven.hs:(32,1)-(37,32)                 809           1    0.0    0.0     0.0    0.0
+  day8pt1                        DayEight                    days/DayEight.hs:(21,1)-(24,39)                 831           1    0.0    0.0     0.0    0.0
+  day8pt2                        DayEight                    days/DayEight.hs:(81,1)-(84,36)                 866           1    0.0    0.0     0.0    0.0
+  sumPossibleGames               DayTwo                      days/DayTwo.hs:(113,1)-(116,31)                 610           1    0.0    0.0     0.0    0.4
+   gamePossible                  DayTwo                      days/DayTwo.hs:(99,1)-(110,11)                  626         100    0.0    0.0     0.0    0.0
+    pullPossible                 DayTwo                      days/DayTwo.hs:(86,1)-(91,17)                   629         293    0.0    0.0     0.0    0.0
+     red                         DayTwo                      days/DayTwo.hs:14:13-15                         630         586    0.0    0.0     0.0    0.0
+     green                       DayTwo                      days/DayTwo.hs:14:25-29                         631         532    0.0    0.0     0.0    0.0
+     blue                        DayTwo                      days/DayTwo.hs:14:39-42                         633         502    0.0    0.0     0.0    0.0
+   ident                         DayTwo                      days/DayTwo.hs:37:7-11                          635          40    0.0    0.0     0.0    0.0
+   parseLine                     DayTwo                      days/DayTwo.hs:(80,1)-(83,9)                    612           0    0.0    0.0     0.0    0.4
+    nat                          Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  614           0    0.0    0.0     0.0    0.4
+     decimal                     Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  619           0    0.0    0.1     0.0    0.3
+      number                     Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          620           0    0.0    0.2     0.0    0.2
+       numberValue               Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          622           0    0.0    0.0     0.0    0.0
+       zeroNumber                Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          625           0    0.0    0.0     0.0    0.0
+      zeroNumber                 Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          623           0    0.0    0.0     0.0    0.0
+       number                    Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          624           0    0.0    0.0     0.0    0.0
+        red                      DayTwo                      days/DayTwo.hs:14:13-15                         628         248    0.0    0.0     0.0    0.0
+        blue                     DayTwo                      days/DayTwo.hs:14:39-42                         634         236    0.0    0.0     0.0    0.0
+        green                    DayTwo                      days/DayTwo.hs:14:25-29                         632         222    0.0    0.0     0.0    0.0
+     zeroNumber                  Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          616           0    0.0    0.1     0.0    0.1
+  sumPowers                      DayTwo                      days/DayTwo.hs:(140,1)-(144,12)                 636           1    0.0    0.0     0.2    0.4
+   power                         DayTwo                      days/DayTwo.hs:(136,1)-(137,26)                 653         100    0.0    0.0     0.0    0.0
+    blue                         DayTwo                      days/DayTwo.hs:14:39-42                         656         100    0.0    0.0     0.0    0.0
+    green                        DayTwo                      days/DayTwo.hs:14:25-29                         655         100    0.0    0.0     0.0    0.0
+    red                          DayTwo                      days/DayTwo.hs:14:13-15                         654         100    0.0    0.0     0.0    0.0
+   smallestBag                   DayTwo                      days/DayTwo.hs:(131,1)-(133,12)                 646         100    0.0    0.0     0.0    0.0
+    blue                         DayTwo                      days/DayTwo.hs:14:39-42                         651         898    0.0    0.0     0.0    0.0
+    green                        DayTwo                      days/DayTwo.hs:14:25-29                         649         898    0.0    0.0     0.0    0.0
+    red                          DayTwo                      days/DayTwo.hs:14:13-15                         647         898    0.0    0.0     0.0    0.0
+   parseLine                     DayTwo                      days/DayTwo.hs:(80,1)-(83,9)                    637           0    0.0    0.0     0.2    0.4
+    nat                          Text.Parsec.Number          Text/Parsec/Number.hs:314:1-28                  638           0    0.0    0.0     0.2    0.4
+     decimal                     Text.Parsec.Number          Text/Parsec/Number.hs:302:1-25                  640           0    0.0    0.1     0.2    0.3
+      number                     Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          641           0    0.2    0.2     0.2    0.2
+       numberValue               Text.Parsec.Number          Text/Parsec/Number.hs:(348,1)-(349,74)          642           0    0.0    0.0     0.0    0.0
+       zeroNumber                Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          645           0    0.0    0.0     0.0    0.0
+      zeroNumber                 Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          643           0    0.0    0.0     0.0    0.0
+       number                    Text.Parsec.Number          Text/Parsec/Number.hs:(342,1)-(344,18)          644           0    0.0    0.0     0.0    0.0
+        blue                     DayTwo                      days/DayTwo.hs:14:39-42                         652         409    0.0    0.0     0.0    0.0
+        red                      DayTwo                      days/DayTwo.hs:14:13-15                         648         390    0.0    0.0     0.0    0.0
+        green                    DayTwo                      days/DayTwo.hs:14:25-29                         650         381    0.0    0.0     0.0    0.0
+     zeroNumber                  Text.Parsec.Number          Text/Parsec/Number.hs:(320,1)-(321,56)          639           0    0.0    0.1     0.0    0.1
+  day3pt1                        DayThree                    days/DayThree.hs:150:1-56                       658           0    0.0    0.0     1.4    1.2
+   consumeSchematic              DayThree                    days/DayThree.hs:(72,1)-(100,21)                659           1    0.9    1.0     0.9    1.0
+   symbolAdjacentNumbers         DayThree                    days/DayThree.hs:147:1-94                       660           1    0.0    0.0     0.5    0.3
+    isSymbolAdjacent             DayThree                    days/DayThree.hs:(133,1)-(144,21)               663        1208    0.0    0.0     0.2    0.0
+     gridAt                      DayThree                    days/DayThree.hs:69:1-61                        665       10186    0.2    0.0     0.2    0.0
+     isSymbol                    DayThree                    days/DayThree.hs:(42,1)-(43,18)                 664       10186    0.0    0.0     0.0    0.0
+    getNumber                    DayThree                    days/DayThree.hs:(52,1)-(66,8)                  666        1080    0.2    0.2     0.2    0.2
+     gridAt                      DayThree                    days/DayThree.hs:69:1-61                        667        3109    0.0    0.0     0.0    0.0
+    findNumbers                  DayThree                    days/DayThree.hs:(103,1)-(117,37)               661           1    0.2    0.0     0.2    0.1
+     theFold                     DayThree                    days/DayThree.hs:(120,1)-(130,14)               662       19600    0.0    0.0     0.0    0.0
+  sumCalibrations                DayOne                      days/DayOne.hs:75:1-40                          599           0    0.0    0.0     0.1    0.0
+   readCalibrations              DayOne                      days/DayOne.hs:(67,1)-(68,38)                   600           1    0.0    0.0     0.1    0.0
+    readCalibration              DayOne                      days/DayOne.hs:(58,1)-(64,37)                   601        1000    0.1    0.0     0.1    0.0
+  sumTextyCalis                  DayOne                      days/DayOne.hs:78:1-36                          603           0    0.0    0.0     0.2    0.9
+   readTextyCalis                DayOne                      days/DayOne.hs:(71,1)-(72,36)                   604           1    0.0    0.0     0.2    0.9
+    readTextyCali                DayOne                      days/DayOne.hs:(48,1)-(55,32)                   605        1000    0.0    0.0     0.2    0.9
+     parseFirstNumber            DayOne                      days/DayOne.hs:42:1-56                          607           0    0.1    0.4     0.1    0.4
+     parseLastNumber             DayOne                      days/DayOne.hs:45:1-71                          609           0    0.2    0.5     0.2    0.5
+
+Retainer sets created during profiling:
+SET 2 = {<SYSTEM.SYSTEM>}
+SET 3 = {<GHC.Conc.Signal.CAF>}
+SET 4 = {<>}
+SET 25 = {<GHC.IO.Handle.FD.CAF>}
+SET 28 = {<GHC.Event.Thread.CAF>}
+SET 30 = {<SYSTEM.SYSTEM>, <>}
+SET 32 = {<GHC.Conc.Sync.CAF>, <SYSTEM.SYSTEM>}
+SET 36 = {<GHC.IO.Encoding.CAF>}
+SET 67 = {<GHC.Event.Thread.CAF>, <>}
+SET 72 = {<GHC.IO.Handle.FD.CAF>, <SYSTEM.SYSTEM>}
+SET 88 = {<GHC.IO.Encoding.CAF>, <GHC.IO.Handle.FD.CAF>}
+SET 102 = {<DayEight.CAF>, <SYSTEM.SYSTEM>}
+SET 108 = {<GHC.Event.Thread.CAF>, <SYSTEM.SYSTEM>}
+SET 111 = {<DaySeven.priceEm,DaySeven.day7pt2,Main.run,Main.main>}
+SET 112 = {<DaySeven.sortEm,DaySeven.day7pt2,Main.run,Main.main>}
+SET 139 = {<DaySeven.categorize,DaySeven.sortEm,DaySeven.day7pt2,Main.run,Main.main>}
+SET 147 = {<GHC.Conc.Signal.CAF>, <>}
+SET 165 = {<GHC.Conc.Sync.CAF>, <GHC.IO.Handle.FD.CAF>, <SYSTEM.SYSTEM>}

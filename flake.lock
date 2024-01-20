@@ -20,41 +20,26 @@
     },
     "haskell-flake": {
       "locked": {
-        "lastModified": 1705079807,
-        "narHash": "sha256-8snpmo0PGMqirgVnw9OnHF2FtsVkcdWLup+TzV3PCIE=",
+        "lastModified": 1705984248,
+        "narHash": "sha256-1zW2udPF4clKCuTgk0FHjGUB7x/Tfe8m9oUhe3hM/YQ=",
         "owner": "srid",
         "repo": "haskell-flake",
-        "rev": "55efd0cbf1b5b4a402dc88c3c962c24e13f0fd8b",
+        "rev": "cea3332b027264e914673df392870ebb1e92de44",
         "type": "github"
       },
       "original": {
         "owner": "srid",
         "repo": "haskell-flake",
-        "type": "github"
-      }
-    },
-    "mission-control": {
-      "locked": {
-        "lastModified": 1701824311,
-        "narHash": "sha256-WlQZxq+vZhgNpUJ3+MY2tWRmoffKUGUbdV5fPdYi3As=",
-        "owner": "Platonic-Systems",
-        "repo": "mission-control",
-        "rev": "dfe2bfeae5544fde2f09ca2604add3cf8c5ca7c2",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Platonic-Systems",
-        "repo": "mission-control",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1705666311,
-        "narHash": "sha256-VYdSQm7zq3AStyHhRr3SBCTA8fVzrl6WtIlXTs2Wlts=",
+        "lastModified": 1705883077,
+        "narHash": "sha256-ByzHHX3KxpU1+V0erFy8jpujTufimh6KaS/Iv3AciHk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a455c5fb3ee513e2f443838a0e84d52b035adb67",
+        "rev": "5f5210aa20e343b7e35f40c033000db0ef80d7b9",
         "type": "github"
       },
       "original": {
@@ -86,7 +71,6 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "haskell-flake": "haskell-flake",
-        "mission-control": "mission-control",
         "nixpkgs": "nixpkgs",
         "systems": "systems",
         "treefmt-nix": "treefmt-nix"
@@ -114,11 +98,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1705659004,
-        "narHash": "sha256-XQsZudrb9u5Pw631U0tFYZkjq49CcwF24XT01vz2jPk=",
+        "lastModified": 1705910240,
+        "narHash": "sha256-Mt29QigQALm2YODaidHHokyNew1TxcRVpBBPV3HifKk=",
         "owner": "numtide",
         "repo": "treefmt-nix",
-        "rev": "8cd95da6c30852adb2a06c4b6bdacfe8b64a0a35",
+        "rev": "9d458726fed1cc00e48031bb7214dfa3c16b7a0f",
         "type": "github"
       },
       "original": {
