@@ -3,11 +3,12 @@
 {-# HLINT ignore "Use <$>" #-}
 module DayFour where
 
-import Relude.Unsafe (read)
 import Text.Parsec (char, digit, many1, spaces, string)
 import Text.Parsec qualified as Parsec
+import Text.Parsec.Number (nat)
 
-data Game = Game [Int] [Int]
+data Game where
+  Game :: [Int] -> [Int] -> Game
   deriving stock (Show, Eq)
 
 day4pt1 :: Text -> Int
@@ -38,7 +39,7 @@ parseGames t =
 
 numbersParser :: Parsec.ParsecT Text u Identity [Int]
 numbersParser =
-  many1 (read <$> many1 digit <* spaces)
+  many1 (nat <* spaces)
 
 gameParser :: forall {u}. Parsec.ParsecT Text u Identity Game
 gameParser = do

@@ -10,33 +10,42 @@ import Data.Map.Lazy (assocs)
 import Data.Map.Strict (insert, lookup)
 import Data.Sequence (Seq ((:|>)), mapWithIndex, (|>))
 import Data.Sequence qualified as Seq
-import Relude.Unsafe (read)
 
-data Grid = Grid
-  { xSize :: Int,
-    ySize :: Int,
-    points :: Map (Int, Int) Datum
-  }
+data Grid where
+  Grid ::
+    { xSize :: Int,
+      ySize :: Int,
+      points :: Map (Int, Int) Datum
+    } ->
+    Grid
   deriving stock (Show, Eq)
 
-data NumberCoord = NumberCoord
-  { row :: Int,
-    colStart :: Int,
-    colStop :: Int
-  }
+data NumberCoord where
+  NumberCoord ::
+    {row :: Int, colStart :: Int, colStop :: Int} ->
+    NumberCoord
   deriving stock (Show, Eq)
 
-data GearCoord = GearCoord Int Int
+data GearCoord where
+  GearCoord :: Int -> Int -> GearCoord
   deriving stock (Show, Eq)
 
 defaultGrid :: Grid
 defaultGrid =
   Grid 0 0 mempty
 
-data Gritem = Gritem Int Int Datum
+data Gritem where
+  Gritem :: Int -> Int -> Datum -> Gritem
 
-data Datum = Digit Int | Symbol Char | Empty
+data Datum where
+  Digit :: Int -> Datum
+  Symbol :: Char -> Datum
+  Empty :: Datum
   deriving stock (Show, Eq)
+
+toInt :: Datum -> Maybe Int
+toInt (Digit d) = Just d
+toInt _ = Nothing
 
 isSymbol :: Datum -> Bool
 isSymbol (Symbol _) = True
@@ -48,22 +57,17 @@ isSymbolOf c (Symbol s)
   | otherwise = False
 isSymbolOf _ _ = False
 
+e :: Int -> Int -> Int
+e x y = x * (10 ^ y)
+
 getNumber :: Grid -> NumberCoord -> Maybe Int
 getNumber g (NumberCoord r ca cb) =
-  let ms :: [Datum]
-      ms = map (gridAt g r) [ca .. cb]
-      is :: Maybe Int
-      is =
-        read
-          <$> foldr
-            ( \val soFar -> case (val, soFar) of
-                (_, Nothing) -> Nothing
-                (Digit d, Just ds) -> Just (show d ++ ds)
-                (_, _) -> Nothing
-            )
-            (Just "")
-            ms
-   in is
+  let ms :: Maybe [Int]
+      ms = traverse (toInt . gridAt g r) [ca .. cb]
+      listToInt :: [Int] -> Int
+      listToInt =
+        sum . (uncurry (flip e) <$>) . zip [0 ..] . reverse
+   in listToInt <$> ms
 
 gridAt :: Grid -> Int -> Int -> Datum
 gridAt (Grid _ _ ps) x y = fromMaybe Empty (lookup (x, y) ps)
