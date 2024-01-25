@@ -7,6 +7,7 @@ import Data.HashMap.Strict (keys, (!))
 import Data.Stream.Infinite (Stream)
 import Data.Stream.Infinite qualified as Stream
 import Data.Text qualified as T
+import Lib (nel)
 import Text.Parsec (char, count, letter, many1, spaces, string)
 import Text.Parsec qualified as Parsec
 
@@ -60,7 +61,7 @@ parseDay8 :: Parsec.Parsec Text () (NonEmpty Direction, Index)
 parseDay8 =
   let lr = ((L <$ char 'L') <|> (R <$ char 'R'))
    in do
-        dirs <- (:|) <$> lr <*> many lr
+        dirs <- nel lr
         spaces
         nodes <- many1 parseIndex
         return (dirs, fromList nodes)
