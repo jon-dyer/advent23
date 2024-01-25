@@ -49,7 +49,9 @@ day5 =
         [ testGroup
             "pt 1"
             [ testCase "all the way through" $
-                day5pt1 testData @?= 35,
+                do
+                  res <- day5pt1 testData
+                  res @?= "35",
               testCase "the seed" $
                 parseIt testData
                   @?= Right
@@ -82,11 +84,9 @@ day5 =
                       ]
                     ),
               testCase "match a seed to a location first" $
-                let (Right (_, ms)) = parseIt testData
-                 in seedLocation ms 79 @?= 82,
+                flip seedLocation 79 . snd <$> parseIt testData @?= Right 82,
               testCase "match a seed to a location last" $
-                let (Right (_, ms)) = parseIt testData
-                 in seedLocation ms 13 @?= 35,
+                flip seedLocation 13 . snd <$> parseIt testData @?= Right 35,
               testCase "src2dst" $
                 srcToDst 3 (Range 4 6 2 4) @?= 5,
               testCase "src2dst2" $
@@ -96,7 +96,13 @@ day5 =
               testCase "src2dst4" $
                 srcToDst 1 (Range 2 4 0 2) @?= 3,
               testCase "src2dst5" $
-                srcToDst 45 (Range 45 45 45 45) @?= 45
+                srcToDst 45 (Range 45 45 45 45)
+                  @?= 45,
+              testCase "stay correct" $
+                do
+                  dayFiveContent <- decodeUtf8 <$> readFileBS "./inputs/day5.txt"
+                  res <- day5pt1 dayFiveContent
+                  res @?= "51580674"
             ],
           testGroup
             "pt 2"

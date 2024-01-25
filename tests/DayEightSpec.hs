@@ -53,7 +53,7 @@ day8 =
                         ("ZZZ", ("ZZZ", "ZZZ"))
                       ]
                     ),
-              testCase "stay right" $
+              testCase "stay correct" $
                 do
                   dayEightContent <- decodeUtf8 <$> readFileBS "./inputs/day8.txt"
                   res <- day8pt1 dayEightContent

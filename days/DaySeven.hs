@@ -3,6 +3,7 @@
 {-# HLINT ignore "Use <$>" #-}
 module DaySeven where
 
+import Data.List (partition)
 import Relude.Unsafe ((!!))
 import Text.Parsec (char, many1, spaces)
 import Text.Parsec qualified as Parsec
@@ -43,17 +44,16 @@ data Rule = Jack | Joker
 
 categorize :: Hand -> Kind
 categorize (Hand cs) =
-  let rest = filter (/= Jo) cs
-      jokers = length cs - length rest
+  let (jokers, rest) = first length $ partition (== Jo) cs
    in case jokers of
-        0 -> case sortWith Down (length <$> group (sort cs)) of
+        0 -> case sortWith Down (length <$> group (sort rest)) of
           [5] -> FiveOf
           4 : _ -> FourOf
           3 : 2 : _ -> FullHouse
           3 : _ -> ThreeOf
           2 : 2 : _ -> TwoPair
           2 : _ -> Pair
-          _ -> High
+          _allOneOfs -> High
         1 -> case categorize (Hand rest) of
           High -> Pair
           Pair -> ThreeOf
@@ -70,22 +70,19 @@ categorize (Hand cs) =
           High -> FourOf
           Pair -> FiveOf
           x -> x
-        4 -> FiveOf
-        5 -> FiveOf
+        _restMustBeJokers -> FiveOf
 
 handNo :: Int -> Hand -> Card
 handNo i (Hand cs) = cs !! i
 
 sortEm :: [(Hand, Bid)] -> [(Hand, Bid)]
 sortEm =
-  sortBy $
-    flip $
-      comparing (categorize . fst)
-        <> comparing (handNo 0 . fst)
-        <> comparing (handNo 1 . fst)
-        <> comparing (handNo 2 . fst)
-        <> comparing (handNo 3 . fst)
-        <> comparing (handNo 4 . fst)
+  let getCard :: Int -> (Hand, Bid) -> Card
+      getCard i (h, _) = handNo i h
+   in sortBy $
+        flip $
+          comparing (categorize . fst)
+            <> foldMap (comparing . getCard) [0 .. 4]
 
 parseIt :: Rule -> Text -> Either Parsec.ParseError [(Hand, Bid)]
 parseIt r =
@@ -95,33 +92,29 @@ parseIt r =
 
 parseHandBids :: Rule -> Parsec.Parsec Text () [(Hand, Bid)]
 parseHandBids r =
-  do
-    many1
-      ( do
-          cs <- many1 $ parseCard r
-          spaces
-          b <- nat
-          spaces
-          return (Hand cs, Bid b)
-      )
+  many1 $
+    do
+      cs <- many1 $ parseCard r
+      spaces
+      b <- nat
+      spaces
+      return (Hand cs, Bid b)
 
 parseCard :: Rule -> Parsec.ParsecT Text () Identity Card
 parseCard r =
-  (A <$ char 'A')
-    <|> (K <$ char 'K')
-    <|> (Q <$ char 'Q')
-    <|> ( ( case r of
-              Jack -> Ja
-              Joker -> Jo
-          )
-            <$ char 'J'
-        )
-    <|> (T <$ char 'T')
-    <|> (Nine <$ char '9')
-    <|> (Eight <$ char '8')
-    <|> (Seven <$ char '7')
-    <|> (Six <$ char '6')
-    <|> (Five <$ char '5')
-    <|> (Four <$ char '4')
-    <|> (Three <$ char '3')
-    <|> (Two <$ char '2')
+  let j = case r of
+        Jack -> Ja
+        Joker -> Jo
+   in (A <$ char 'A')
+        <|> (K <$ char 'K')
+        <|> (Q <$ char 'Q')
+        <|> (j <$ char 'J')
+        <|> (T <$ char 'T')
+        <|> (Nine <$ char '9')
+        <|> (Eight <$ char '8')
+        <|> (Seven <$ char '7')
+        <|> (Six <$ char '6')
+        <|> (Five <$ char '5')
+        <|> (Four <$ char '4')
+        <|> (Three <$ char '3')
+        <|> (Two <$ char '2')

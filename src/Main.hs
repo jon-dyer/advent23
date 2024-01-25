@@ -28,7 +28,7 @@ main = do
   print ("day3pt2: " ++ show (day3pt2 dayThreeContent))
   print ("day4pt1: " ++ show (day4pt1 dayFourContent))
   print ("day4pt2: " ++ show (day4pt2 dayFourContent))
-  print ("day5pt1: " ++ show (day5pt1 dayFiveContent))
+  run "day5pt1: " (day5pt1 dayFiveContent)
   -- print ("day5pt2: " ++ show (day5pt2 dayFiveContent)) -- too slow and hot to run every time
   print ("day6pt1: " `append` day6pt1 daySixContent)
   print ("day6pt2: " `append` day6pt2 daySixContent)

@@ -26,6 +26,9 @@ data SeedRange where
   SeedRange :: {start :: Int, stop :: Int} -> SeedRange
   deriving stock (Eq, Show)
 
+point :: Int -> Range
+point i = Range i i i i
+
 inputParser :: Parsec.ParsecT Text u Identity a -> Parsec.ParsecT Text u Identity (a, [[Range]])
 inputParser sp =
   do
@@ -94,12 +97,12 @@ inSeedRange i (SeedRange ss se) = i >= ss && i <= se
 
 mapSrcToDst :: Int -> [Range] -> Range
 mapSrcToDst i rs =
-  fromMaybe (Range i i i i) (find (inStartRange i) rs)
+  fromMaybe (point i) (find (inStartRange i) rs)
 
 mapDstToSrc :: Int -> [Range] -> Range
 mapDstToSrc i rs =
   let found = listToMaybe (filter (inDestRange i) rs `using` parList rpar)
-   in fromMaybe (Range i i i i) found
+   in fromMaybe (point i) found
 
 seedLocation :: [[Range]] -> Int -> Int
 seedLocation =
@@ -114,10 +117,11 @@ findSource rs i =
         (dstToSrc i' . mapDstToSrc i')
    in foldl' findDestination i rs
 
-day5pt1 :: Text -> Int
-day5pt1 text =
-  let Right (Seed seeds, maps) = parseIt text
-   in minimum $ seedLocation maps <$> seeds
+day5pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
+day5pt1 input =
+  evaluateWHNF $ case parseIt input of
+    Left e -> show e
+    Right (Seed seeds, maps) -> show $ minimum $ seedLocation maps <$> seeds
 
 basicForLoop :: [[Range]] -> Int -> Int -> Int -> Int
 basicForLoop ms prev current stp
