@@ -8,6 +8,10 @@ import Text.Parsec (spaces)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Number (int)
 
+data Hole
+  = Hole !Int
+  | Empty
+
 day9pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
 day9pt1 input =
   evaluateWHNF $ case parseIt input of
@@ -17,6 +21,11 @@ day9pt1 input =
 solve :: NonEmpty Int -> Int
 solve _ =
   0
+
+nextLine :: forall {a}. (Num a) => [a] -> [a]
+nextLine [] = []
+nextLine [_] = []
+nextLine (a : b : l) = b - a : nextLine l
 
 parseIt :: Text -> Either Parsec.ParseError (NonEmpty Int)
 parseIt =
