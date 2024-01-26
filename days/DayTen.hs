@@ -1,6 +1,6 @@
 {-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
 
-module DayNine where
+module DayTen where
 
 import Data.Sequence (Seq (..), (<|), (|>))
 import Data.Sequence as S (null, unfoldr)
@@ -11,14 +11,14 @@ import Text.Parsec.Number (int)
 
 type Extrapolater = (Seq (Seq Int) -> Int)
 
-day9pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
-day9pt1 input =
+day10pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
+day10pt1 input =
   evaluateWHNF $ case parseIt input of
     Left e -> show e
     Right hs -> show $ solve extrapolateFuture hs
 
-day9pt2 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
-day9pt2 input =
+day10pt2 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
+day10pt2 input =
   evaluateWHNF $ case parseIt input of
     Left e -> show e
     Right hs -> show $ solve extrapolateHistory hs
