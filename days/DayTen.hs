@@ -3,7 +3,7 @@ module DayTen where
 import Data.Sequence (Seq (..), (<|), (|>))
 import Data.Sequence as S (null, unfoldr)
 import Lib (manySeq)
-import Text.Parsec (char, endOfLine)
+import Text.Parsec (char, endOfLine, many1)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Number (int)
 
@@ -35,6 +35,9 @@ ground = Ground <$ char '.'
 starting :: Parsec.Parsec Text () Connecting
 starting = Starting <$ char 'S'
 
+sbymbl :: Parsec.Parsec Text () Connecting
+sbymbl = upDown <|> leftRight <|> upRight <|> upLeft <|> downRight <|> downLeft <|> ground <|> starting
+
 day10pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
 day10pt1 input =
   evaluateWHNF $ case parseIt input of
@@ -47,17 +50,16 @@ day10pt2 input =
     Left e -> show e
     Right hs -> show 0
 
-parseIt :: Text -> Either Parsec.ParseError (Seq (Seq Int))
+parseIt :: Text -> Either Parsec.ParseError [[Connecting]]
 parseIt =
   Parsec.parse
     parseMaze
     Prelude.empty
 
-parseMaze :: Parsec.Parsec Text () (Seq (Seq Int))
+parseMaze :: Parsec.Parsec Text () [[Connecting]]
 parseMaze =
-  manySeq $
+  many1 $
     do
-      h <- int
-      t <- manySeq $ char ' ' *> int
+      t <- many1 sbymbl
       _ <- optional endOfLine
-      return $ h <| t
+      return t

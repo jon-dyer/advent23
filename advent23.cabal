@@ -115,6 +115,7 @@ library days-lib
     DayThree
     DayTwo
     Lib
+    Lib.Grid
 
   build-depends:
     , parallel

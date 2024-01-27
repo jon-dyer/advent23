@@ -10,15 +10,7 @@ import Data.Map.Lazy (assocs)
 import Data.Map.Strict (insert, lookup)
 import Data.Sequence (Seq ((:|>)), mapWithIndex, (|>))
 import Data.Sequence qualified as Seq
-
-data Grid where
-  Grid ::
-    { xSize :: Int,
-      ySize :: Int,
-      points :: Map (Int, Int) Datum
-    } ->
-    Grid
-  deriving stock (Show, Eq)
+import Lib.Grid (Grid (..))
 
 data NumberCoord where
   NumberCoord ::
@@ -29,10 +21,6 @@ data NumberCoord where
 data GearCoord where
   GearCoord :: Int -> Int -> GearCoord
   deriving stock (Show, Eq)
-
-defaultGrid :: Grid
-defaultGrid =
-  Grid 0 0 mempty
 
 data Gritem where
   Gritem :: Int -> Int -> Datum -> Gritem
@@ -60,7 +48,7 @@ isSymbolOf _ _ = False
 e :: Int -> Int -> Int
 e x y = x * (10 ^ y)
 
-getNumber :: Grid -> NumberCoord -> Maybe Int
+getNumber :: Grid Datum -> NumberCoord -> Maybe Int
 getNumber g (NumberCoord r ca cb) =
   let ms :: Maybe [Int]
       ms = traverse (toInt . gridAt g r) [ca .. cb]
@@ -69,10 +57,10 @@ getNumber g (NumberCoord r ca cb) =
         sum . (uncurry (flip e) <$>) . zip [0 ..] . reverse
    in listToInt <$> ms
 
-gridAt :: Grid -> Int -> Int -> Datum
+gridAt :: Grid Datum -> Int -> Int -> Datum
 gridAt (Grid _ _ ps) x y = fromMaybe Empty (lookup (x, y) ps)
 
-consumeSchematic :: Text -> Grid
+consumeSchematic :: Text -> Grid Datum
 consumeSchematic t =
   let ls :: [Text]
       ls = lines t
@@ -103,7 +91,7 @@ consumeSchematic t =
         foldr (\(Gritem x y i) soFar -> insert (x, y) i soFar) mempty gs
    in Grid xb yb gshm
 
-findNumbers :: Grid -> [NumberCoord]
+findNumbers :: Grid Datum -> [NumberCoord]
 findNumbers (Grid rows cols ps) =
   let sr :: [((Int, Int), Datum)]
       sr =
@@ -133,7 +121,7 @@ theFold ((r, c), Digit d) (res, prev) =
 theFold (_, datum) (res, _) =
   (res, datum)
 
-isSymbolAdjacent :: Grid -> NumberCoord -> Bool
+isSymbolAdjacent :: Grid Datum -> NumberCoord -> Bool
 isSymbolAdjacent g (NumberCoord r cmin cmax) =
   let (Grid mr mc _) = g
       minRow = max 0 (r - 1)
@@ -147,13 +135,13 @@ isSymbolAdjacent g (NumberCoord r cmin cmax) =
           return $ gridAt g rs cs
    in any isSymbol ds
 
-symbolAdjacentNumbers :: Grid -> [Int]
+symbolAdjacentNumbers :: Grid Datum -> [Int]
 symbolAdjacentNumbers g = mapMaybe (getNumber g) (filter (isSymbolAdjacent g) (findNumbers g))
 
 day3pt1 :: Text -> Int
 day3pt1 = sum . symbolAdjacentNumbers . consumeSchematic
 
-findPotentialGear :: Grid -> [GearCoord]
+findPotentialGear :: Grid Datum -> [GearCoord]
 findPotentialGear grid =
   let pointies :: [((Int, Int), Datum)]
       pointies = assocs $ points grid
@@ -162,7 +150,7 @@ findPotentialGear grid =
       coords = uncurry GearCoord . fst <$> symbols
    in coords
 
-findGearAttachments :: Grid -> GearCoord -> [NumberCoord]
+findGearAttachments :: Grid Datum -> GearCoord -> [NumberCoord]
 findGearAttachments g (GearCoord sr sc) =
   filter
     ( \(NumberCoord r cSa cSo) ->

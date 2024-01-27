@@ -46,4 +46,3 @@ day10 =
       res <- day9pt2 dayNineContent
       res @?= show (1026 :: Int)
 -}
-
