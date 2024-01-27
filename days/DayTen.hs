@@ -1,5 +1,3 @@
-{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
-
 module DayTen where
 
 import Data.Sequence (Seq (..), (<|), (|>))
@@ -9,21 +7,45 @@ import Text.Parsec (char, endOfLine)
 import Text.Parsec qualified as Parsec
 import Text.Parsec.Number (int)
 
-type Extrapolater = (Seq (Seq Int) -> Int)
+-- data Pipe =  (╔) | (╗) | (╚) | (╝) | (═) | (║)
 
-type Pipe =  ╔ | ╗ | ╚ | ╝ | ═ | ║
+data Connecting = UpDown | LeftRight | UpRight | UpLeft | DownRight | DownLeft | Ground | Starting
+
+upDown :: Parsec.Parsec Text () Connecting
+upDown = UpDown <$ char '|'
+
+leftRight :: Parsec.Parsec Text () Connecting
+leftRight = LeftRight <$ char '-'
+
+upRight :: Parsec.Parsec Text () Connecting
+upRight = DownRight <$ char 'F'
+
+upLeft :: Parsec.Parsec Text () Connecting
+upLeft = DownLeft <$ char '7'
+
+downRight :: Parsec.Parsec Text () Connecting
+downRight = UpRight <$ char 'L'
+
+downLeft :: Parsec.Parsec Text () Connecting
+downLeft = UpLeft <$ char 'J'
+
+ground :: Parsec.Parsec Text () Connecting
+ground = Ground <$ char '.'
+
+starting :: Parsec.Parsec Text () Connecting
+starting = Starting <$ char 'S'
 
 day10pt1 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
 day10pt1 input =
   evaluateWHNF $ case parseIt input of
     Left e -> show e
-    Right hs -> show $ solve extrapolateFuture hs
+    Right hs -> show 0
 
 day10pt2 :: forall {m :: Type -> Type}. (MonadIO m) => Text -> m Text
 day10pt2 input =
   evaluateWHNF $ case parseIt input of
     Left e -> show e
-    Right hs -> show $ solve extrapolateHistory hs
+    Right hs -> show 0
 
 parseIt :: Text -> Either Parsec.ParseError (Seq (Seq Int))
 parseIt =
